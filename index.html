@@ -110,7 +110,8 @@
   .dlabel { font-size:.8rem; font-weight:500; letter-spacing:.02em; color:rgb(255 255 255 / 84%); }
   .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 3px rgb(180 134 47 / 35%); }
   .cover h2 { margin:6px 0 0; font-size:2rem; font-weight:450; line-height:1.04; letter-spacing:-.015em; text-wrap:balance; }
-  .dsub { padding:14px 0 4px; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
+  .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
+  .dsub .icon-btn { flex:none; }
   .not-booked { color:var(--warn); font-weight:600; }
 
   /* timeline: time column, hairline rail, content */
@@ -324,6 +325,31 @@ const HOTELS = {
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
+// map query → Thai pin label and GCJ-02 [lng, lat] for the day map; places without a known point (most hotels) are left off
+const PLACES = {
+  "成都天府国际机场":       { th:"สนามบินเทียนฟู่ T1", at:[104.443079, 30.313466] },
+  "成都太古里":            { th:"ไท่กู๋หลี่", at:[104.083496, 30.653415] },
+  "成都国金中心":          { th:"IFS แพนด้าปีนตึก", at:[104.081598, 30.655321] },
+  "绵虒服务区":            { th:"จุดพักรถเหมียนซือ", at:[103.48332, 31.332599] },
+  "毕棚沟景区":            { th:"ปี้เผิงโกว", at:[102.979627, 31.412521] },
+  "达古冰川景区":          { th:"ธารน้ำแข็งต๋ากู่ (จุดขายตั๋ว)", at:[102.942903, 32.11749] },
+  "九寨沟景区":            { th:"ทางเข้าจิ่วจ้ายโกว", at:[103.918969, 33.266901] },
+  "九寨沟长海":            { th:"ทะเลสาบฉางไห่", at:[103.934068, 33.041414] },
+  "九寨沟五彩池":          { th:"สระห้าสี", at:[103.932598, 33.046529] },
+  "诺日朗瀑布":            { th:"น้ำตกนั่วรื่อหลาง", at:[103.906999, 33.162815] },
+  "九寨沟五花海":          { th:"ทะเลสาบอู่ฮัวไห่", at:[103.880462, 33.155493] },
+  "珍珠滩瀑布":            { th:"หาดไข่มุก", at:[103.887165, 33.166371] },
+  "树正群海":              { th:"หุบเขาซู่เจิ้ง", at:[103.90125, 33.198653] },
+  "黄龙九寨站":            { th:"สถานีหวงหลงจิ่วจ้าย", at:[103.615484, 32.745392] },
+  "成都东站":              { th:"สถานีเฉิงตูตะวันออก", at:[104.141407, 30.62874] },
+  "成都大熊猫繁育研究基地": { th:"ศูนย์วิจัยแพนด้า", at:[104.135457, 30.740846] },
+  "文殊院":                { th:"วัดเหวินซู", at:[104.072722, 30.675494] },
+  "成都SKP":               { th:"SKP เฉิงตู", at:[104.070383, 30.568997] },
+  "锦里古街":              { th:"ถนนโบราณจิ่นหลี่", at:[104.049975, 30.646344] },
+  "武侯祠":                { th:"ศาลเจ้าอู่โหว", at:[104.048115, 30.645379] },
+  "春熙路":                { th:"ถนนชุนซี", at:[104.077822, 30.656778] },
+};
+
 // a day with needs:"<id>" says so in its subtitle until the item is ticked
 const OPEN_ITEMS = [
   { id:"car-west", label:"car not booked", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
@@ -340,36 +366,36 @@ const DAYS = [
     { time:"Evening", text:"IFS Panda · Chunxi Road", zh:"成都国金中心", map:"成都国金中心" },
     { time:"Night", text:"Sichuan hotpot" },
   ]},
-  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~220 km, 4–4.5 h drive", needs:"car-west", events:[
-    { time:"06:15", text:"Leave the hotel" },
-    { time:"08:15", text:"Rest stop at Dujiangyan Service Area" },
+  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~410 km, about 6 h 10 min of driving", needs:"car-west", events:[
+    { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou: 212 km, about 3 h 10 min via the G4217 Rongchang Expressway" },
+    { time:"07:45", text:"Rest stop at Mianchi Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 97 km, about 1 h 40 min more to Bipenggou", zh:"绵虒服务区", map:"绵虒服务区" },
     { time:"09:45", text:"Arrive at Bipenggou, buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
     { time:"10:15", text:"Explore Bipenggou for about 5 h", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
-    { time:"15:15", text:"Leave the park → Heishui" },
-    hotelEv("17:15", "heishui"),
-    { time:"18:00", text:"Yak meat hotpot" },
+    { time:"15:15", text:"Leave the park → Heishui", detail:"199 km, about 3 h via G4217, the G0615 Dekang Expressway and G347" },
+    hotelEv("~18:15", "heishui"),
+    { time:"19:00", text:"Yak meat hotpot" },
   ]},
-  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~280 km, 4.5–5 h drive", needs:"car-west", events:[
-    { time:"07:00", text:"Leave the hotel" },
+  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~373 km, about 6 h 55 min of driving", needs:"car-west", events:[
+    { time:"07:50", text:"Leave the hotel", detail:"Dagu Glacier is 5 km away, about 10 min" },
     { time:"08:00", text:"Arrive at Dagu Glacier (open 08:30–18:00)", zh:"达古冰川", map:"达古冰川景区" },
     { time:"08:30", text:"Explore until 14:00 · cable car to the 4,860 m summit", detail:"Very high. Walk slowly and bring oxygen and a warm jacket." },
     { time:"14:00", text:"Lunch" },
-    { time:"15:00", text:"Drive to Jiuzhaigou (4.5–5 h, arrive about 19:30)" },
-    hotelEv("~19:30", "jiuzhai"),
+    { time:"15:00", text:"Drive to Jiuzhaigou (368 km, about 6 h 45 min, arrive about 21:45)", detail:"Via G347, the Zhahong Tunnel and S313. Sunset at Jiuzhaigou is 17:40, so this means about 4 h on mountain roads after dark; leaving Dagu by 11:00 arrives before sunset." },
+    hotelEv("~21:45", "jiuzhai"),
   ]},
   { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou", sub:"Open 07:30–17:30 · shuttle buses inside the park", events:[
     { time:"07:20", text:"Enter the park", zh:"九寨沟景区", map:"九寨沟景区" },
-    { time:"07:30", text:"Long Lake (ride up to the highest point first)" },
-    { time:"09:30", text:"Five Color Pond" },
-    { time:"10:30", text:"Nuorilang Waterfall" },
+    { time:"07:30", text:"Long Lake (ride up to the highest point first)", map:"九寨沟长海" },
+    { time:"09:30", text:"Five Color Pond", map:"九寨沟五彩池" },
+    { time:"10:30", text:"Nuorilang Waterfall", map:"诺日朗瀑布" },
     { time:"11:30", text:"Lunch at Nuorilang" },
-    { time:"12:30", text:"Five Flower Lake" },
-    { time:"13:30", text:"Pearl Shoal" },
-    { time:"14:30", text:"Shuzheng Valley" },
+    { time:"12:30", text:"Five Flower Lake", map:"九寨沟五花海" },
+    { time:"13:30", text:"Pearl Shoal", map:"珍珠滩瀑布" },
+    { time:"14:30", text:"Shuzheng Valley", map:"树正群海" },
     { time:"16:30", text:"Leave the park (closes 17:30)" },
   ]},
   { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", sub:"Bus, then first-class train back to Chengdu", events:[
-    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai station (2 people)", detail:"฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
+    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai station (2 people)", detail:"92 km, about 2 h by road · ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
     { time:"12:14", text:"Train C5764 first class from 黄龙九寨", detail:"Arrives 成都东 (Chengdu East) 14:15 · 2 h 1 min", ref:"", zh:"成都东站", map:"成都东站" },
     hotelEv("After 14:15", "kuanzhai"),
     { time:"19:00", text:"Dinner at Kuanzhai Alley (walk from the hotel)" },
@@ -391,7 +417,7 @@ const DAYS = [
     { time:"19:30", text:"Stroll / relax" },
   ]},
   { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
-    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu airport is far from the city. Arrive at least 3 h before departure (~12:00)." },
+    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
   ]},
 ];
@@ -421,6 +447,11 @@ const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
+const dayMapUrl = events => {
+  const pins = [...new Set(events.map(ev => PLACES[ev.map]).filter(Boolean))];
+  if (pins.length < 2) return null;
+  return `https://uri.amap.com/marker?markers=${pins.map(p => `${p.at.join(",")},${encodeURIComponent(p.th)}`).join("|")}&src=chengdu-trip&callnative=1`;
+};
 const dateOf = iso => new Date(iso + "T00:00:00");
 const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
 const photo = (key, cls) => { const i = el("img", cls); i.src = imgUrl(key); i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
@@ -572,10 +603,18 @@ function renderDays() {
     const cover = el("div", "cover");
     cover.append(photo(d.cover, ""));
     cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2>`));
-    sec.append(cover, el("div", "dsub", dayNote(d)));
+    const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
+    const sub = el("div", "dsub");
+    sub.append(el("span", "", dayNote(d)));
+    const url = dayMapUrl(events);
+    if (url) {
+      const a = iconButton("a", ICONS.pin, "Open this day's stops in Amap", "Day map");
+      Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
+      sub.append(a);
+    }
     const ul = el("ul", "tl");
-    d.events.forEach((base, j) => ul.append(renderEvent(resolveEvent(`d${i}e${j}`, base))));
-    sec.append(ul);
+    ul.append(...events.map(renderEvent));
+    sec.append(cover, sub, ul);
     root.append(sec);
     const dt = dateOf(d.date);
     const a = el("a", "", `<span class="peak" style="top:${ridgeY(d.alt)}px; --at:${(i + .5) / DAYS.length}"></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
