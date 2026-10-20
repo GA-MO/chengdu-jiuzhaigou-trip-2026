@@ -7,145 +7,175 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#eef3f1">
+<meta name="theme-color" content="#eef1ef">
+<link rel="preload" href="fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  /* West Sichuan in November: snow, lake water, larch gold, chili red for anything shown to a driver */
+  /* West Sichuan in November: glacier stone, night lake water, larch gold for "now", chili red only for text shown to a driver */
+  @font-face { font-family:"Bodoni Moda"; src:url(fonts/bodoni-moda.woff2) format("woff2"); font-weight:400 900; font-display:swap; }
   :root {
-    --snow:#eef3f1; --paper:#fff; --ink:#123a44; --mute:#506a6e; --line:#d3dedc;
-    --lake:#0a6c74; --lake-deep:#08454c; --lake-tint:#d9ebea; --larch:#e0a526; --chili:#b5301d; --chili-tint:rgb(181 48 29 / 8%);
-    --ok:#047857; --warnbg:rgb(217 119 6 / 8%); --warnline:rgb(217 119 6 / 30%);
-    --r-card:14px; --r-field:10px; --r-pill:999px;
-    --shadow:0 1px 2px rgb(18 58 68 / 8%);
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Noto Serif",Georgia,serif;
+    --snow:#eef1ef; --paper:#fff; --ink:#0e2c30; --mute:#66777a; --line:#d7dddb; --line-soft:#e6eae8;
+    --lake:#0f4c52; --lake-deep:#0e2c30; --lake-tint:#e3ebea; --larch:#b4862f; --larch-soft:rgb(180 134 47 / 16%);
+    --chili:#a12e1c; --chili-line:rgb(161 46 28 / 22%);
+    --ok:#2f6b4f; --warn:#8a5a12; --warnbg:#f6f1e6; --warnline:#e6d9bd;
+    --r-card:18px; --r-field:12px; --r-pill:999px;
+    --shadow:0 1px 0 rgb(14 44 48 / 4%), 0 18px 40px -28px rgb(14 44 48 / 28%);
+    --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
     --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
     --zh:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   }
   * { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body { margin:0; background:var(--snow); color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased; font-family:var(--sans); }
-  main { max-width:760px; margin:0 auto; padding:0 16px 24px; }
-  h1, h2, h3 { font-family:var(--serif); font-weight:700; letter-spacing:-.01em; }
+  main { max-width:760px; margin:0 auto; padding:0 20px 24px; }
+  h1, h2, h3 { font-family:var(--serif); font-weight:500; letter-spacing:-.005em; font-optical-sizing:auto; }
 
   /* hero */
-  .hero { position:relative; min-height:270px; display:flex; align-items:flex-end; overflow:hidden; color:#fff; background:var(--lake-deep); }
+  .hero { position:relative; min-height:min(64svh,560px); display:flex; align-items:flex-end; overflow:hidden; color:#fff; background:var(--lake-deep); }
   .hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(8 69 76 / 25%) 0%,rgb(8 40 46 / 10%) 35%,rgb(8 40 46 / 88%) 100%); }
-  .hero-top { position:absolute; z-index:2; left:0; right:0; top:0; max-width:760px; margin:0 auto; padding:calc(14px + env(safe-area-inset-top)) 16px 0; display:flex; justify-content:space-between; align-items:center; }
-  .countdown { padding:5px 12px; border-radius:var(--r-pill); background:var(--larch); color:#3a2a00; font-size:.8rem; font-weight:700; }
-  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(255 255 255 / 16%); border:1px solid rgb(255 255 255 / 30%); border-radius:50%; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
-  .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 16px 22px; }
-  .hero h1 { margin:0; font-size:clamp(2rem,9vw,2.8rem); line-height:1.05; text-wrap:balance; }
-  .hero p { margin:8px 0 0; font-size:.92rem; opacity:.92; max-width:44ch; }
+  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(14 44 48 / 40%) 0%,rgb(14 44 48 / 0%) 28%,rgb(14 44 48 / 10%) 50%,rgb(10 32 35 / 92%) 100%); }
+  .hero-top { position:absolute; z-index:2; left:0; right:0; top:0; max-width:760px; margin:0 auto; padding:calc(16px + env(safe-area-inset-top)) 20px 0; display:flex; justify-content:space-between; align-items:center; }
+  .countdown { padding:8px 14px; border-radius:var(--r-pill); background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); color:#fff; font-size:.8rem; font-weight:500; letter-spacing:.01em; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .countdown::before { content:""; display:inline-block; width:6px; height:6px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); }
+  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:50%; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .edit-btn svg { width:18px; height:18px; stroke-width:1.6; }
+  .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 20px 34px; }
+  .hero h1 { margin:0; font-size:clamp(2.9rem,14vw,4.6rem); font-weight:450; line-height:.98; letter-spacing:-.02em; text-wrap:balance; }
+  .hero p { margin:16px 0 0; padding-top:14px; border-top:1px solid rgb(255 255 255 / 28%); font-size:.9rem; letter-spacing:.01em; color:rgb(255 255 255 / 86%); max-width:44ch; }
 
-  /* day strip: bar height = highest altitude of the day */
-  nav { position:sticky; top:0; z-index:10; display:grid; grid-template-columns:repeat(8,1fr); gap:2px; margin:0 -16px; padding:calc(8px + env(safe-area-inset-top)) 12px 6px;
-        background:color-mix(in srgb,var(--snow) 90%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
-  nav a { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:1px; min-height:64px; padding:0 0 2px; color:var(--mute); text-decoration:none; line-height:1.15; -webkit-tap-highlight-color:transparent; }
-  nav .alt { display:flex; align-items:flex-end; height:34px; width:100%; padding:0 6px; }
-  nav .alt i { display:block; width:100%; background:#bccfcc; border-radius:4px 4px 1px 1px; transition:background .2s; }
-  nav small { font-size:.75rem; }
-  nav b { font-size:.95rem; font-variant-numeric:tabular-nums; }
+  /* day strip: an altitude ridge through each day's highest point */
+  nav { position:sticky; top:0; z-index:10; display:grid; grid-template-columns:repeat(8,1fr); margin:0 -20px; padding:calc(10px + env(safe-area-inset-top)) 14px 8px;
+        background:color-mix(in srgb,var(--snow) 86%,transparent); backdrop-filter:blur(18px) saturate(1.4); -webkit-backdrop-filter:blur(18px) saturate(1.4); border-bottom:1px solid var(--line); }
+  .ridge { grid-row:1; grid-column:1 / -1; width:100%; height:34px; overflow:visible; pointer-events:none; }
+  .ridge path { fill:url(#ridge-fill); }
+  .ridge polyline { fill:none; stroke:#9fb2b0; stroke-width:1.25; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  nav a { grid-row:1; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:1px; min-height:70px; padding-top:34px; color:var(--mute); text-decoration:none; line-height:1.15; -webkit-tap-highlight-color:transparent; }
+  nav .peak { position:absolute; left:50%; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:var(--snow); border:1.25px solid #9fb2b0; transition:all .2s; }
+  nav small { font-size:.7rem; letter-spacing:.02em; }
+  nav b { font-family:var(--serif); font-size:1.08rem; font-weight:500; font-variant-numeric:lining-nums; }
   nav a.active { color:var(--ink); }
-  nav a.active .alt i { background:var(--lake); }
-  nav a.today b::after { content:""; display:inline-block; width:5px; height:5px; margin-left:3px; vertical-align:middle; border-radius:50%; background:var(--larch); }
+  nav a.active .peak { width:11px; height:11px; margin:-5.5px 0 0 -5.5px; background:var(--larch); border-color:var(--larch); box-shadow:0 0 0 4px var(--larch-soft); }
+  nav a.today small { color:var(--larch); font-weight:650; }
 
-  h2.block { margin:30px 2px 10px; font-size:1.45rem; line-height:1.15; }
-  .card { background:var(--paper); border-radius:var(--r-card); padding:14px 16px; margin:10px 0; box-shadow:var(--shadow); }
+  h2.block { margin:52px 0 16px; font-size:2rem; line-height:1.05; }
+  .card { background:var(--paper); border-radius:var(--r-card); padding:18px 20px; margin:12px 0; box-shadow:var(--shadow); }
 
-  /* flights */
-  .flight { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px 0; overflow:hidden; }
-  .f-head { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 16px; background:var(--lake-deep); color:#fff; font-size:.82rem; font-weight:600; }
-  .f-head .chip { background:rgb(255 255 255 / 16%); color:#fff; }
-  .f-route { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10px; padding:14px 16px 16px; }
-  .f-end b { display:block; font-size:1.8rem; line-height:1.1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
-  .f-end span { display:block; margin-top:2px; font-size:.95rem; font-weight:700; color:var(--lake); }
-  .f-end small { display:block; font-size:.78rem; color:var(--mute); line-height:1.3; }
+  /* flights: a dark boarding-pass panel */
+  .flight { position:relative; background:var(--lake-deep); color:#fff; border-radius:var(--r-card); box-shadow:var(--shadow); margin:12px 0; overflow:hidden; }
+  .f-head { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:16px 20px 0; color:rgb(255 255 255 / 70%); font-size:.8rem; letter-spacing:.01em; }
+  .f-head .chip { padding:0; color:#fff; font-weight:500; font-size:.8rem; }
+  .f-route { display:grid; grid-template-columns:auto 1fr auto; align-items:end; gap:12px; padding:10px 20px 20px; }
+  .f-end b { display:block; font-family:var(--serif); font-size:2.6rem; font-weight:450; line-height:1; letter-spacing:-.02em; font-variant-numeric:lining-nums; }
+  .f-end span { display:block; margin-top:8px; font-size:.86rem; font-weight:650; letter-spacing:.08em; color:#e2c48a; }
+  .f-end small { display:block; font-size:.76rem; color:rgb(255 255 255 / 62%); line-height:1.3; }
   .f-end.to { text-align:right; }
-  .f-mid { text-align:center; color:var(--mute); font-size:.75rem; }
-  .f-mid .f-line { display:flex; align-items:center; gap:4px; margin-top:2px; color:var(--lake); }
-  .f-mid .f-line::before, .f-mid .f-line::after { content:""; flex:1; border-top:2px dashed var(--line); }
-  .f-line svg { flex:none; width:22px; height:22px; transform:rotate(45deg); }
-  .flight-note { margin:2px 4px 0; color:var(--mute); font-size:.78rem; }
+  .f-mid { align-self:center; text-align:center; color:rgb(255 255 255 / 62%); font-size:.72rem; padding-bottom:18px; }
+  .f-mid .f-line { display:flex; align-items:center; gap:6px; margin-top:4px; color:#e2c48a; }
+  .f-mid .f-line::before, .f-mid .f-line::after { content:""; flex:1; border-top:1px solid rgb(255 255 255 / 24%); }
+  .f-line svg { flex:none; width:18px; height:18px; stroke-width:1.5; transform:rotate(45deg); }
+  .flight-note { margin:4px 2px 0; color:var(--mute); font-size:.78rem; }
 
   /* open items */
   .warn { background:var(--warnbg); border:1px solid var(--warnline); box-shadow:none; }
-  .warn summary { display:flex; align-items:center; min-height:28px; color:#92400e; font-weight:600; font-size:.92rem; cursor:pointer; }
-  .warn ul { margin:8px 0 0; padding-left:20px; font-size:.9rem; }
+  .warn summary { display:flex; align-items:center; min-height:28px; color:var(--warn); font-weight:600; font-size:.9rem; cursor:pointer; }
+  .warn ul { margin:10px 0 0; padding-left:20px; font-size:.88rem; }
   .warn li { margin:5px 0; }
+  .todo { list-style:none; padding-left:0 !important; }
+  .todo li + li { border-top:1px solid var(--warnline); }
+  .todo label { display:flex; align-items:flex-start; gap:12px; min-height:44px; padding:10px 0; cursor:pointer; line-height:1.45; }
+  .todo input { flex:none; width:20px; height:20px; margin:1px 0 0; accent-color:var(--ok); }
+  .todo input:checked + span { color:var(--mute); text-decoration:line-through; }
+  .warn.all-done { background:var(--paper); border-color:transparent; box-shadow:var(--shadow); }
+  .warn.all-done summary { color:var(--ok); }
+  .warn.all-done .todo li + li { border-color:var(--line-soft); }
 
-  /* days: photo band across the full width, timeline sits straight on the page */
-  .day { margin:32px 0 0; scroll-margin-top:calc(84px + env(safe-area-inset-top)); }
-  .cover { position:relative; display:flex; align-items:flex-end; height:156px; margin:0 -16px; color:#fff; background:var(--lake-deep); }
+  /* tonight's hotel, shown only during the trip */
+  .tonight { margin-top:22px; }
+  .tonight-h { margin:0; font-size:1.25rem; line-height:1.2; }
+  .tonight-h::before { content:""; display:inline-block; width:7px; height:7px; margin:0 10px 3px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 4px var(--larch-soft); }
+  .tonight .txt { padding:6px 0 0; }
+
+  /* days: photo with the title set on it, timeline on the page */
+  .day { margin:44px 0 0; scroll-margin-top:calc(92px + env(safe-area-inset-top)); }
+  .cover { position:relative; display:flex; align-items:flex-end; min-height:230px; margin:0 -20px; color:#fff; background:var(--lake-deep); overflow:hidden; }
   .cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .cover::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(8 40 46 / 0%) 10%,rgb(8 40 46 / 88%) 100%); }
-  .cover > div { position:relative; z-index:1; padding:14px 16px; }
-  .dlabel { font-size:.8rem; font-weight:600; letter-spacing:.02em; opacity:.92; }
-  .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin-right:6px; border-radius:50%; background:var(--larch); }
-  .cover h2 { margin:2px 0 0; font-size:1.55rem; line-height:1.12; text-wrap:balance; text-shadow:0 1px 14px rgb(0 0 0 / 40%); }
-  .dsub { padding:10px 2px 0; font-size:.86rem; color:var(--mute); }
+  .cover::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(10 32 35 / 0%) 25%,rgb(10 32 35 / 90%) 100%); }
+  .cover > div { position:relative; z-index:1; padding:20px; }
+  .dlabel { font-size:.8rem; font-weight:500; letter-spacing:.02em; color:rgb(255 255 255 / 84%); }
+  .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 3px rgb(180 134 47 / 35%); }
+  .cover h2 { margin:6px 0 0; font-size:2rem; font-weight:450; line-height:1.04; letter-spacing:-.015em; text-wrap:balance; }
+  .dsub { padding:14px 0 4px; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
+  .not-booked { color:var(--warn); font-weight:600; }
 
-  ul.tl { list-style:none; margin:0; padding:6px 0 0; }
-  .ev { display:grid; grid-template-columns:14px 1fr; gap:0 12px; }
-  .ev-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
-  .ev-tools { display:flex; gap:6px; margin:-7px 0 -4px; }
-  .ev-tools .icon-btn { min-height:36px; min-width:36px; }
-  .time { padding:1px 9px; border-radius:var(--r-pill); background:var(--lake-tint); color:var(--lake-deep); font-variant-numeric:tabular-nums; font-size:.82rem; font-weight:700; line-height:1.5; }
+  /* timeline: time column, hairline rail, content */
+  ul.tl { list-style:none; margin:0; padding:8px 0 0; }
+  .ev { display:grid; grid-template-columns:15px 1fr; gap:0 14px; scroll-margin-top:calc(104px + env(safe-area-inset-top)); }
+  .ev-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; min-height:22px; }
+  .ev-tools { display:flex; gap:6px; margin:-11px -2px -10px 0; }
+  .ev-tools .icon-btn { min-height:44px; min-width:44px; }
+  .time { color:var(--mute); font-variant-numeric:tabular-nums; font-size:.8rem; font-weight:600; letter-spacing:.03em; line-height:1.6; }
+  .ev.next .time { color:var(--larch); }
+  .ev.next .time::after { content:"Next"; margin-left:8px; padding:2px 8px; border-radius:var(--r-pill); background:var(--larch); color:#fff; font-size:.7rem; letter-spacing:.04em; vertical-align:1px; }
+  .ev.next .line i { width:11px; height:11px; margin-left:-5.5px; background:var(--larch); border-color:var(--larch); box-shadow:0 0 0 5px var(--larch-soft); }
   .line { position:relative; }
-  .line::before { content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; margin-left:-1px; background:#c3d3d1; }
-  .ev:first-child .line::before { top:19px; }
-  .ev:last-child .line::before { bottom:calc(100% - 19px); }
-  .line i { position:absolute; left:50%; top:14px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--snow); border:2px solid var(--lake); }
-  .txt { min-width:0; padding:8px 0 12px; font-size:.95rem; }
-  .txt .t { margin-top:5px; font-weight:550; line-height:1.4; }
-  .t svg { width:16px; height:16px; margin:-3px 5px 0 0; vertical-align:middle; color:var(--lake); }
+  .line::before { content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; margin-left:-.5px; background:var(--line); }
+  .ev:first-child .line::before { top:24px; }
+  .ev:last-child .line::before { bottom:calc(100% - 24px); }
+  .line i { position:absolute; left:50%; top:19px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:var(--snow); border:1.5px solid var(--lake); }
+  .txt { min-width:0; padding:14px 0 16px; font-size:.95rem; }
+  .txt .t { margin-top:3px; font-weight:560; line-height:1.4; letter-spacing:-.003em; }
+  .t svg { width:16px; height:16px; margin:-3px 6px 0 0; vertical-align:middle; color:var(--larch); stroke-width:1.6; }
   .chip { display:inline-block; padding:0 8px; border-radius:var(--r-pill); font-size:.75rem; font-weight:600; line-height:1.6; }
-  .detail { margin-top:2px; color:var(--mute); font-size:.85rem; line-height:1.45; }
-  .zh-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:6px; padding:2px 2px 2px 12px; background:var(--chili-tint); border-radius:var(--r-field); }
-  .zh { flex:1; min-width:0; min-height:40px; padding:0; border:0; background:none; text-align:left; cursor:pointer; font:inherit; font-family:var(--zh); font-size:1.08rem; line-height:1.3; color:var(--chili); }
+  .detail { margin-top:3px; color:var(--mute); font-size:.85rem; line-height:1.5; }
+  .zh-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:10px; padding:2px 2px 2px 14px; background:var(--paper); border:1px solid var(--chili-line); border-radius:var(--r-field); }
+  .zh { flex:1; min-width:0; min-height:44px; padding:0; border:0; background:none; text-align:left; cursor:pointer; font:inherit; font-family:var(--zh); font-size:1.08rem; line-height:1.3; letter-spacing:.02em; color:var(--chili); }
   .zh-row .icon-btn { background:none; border-color:transparent; color:var(--chili); }
   .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
-  .ref b { color:var(--ink); font-weight:650; letter-spacing:.01em; }
-  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.8rem; font-weight:500; color:var(--lake); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-pill);
-          touch-action:manipulation; -webkit-tap-highlight-color:transparent; display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; }
+  .ref b { color:var(--ink); font-weight:650; letter-spacing:.02em; }
+  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.8rem; font-weight:500; color:var(--lake); background:transparent; border:1px solid var(--line); border-radius:var(--r-pill);
+          touch-action:manipulation; -webkit-tap-highlight-color:transparent; display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; transition:transform .12s; }
+  .icon-btn svg { width:18px; height:18px; stroke-width:1.6; }
   .icon-btn:active { transform:scale(.94); }
   .icon-btn.done { color:var(--ok); }
 
   table { width:100%; font-variant-numeric:tabular-nums; border-collapse:collapse; font-size:.88rem; }
   td:first-child { font-weight:600; }
   td:not(:first-child) { white-space:nowrap; }
-  th, td { text-align:left; padding:9px 8px 9px 0; border-top:1px solid var(--line); }
-  th { color:var(--mute); font-weight:500; font-size:.78rem; border-top:0; }
-  .sub { margin:16px 0 4px; color:var(--mute); font-size:.8rem; }
-  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; }
-  .grid a { display:block; padding:10px 14px; border-radius:var(--r-field); background:var(--lake-tint); color:var(--lake-deep); font-size:.82rem; text-decoration:none; }
-  .grid b { display:block; color:var(--ink); font-size:1.5rem; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
-  .tips { margin:0; padding-left:18px; font-size:.88rem; line-height:1.5; }
-  .tips li { margin:8px 0; padding-left:2px; }
-  .tips li::marker { color:var(--lake); }
-  footer { padding:20px 20px calc(40px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.78rem; line-height:1.5; }
-  footer a { display:inline-block; padding:10px 2px; color:inherit; }
-  #offline-status { margin:0 0 6px; font-weight:600; }
-  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
+  th, td { text-align:left; padding:11px 8px 11px 0; border-top:1px solid var(--line-soft); }
+  th { color:var(--mute); font-weight:500; font-size:.76rem; letter-spacing:.02em; border-top:0; padding-top:0; }
+  .sub { margin:26px 0 8px; font-family:var(--serif); font-size:1.15rem; color:var(--ink); }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:18px; }
+  .grid a { display:block; padding:12px 16px; border-radius:var(--r-field); border:1px solid var(--line); color:var(--mute); font-size:.8rem; text-decoration:none; }
+  .grid b { display:block; margin-top:2px; color:var(--ink); font-family:var(--serif); font-size:1.9rem; font-weight:500; line-height:1.1; font-variant-numeric:lining-nums; }
+  .tips { margin:0; padding-left:18px; font-size:.88rem; line-height:1.55; }
+  .tips li { margin:10px 0; padding-left:4px; }
+  .tips li::marker { color:var(--larch); }
+  footer { max-width:760px; margin:40px auto 0; padding:24px 20px calc(44px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.76rem; line-height:1.6; border-top:1px solid var(--line); }
+  footer a { display:inline-block; padding:10px 2px; margin:-10px 0; color:inherit; }
+  #offline-status { margin:0 0 6px; font-weight:600; color:var(--ink); }
+  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
   .overlay .big { font-family:var(--zh); font-size:clamp(2rem,10vw,3.4rem); line-height:1.3; font-weight:600; word-break:break-all; }
   .overlay small { color:var(--mute); font-size:.9rem; }
-  .overlay button { min-height:48px; padding:0 28px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  .overlay button { min-height:48px; padding:0 30px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
+  .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
-  .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-card); overflow:hidden; background:var(--paper); box-shadow:var(--shadow); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
+  .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-field); overflow:hidden; background:var(--paper); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
   .plan img { display:block; width:100%; height:auto; }
-  .plan figcaption { margin:8px 4px 0; color:var(--mute); font-size:.78rem; }
+  .plan figcaption { margin:10px 2px 0; color:var(--mute); font-size:.78rem; }
   .viewer { position:fixed; inset:0; z-index:100; overflow:auto; background:var(--lake-deep); overscroll-behavior:contain; }
   .viewer img { display:block; width:1024px; max-width:none; height:auto; }
   .viewer button { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--paper); color:var(--ink); font:inherit; font-weight:650; cursor:pointer; box-shadow:0 2px 10px rgb(0 0 0 / 30%); }
-  :focus-visible { outline:3px solid var(--lake); outline-offset:2px; }
-  @media (min-width:640px) { .hero { min-height:380px; } .card { padding:22px; } .cover { margin:0; border-radius:var(--r-card); overflow:hidden; } }
+  :focus-visible { outline:2px solid var(--larch); outline-offset:3px; }
+  @media (min-width:640px) { .card { padding:24px 28px; } .cover { margin:0; min-height:300px; border-radius:var(--r-card); } .cover h2 { font-size:2.5rem; } }
   @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
-  .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
-  .ref b { color:var(--ink); font-weight:650; letter-spacing:.01em; }
   .sheet { position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:var(--snow); padding:0 16px calc(40px + env(safe-area-inset-bottom)); }
   .sheet > * { max-width:760px; margin-left:auto; margin-right:auto; }
   .sheet-bar { position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between; margin:0 -16px !important; max-width:none !important; padding:calc(8px + env(safe-area-inset-top)) 16px 8px;
           background:color-mix(in srgb,var(--snow) 88%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
   .sheet-bar h2 { margin:0; font-size:1.2rem; }
+  .save-status { flex:1; margin:0 12px; color:var(--ok); font-size:.8rem; font-weight:600; text-align:right; opacity:0; transition:opacity .3s; }
+  .save-status.show { opacity:1; }
+  .save-status.fail { color:var(--chili); }
   .sheet-bar button { min-height:44px; padding:0 22px; border:0; border-radius:999px; background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
   .sheet-h { margin:22px auto 0; font-size:1.05rem; }
   .edit-card { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px auto; padding:14px 16px; }
@@ -163,7 +193,7 @@
   .field > span { display:block; margin-bottom:4px; font-size:.78rem; color:var(--mute); }
   .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
-  .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:#92400e; font:inherit; font-weight:650; cursor:pointer; }
+  .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -182,29 +212,30 @@
 <main>
   <nav id="nav"></nav>
 
+  <div id="tonight"></div>
+
   <h2 class="block">Flights</h2>
   <div id="flights"></div>
   <p class="flight-note">Local times at each airport. Both flights are booked.</p>
 
-  <details class="card warn">
-    <summary>3 items not booked yet · tap to view</summary>
-    <ul>
-      <li>Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov.</li>
-      <li>Car to Tianfu airport on 14 Nov.</li>
-      <li>Check-in time at each hotel.</li>
-    </ul>
+  <details class="card warn" id="open-items">
+    <summary></summary>
+    <ul class="todo"></ul>
   </details>
 
   <h2 class="block">Daily plan</h2>
   <div id="days"></div>
 
   <h2 class="block">Original plan</h2>
-  <figure class="plan">
-    <button type="button" id="plan-btn" aria-label="Enlarge the original plan">
-      <img src="plan.jpg" width="1024" height="1536" loading="lazy" alt="Infographic of the original 8-day plan: flights, hotels, car, day-by-day timeline, route map, altitude, weather, budget and tips. Text is in Thai and English.">
-    </button>
-    <figcaption>Drawn before booking. Flight times and hotels above replace the ones shown here. Tap to enlarge.</figcaption>
-  </figure>
+  <details class="card plan-box">
+    <summary>Show the plan drawn before booking</summary>
+    <figure class="plan">
+      <button type="button" id="plan-btn" aria-label="Enlarge the original plan">
+        <img src="plan.jpg" width="1024" height="1536" loading="lazy" alt="Infographic of the original 8-day plan: flights, hotels, car, day-by-day timeline, route map, altitude, weather, budget and tips. Text is in Thai and English.">
+      </button>
+      <figcaption>Flight times and hotels in this picture are out of date; the plan above replaces them. Tap to enlarge.</figcaption>
+    </figure>
+  </details>
 
   <h2 class="block">Parks and weather</h2>
   <div class="card">
@@ -266,25 +297,33 @@ const FLIGHTS = [
     from:{ code:"CTU", city:"Chengdu · T1" }, to:{ code:"BKK", city:"Bangkok" } },
 ];
 
+// checkOut is the morning after the last night
 const HOTELS = {
-  atour:    { name:"Atour Hotel (Chengdu Taikoo Li Dacisi)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
-  heishui:  { name:"Heishui Guanshan Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
-  jiuzhai:  { name:"Rezen Retreat · Four Seasons Manju Hotel (Jiuzhaigou Tourist Center)", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
-  kuanzhai: { name:"Chuanxing Yinli Hotel (Kuanzhai Alley, Chengdu)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
+  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", name:"Atour Hotel (Chengdu Taikoo Li Dacisi)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
+  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", name:"Heishui Guanshan Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
+  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju Hotel (Jiuzhaigou Tourist Center)", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", name:"Chuanxing Yinli Hotel (Kuanzhai Alley, Chengdu)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
 const hotelEv = (time, key) => { const h = HOTELS[key];
-  return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:true }; };
+  return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
+
+// a day with needs:"<id>" says so in its subtitle until the item is ticked
+const OPEN_ITEMS = [
+  { id:"car-west", label:"car not booked", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
+  { id:"car-airport", label:"car not booked", text:"Car to Tianfu airport on 14 Nov." },
+  { id:"checkin-times", text:"Check-in time at each hotel." },
+];
 
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m
 const DAYS = [
   { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu", sub:"Fly in, check in, then stroll near the hotel", events:[
     { flight:0, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
-    { time:"Evening", text:"Stroll Taikoo Li", map:"成都太古里" },
-    { time:"Evening", text:"IFS Panda · Chunxi Road", map:"成都国金中心" },
+    { time:"Evening", text:"Stroll Taikoo Li", zh:"成都太古里", map:"成都太古里" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road", zh:"成都国金中心", map:"成都国金中心" },
     { time:"Night", text:"Sichuan hotpot" },
   ]},
-  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~220 km, 4–4.5 h drive · car not booked", events:[
+  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~220 km, 4–4.5 h drive", needs:"car-west", events:[
     { time:"06:15", text:"Leave the hotel" },
     { time:"08:15", text:"Rest stop at Dujiangyan Service Area" },
     { time:"09:45", text:"Arrive at Bipenggou, buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
@@ -293,7 +332,7 @@ const DAYS = [
     hotelEv("17:15", "heishui"),
     { time:"18:00", text:"Yak meat hotpot" },
   ]},
-  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~280 km, 4.5–5 h drive · car not booked", events:[
+  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~280 km, 4.5–5 h drive", needs:"car-west", events:[
     { time:"07:00", text:"Leave the hotel" },
     { time:"08:00", text:"Arrive at Dagu Glacier (open 08:30–18:00)", zh:"达古冰川", map:"达古冰川景区" },
     { time:"08:30", text:"Explore until 14:00 · cable car to the 4,860 m summit", detail:"Very high. Walk slowly and bring oxygen and a warm jacket." },
@@ -322,20 +361,20 @@ const DAYS = [
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
-    { time:"15:00", text:"Coffee at Taikoo Li", map:"成都太古里" },
-    { time:"17:00", text:"Stroll SKP Chengdu", map:"成都SKP" },
+    { time:"15:00", text:"Coffee at Taikoo Li", zh:"成都太古里", map:"成都太古里" },
+    { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan hotpot" },
   ]},
   { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu", sub:"Old town walk and shopping", events:[
     { time:"09:00", text:"Jinli Ancient Street", zh:"锦里古街", map:"锦里古街" },
     { time:"11:30", text:"Wuhou Shrine", zh:"武侯祠", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
-    { time:"14:30", text:"Shopping / cafes", map:"春熙路" },
+    { time:"14:30", text:"Shopping / cafes on Chunxi Road", zh:"春熙路", map:"春熙路" },
     { time:"18:00", text:"Dinner" },
     { time:"19:30", text:"Stroll / relax" },
   ]},
-  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", sub:"Allow time to reach Tianfu airport", events:[
-    { time:"Before flight", text:"Check out and allow time to the airport (car not booked)", detail:"Tianfu airport is far from the city. Arrive at least 3 h before departure (~12:00). This is a suggestion, not a booking." },
+  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
+    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu airport is far from the city. Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
   ]},
 ];
@@ -346,7 +385,18 @@ const MONTH = "Nov";
 const STORE_KEY = "chengdu-trip-edits";
 let edits = {};
 try { const saved = JSON.parse(localStorage.getItem(STORE_KEY)); if (saved && typeof saved === "object" && !Array.isArray(saved)) edits = saved; } catch (_) { /* ข้อมูลเสีย: เริ่มจากแผนเดิม */ }
-const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(edits)); } catch (_) { /* โหมดส่วนตัว: บันทึกไม่ได้ */ } };
+let lastSaveOk = true;
+const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(edits)); lastSaveOk = true; } catch (_) { lastSaveOk = false; /* โหมดส่วนตัว: บันทึกไม่ได้ */ } };
+// เวลาปัจจุบันมาจากที่เดียว เพื่อทดสอบด้วยการแทนที่ฟังก์ชันนี้ในคอนโซลได้
+function currentTime() { return new Date(); }
+const todayIso = () => currentTime().toLocaleDateString("en-CA");
+const isBooked = id => edits.booked?.[id] === true;
+function setBooked(id, on) {
+  const next = { ...edits.booked };
+  if (on) next[id] = true; else delete next[id];
+  if (Object.keys(next).length) edits.booked = next; else delete edits.booked;
+  saveEdits();
+}
 const withEdits = (id, base) => ({ ...base, ...edits[id] });
 const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
 const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
@@ -444,8 +494,7 @@ function copyRow(content, label, text) {
   return row;
 }
 
-function renderEvent(ev) {
-  const li = el("li", "ev");
+function eventBody(ev) {
   const head = el("div", "ev-head", `<span class="time">${esc(ev.time)}</span>`);
   if (ev.map) {
     const tools = el("div", "ev-tools");
@@ -463,12 +512,40 @@ function renderEvent(ev) {
     zh.onclick = () => showBig(ev.zh);
     txt.append(copyRow(zh, "Copy Chinese name", ev.zh));
   }
-  li.append(el("div", "line", "<i></i>"), txt);
+  return txt;
+}
+
+function renderEvent(ev) {
+  const li = el("li", "ev");
+  li.dataset.time = ev.time;
+  li.append(el("div", "line", "<i></i>"), eventBody(ev));
   return li;
 }
 
+// words used instead of a clock time; anything else without HH:MM takes the time of the next timed event
+const CLOCK_WORDS = { Evening:18 * 60, Night:20 * 60 };
+function startMinutes(time) {
+  const m = /(\d{1,2}):(\d{2})/.exec(time);
+  return m ? Number(m[1]) * 60 + Number(m[2]) : CLOCK_WORDS[time];
+}
+
+function updateNext() {
+  const now = currentTime(), nowMin = now.getHours() * 60 + now.getMinutes();
+  const items = [...document.querySelectorAll(".day.today .ev")];
+  const starts = items.map(li => startMinutes(li.dataset.time));
+  for (let i = starts.length - 1, later = 24 * 60; i >= 0; i--) later = starts[i] ??= later;
+  const next = items[starts.findIndex(t => t >= nowMin)];
+  document.querySelectorAll(".ev.next").forEach(li => li !== next && li.classList.remove("next"));
+  next?.classList.add("next");
+}
+
+function dayNote(d) {
+  const item = d.needs && !isBooked(d.needs) ? OPEN_ITEMS.find(o => o.id === d.needs) : null;
+  return esc(d.sub) + (item ? ` · <span class="not-booked">${esc(item.label)}</span>` : "");
+}
+
 function renderDays() {
-  const today = new Date().toLocaleDateString("en-CA");
+  const today = todayIso();
   const nav = document.getElementById("nav"), root = document.getElementById("days");
   nav.replaceChildren(); root.replaceChildren();
   DAYS.forEach((d, i) => {
@@ -478,18 +555,33 @@ function renderDays() {
     const cover = el("div", "cover");
     cover.append(photo(d.cover, ""));
     cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2>`));
-    sec.append(cover, el("div", "dsub", esc(d.sub)));
+    sec.append(cover, el("div", "dsub", dayNote(d)));
     const ul = el("ul", "tl");
     d.events.forEach((base, j) => ul.append(renderEvent(resolveEvent(`d${i}e${j}`, base))));
     sec.append(ul);
     root.append(sec);
     const dt = dateOf(d.date);
-    const a = el("a", "", `<span class="alt"><i style="height:${Math.max(5, Math.round(d.alt / MAX_ALT * 34))}px"></i></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
+    const a = el("a", "", `<span class="peak" style="top:${ridgeY(d.alt)}px"></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
     a.title = `Up to ${d.alt.toLocaleString("en")} m`;
     if (d.date === today) a.classList.add("today");
+    a.style.gridColumn = i + 1;
     a.href = `#${id}`; a.dataset.id = id; a.setAttribute("aria-label", `Day ${i + 1} · ${dateLabel(d.date)} · up to ${d.alt.toLocaleString("en")} m`);
     nav.append(a);
   });
+  nav.prepend(ridge());
+}
+
+// ridge height in px; each day's point sits at its highest altitude, Chengdu (~500 m) near the floor
+const RIDGE_H = 34;
+const ridgeY = alt => +(RIDGE_H - 5 - alt / MAX_ALT * (RIDGE_H - 9)).toFixed(1);
+function ridge() {
+  const pts = DAYS.map((d, i) => `${i + .5},${ridgeY(d.alt)}`);
+  const first = ridgeY(DAYS[0].alt), last = ridgeY(DAYS[DAYS.length - 1].alt);
+  const wrap = el("div", "", `<svg class="ridge" viewBox="0 0 ${DAYS.length} ${RIDGE_H}" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="ridge-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb2b0" stop-opacity=".38"/><stop offset="1" stop-color="#9fb2b0" stop-opacity="0"/></linearGradient></defs>
+    <path d="M0,${RIDGE_H} L0,${first} L${pts.join(" L")} L${DAYS.length},${last} L${DAYS.length},${RIDGE_H} Z"/>
+    <polyline points="0,${first} ${pts.join(" ")} ${DAYS.length},${last}"/></svg>`);
+  return wrap.firstElementChild;
 }
 
 function renderFlights() {
@@ -500,6 +592,38 @@ function renderFlights() {
       `<div class="f-head"><span>${esc(f.no)} · ${esc(f.airline)}</span><span class="chip">${dateLabel(f.date)}</span></div>
        <div class="f-route">${end(f.depart, f.from, "from")}<div class="f-mid">${esc(f.dur)}<div class="f-line">${ICONS.plane}</div></div>${end(f.arrive, f.to, "to")}</div>`);
   }));
+}
+
+function renderTonight() {
+  const today = todayIso(), root = document.getElementById("tonight");
+  const key = Object.keys(HOTELS).find(k => HOTELS[k].checkIn <= today && today < HOTELS[k].checkOut);
+  root.replaceChildren();
+  if (!key) return;
+  DAYS.forEach((d, i) => d.events.forEach((base, j) => {
+    if (base.hotel !== key) return;
+    const card = el("section", "card tonight", `<h2 class="tonight-h">Tonight · ${dateLabel(today)}</h2>`);
+    card.setAttribute("aria-label", "Tonight's hotel");
+    card.append(eventBody(resolveEvent(`d${i}e${j}`, base)));
+    root.append(card);
+  }));
+}
+
+function renderOpenItems() {
+  const box = document.getElementById("open-items");
+  const left = OPEN_ITEMS.filter(o => !isBooked(o.id)).length;
+  box.querySelector("summary").textContent = left ? `${left} ${left === 1 ? "item" : "items"} not booked yet · tap to view` : "Everything is booked ✓";
+  box.classList.toggle("all-done", left === 0);
+}
+
+function buildOpenItems() {
+  document.querySelector("#open-items ul").replaceChildren(...OPEN_ITEMS.map(o => {
+    const li = el("li", "", `<label><input type="checkbox"><span>${esc(o.text)}</span></label>`);
+    const box = li.querySelector("input");
+    box.checked = isBooked(o.id);
+    box.onchange = () => { setBooked(o.id, box.checked); renderOpenItems(); renderDays(); refreshActiveDay(); refreshClock(); };
+    return li;
+  }));
+  renderOpenItems();
 }
 
 // ช่องว่างในช่องเหล่านี้ = กลับไปใช้ค่าเดิม ไม่เช่นนั้นจะแสดงป้ายว่าง
@@ -548,6 +672,7 @@ function eventEditor(base, id) {
 function dayEditor(day, i) {
   const card = el("details", "edit-card edit-day", `<summary>Day ${i + 1} · ${dateLabel(day.date)} · ${esc(day.title)}</summary>`);
   card.append(...day.events.map((base, j) => eventEditor(base, `d${i}e${j}`)));
+  card.open = day.date === todayIso();
   return card;
 }
 
@@ -568,7 +693,18 @@ function openSettings() {
     el("h3", "sheet-h", "Flights"), ...FLIGHTS.map((_, i) => flightEditor(i)),
     el("h3", "sheet-h", "Days"), ...DAYS.map(dayEditor),
     reset);
-  sheet.querySelector(".sheet-bar").append(done);
+  const status = el("span", "save-status");
+  status.setAttribute("role", "status");
+  let statusTimer;
+  // field() saves in its own input handler, which runs before this bubbled one
+  sheet.addEventListener("input", () => {
+    clearTimeout(statusTimer);
+    status.textContent = lastSaveOk ? "Saved ✓" : "Not saved on this phone";
+    status.classList.toggle("fail", !lastSaveOk);
+    status.classList.add("show");
+    statusTimer = setTimeout(() => status.classList.remove("show"), 1500);
+  });
+  sheet.querySelector(".sheet-bar").append(status, done);
   const close = () => {
     sheet.remove();
     document.body.style.overflow = "";
@@ -588,10 +724,17 @@ function openSettings() {
 
 function renderCountdown() {
   const start = dateOf(DAYS[0].date), end = dateOf(DAYS[DAYS.length - 1].date);
-  const now = new Date(); now.setHours(0, 0, 0, 0);
+  const now = currentTime(); now.setHours(0, 0, 0, 0);
   const diff = Math.round((start - now) / 864e5);
-  const label = diff > 0 ? `${diff} ${diff === 1 ? "day" : "days"} to go` : now <= end ? `Day ${Math.round((now - start) / 864e5) + 1} of the trip` : "Trip over";
+  const next = document.querySelector(".ev.next")?.dataset.time;
+  const tripDay = `Day ${Math.round((now - start) / 864e5) + 1}`;
+  const label = diff > 0 ? `${diff} ${diff === 1 ? "day" : "days"} to go` : now > end ? "Trip over" : next ? `${tripDay} · Next ${next}` : `${tripDay} of the trip`;
   document.getElementById("countdown").textContent = label;
+}
+
+function refreshClock() {
+  updateNext();
+  renderCountdown();
 }
 
 function trackActiveDay() {
@@ -634,16 +777,21 @@ const heroImg = document.getElementById("hero-img");
 heroImg.src = imgUrl("jiuzhai");
 heroImg.onerror = () => heroImg.remove();
 const refreshActiveDay = trackActiveDay();
+let renderedFor;
 function renderTrip() {
+  renderedFor = todayIso();
+  renderTonight();
   renderFlights();
+  buildOpenItems();
   renderDays();
   refreshActiveDay();
+  refreshClock();
 }
-renderCountdown();
 renderTrip();
+setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
 document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("plan-btn").onclick = showPlan;
-document.querySelector(".day.today")?.scrollIntoView();
+(document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
     document.getElementById("offline-status").textContent = "Offline mode is not available here";

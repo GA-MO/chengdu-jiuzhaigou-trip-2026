@@ -1,7 +1,7 @@
 // เปลี่ยนเลขเวอร์ชันเมื่อเพิ่มหรือเปลี่ยนชื่อไฟล์ในรายการ FILES (รูปอยู่ในแคชแยกและไม่ถูกลบตอนอัปเดต)
-const CACHE = "chengdu-trip-v13";
+const CACHE = "chengdu-trip-v14";
 const IMAGE_CACHE = "chengdu-trip-images";
-const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "plan.jpg"];
+const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "plan.jpg", "fonts/bodoni-moda.woff2"];
 const IMAGE_HOSTS = ["commons.wikimedia.org", "thumb.wikimedia.org", "upload.wikimedia.org"];
 
 self.addEventListener("install", e => {
