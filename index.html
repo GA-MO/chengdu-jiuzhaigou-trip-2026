@@ -109,8 +109,9 @@
   /* timeline: time column, hairline rail, content */
   ul.tl { list-style:none; margin:0; padding:8px 0 0; }
   .ev { display:grid; grid-template-columns:15px 1fr; gap:0 14px; scroll-margin-top:calc(104px + env(safe-area-inset-top)); }
-  .ev-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; min-height:22px; }
-  .ev-tools { display:flex; gap:6px; margin:-11px -2px -10px 0; }
+  /* the map button gets its own column beside the time and title rows, so a long title wraps before it */
+  .ev-head { display:contents; }
+  .ev-tools { grid-column:2; grid-row:1 / span 2; align-self:start; display:flex; gap:6px; margin:-8px -2px 0 10px; }
   .ev-tools .icon-btn { min-height:44px; min-width:44px; }
   .time { color:var(--mute); font-variant-numeric:tabular-nums; font-size:.8rem; font-weight:600; letter-spacing:.03em; line-height:1.6; }
   .ev.next .time { color:var(--larch); }
@@ -121,7 +122,10 @@
   .ev:first-child .line::before { top:24px; }
   .ev:last-child .line::before { bottom:calc(100% - 24px); }
   .line i { position:absolute; left:50%; top:19px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:var(--snow); border:1.5px solid var(--lake); }
-  .txt { min-width:0; padding:14px 0 16px; font-size:.95rem; }
+  .txt { display:grid; grid-template-columns:minmax(0,1fr) auto; align-content:start; min-width:0; padding:14px 0 16px; font-size:.95rem; }
+  .txt > .time { grid-column:1; min-height:22px; }
+  .txt > .t { grid-column:1; }
+  .txt > .detail, .txt > .zh-row { grid-column:1 / -1; }
   .txt .t { margin-top:3px; font-weight:560; line-height:1.4; letter-spacing:-.003em; }
   .t svg { width:16px; height:16px; margin:-3px 6px 0 0; vertical-align:middle; color:var(--larch); stroke-width:1.6; }
   .chip { display:inline-block; padding:0 8px; border-radius:var(--r-pill); font-size:.75rem; font-weight:600; line-height:1.6; }
