@@ -452,7 +452,10 @@ const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
-// morning hotel → every stop → that night's hotel; phones are redirected to m.amap.com, which offers to open the app
+const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
+// morning hotel → every stop → that night's hotel
+// phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
+// ditu.amap.com to phones keeps only the first via, and m.amap.com on a desktop drops them all
 const dayRouteUrl = (date, events) => {
   const hotels = Object.values(HOTELS);
   const morning = hotels.find(h => h.checkIn < date && date <= h.checkOut);
@@ -461,11 +464,17 @@ const dayRouteUrl = (date, events) => {
     .map(q => PLACES[q]).filter(Boolean)
     .filter((p, i, all) => p !== all[i - 1]);
   if (pins.length < 2) return null;
+  const vias = pins.slice(1, -1);
+  if (IS_PHONE) {
+    const pt = p => `${p.at.join(",")},${encodeURIComponent(p.th)}`;
+    const viaaddr = vias.length ? `&viaaddr=${[vias.map(p => p.at[0]), vias.map(p => p.at[1]), vias.map(p => encodeURIComponent(p.th))].map(a => a.join("|")).join(",")}` : "";
+    return `https://m.amap.com/navigation/carmap/saddr=${pt(pins[0])}&daddr=${pt(pins.at(-1))}${viaaddr}`;
+  }
   const q = new URLSearchParams({ type:"car", policy:"1" });
   const put = (key, p) => { q.set(`${key}[lnglat]`, p.at.join(",")); q.set(`${key}[name]`, p.th); };
   put("from", pins[0]);
   put("to", pins.at(-1));
-  pins.slice(1, -1).forEach((p, i) => put(`via[${i}]`, p));
+  vias.forEach((p, i) => put(`via[${i}]`, p));
   return `https://ditu.amap.com/dir?${q}`;
 };
 const dateOf = iso => new Date(iso + "T00:00:00");
