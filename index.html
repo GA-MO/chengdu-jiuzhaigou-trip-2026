@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chengdu · Bipenggou · Dagu Glacier · Jiuzhaigou | 7–14 Nov 2026</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#eef3f1">
+<style>
+  /* West Sichuan in November: snow, lake water, larch gold, chili red for anything shown to a driver */
+  :root {
+    --snow:#eef3f1; --paper:#fff; --ink:#123a44; --mute:#506a6e; --line:#d3dedc;
+    --lake:#0a6c74; --lake-deep:#08454c; --lake-tint:#d9ebea; --larch:#e0a526; --chili:#b5301d; --chili-tint:rgb(181 48 29 / 8%);
+    --ok:#047857; --warnbg:rgb(217 119 6 / 8%); --warnline:rgb(217 119 6 / 30%);
+    --r-card:14px; --r-field:10px; --r-pill:999px;
+    --shadow:0 1px 2px rgb(18 58 68 / 8%);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Noto Serif",Georgia,serif;
+    --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    --zh:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--snow); color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased; font-family:var(--sans); }
+  main { max-width:760px; margin:0 auto; padding:0 16px 24px; }
+  h1, h2, h3 { font-family:var(--serif); font-weight:700; letter-spacing:-.01em; }
+
+  /* hero */
+  .hero { position:relative; min-height:270px; display:flex; align-items:flex-end; overflow:hidden; color:#fff; background:var(--lake-deep); }
+  .hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(8 69 76 / 25%) 0%,rgb(8 40 46 / 10%) 35%,rgb(8 40 46 / 88%) 100%); }
+  .hero-top { position:absolute; z-index:2; left:0; right:0; top:0; max-width:760px; margin:0 auto; padding:calc(14px + env(safe-area-inset-top)) 16px 0; display:flex; justify-content:space-between; align-items:center; }
+  .countdown { padding:5px 12px; border-radius:var(--r-pill); background:var(--larch); color:#3a2a00; font-size:.8rem; font-weight:700; }
+  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(255 255 255 / 16%); border:1px solid rgb(255 255 255 / 30%); border-radius:50%; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+  .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 16px 22px; }
+  .hero h1 { margin:0; font-size:clamp(2rem,9vw,2.8rem); line-height:1.05; text-wrap:balance; }
+  .hero p { margin:8px 0 0; font-size:.92rem; opacity:.92; max-width:44ch; }
+
+  /* day strip: bar height = highest altitude of the day */
+  nav { position:sticky; top:0; z-index:10; display:grid; grid-template-columns:repeat(8,1fr); gap:2px; margin:0 -16px; padding:calc(8px + env(safe-area-inset-top)) 12px 6px;
+        background:color-mix(in srgb,var(--snow) 90%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  nav a { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:1px; min-height:64px; padding:0 0 2px; color:var(--mute); text-decoration:none; line-height:1.15; -webkit-tap-highlight-color:transparent; }
+  nav .alt { display:flex; align-items:flex-end; height:34px; width:100%; padding:0 6px; }
+  nav .alt i { display:block; width:100%; background:#bccfcc; border-radius:4px 4px 1px 1px; transition:background .2s; }
+  nav small { font-size:.75rem; }
+  nav b { font-size:.95rem; font-variant-numeric:tabular-nums; }
+  nav a.active { color:var(--ink); }
+  nav a.active .alt i { background:var(--lake); }
+  nav a.today b::after { content:""; display:inline-block; width:5px; height:5px; margin-left:3px; vertical-align:middle; border-radius:50%; background:var(--larch); }
+
+  h2.block { margin:30px 2px 10px; font-size:1.45rem; line-height:1.15; }
+  .card { background:var(--paper); border-radius:var(--r-card); padding:14px 16px; margin:10px 0; box-shadow:var(--shadow); }
+
+  /* flights */
+  .flight { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px 0; overflow:hidden; }
+  .f-head { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 16px; background:var(--lake-deep); color:#fff; font-size:.82rem; font-weight:600; }
+  .f-head .chip { background:rgb(255 255 255 / 16%); color:#fff; }
+  .f-route { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10px; padding:14px 16px 16px; }
+  .f-end b { display:block; font-size:1.8rem; line-height:1.1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+  .f-end span { display:block; margin-top:2px; font-size:.95rem; font-weight:700; color:var(--lake); }
+  .f-end small { display:block; font-size:.78rem; color:var(--mute); line-height:1.3; }
+  .f-end.to { text-align:right; }
+  .f-mid { text-align:center; color:var(--mute); font-size:.75rem; }
+  .f-mid .f-line { display:flex; align-items:center; gap:4px; margin-top:2px; color:var(--lake); }
+  .f-mid .f-line::before, .f-mid .f-line::after { content:""; flex:1; border-top:2px dashed var(--line); }
+  .f-line svg { flex:none; width:22px; height:22px; transform:rotate(45deg); }
+  .flight-note { margin:2px 4px 0; color:var(--mute); font-size:.78rem; }
+
+  /* open items */
+  .warn { background:var(--warnbg); border:1px solid var(--warnline); box-shadow:none; }
+  .warn summary { display:flex; align-items:center; min-height:28px; color:#92400e; font-weight:600; font-size:.92rem; cursor:pointer; }
+  .warn ul { margin:8px 0 0; padding-left:20px; font-size:.9rem; }
+  .warn li { margin:5px 0; }
+
+  /* days: photo band across the full width, timeline sits straight on the page */
+  .day { margin:32px 0 0; scroll-margin-top:calc(84px + env(safe-area-inset-top)); }
+  .cover { position:relative; display:flex; align-items:flex-end; height:156px; margin:0 -16px; color:#fff; background:var(--lake-deep); }
+  .cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .cover::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(8 40 46 / 0%) 10%,rgb(8 40 46 / 88%) 100%); }
+  .cover > div { position:relative; z-index:1; padding:14px 16px; }
+  .dlabel { font-size:.8rem; font-weight:600; letter-spacing:.02em; opacity:.92; }
+  .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin-right:6px; border-radius:50%; background:var(--larch); }
+  .cover h2 { margin:2px 0 0; font-size:1.55rem; line-height:1.12; text-wrap:balance; text-shadow:0 1px 14px rgb(0 0 0 / 40%); }
+  .dsub { padding:10px 2px 0; font-size:.86rem; color:var(--mute); }
+
+  ul.tl { list-style:none; margin:0; padding:6px 0 0; }
+  .ev { display:grid; grid-template-columns:14px 1fr; gap:0 12px; }
+  .ev-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+  .ev-tools { display:flex; gap:6px; margin:-7px 0 -4px; }
+  .ev-tools .icon-btn { min-height:36px; min-width:36px; }
+  .time { padding:1px 9px; border-radius:var(--r-pill); background:var(--lake-tint); color:var(--lake-deep); font-variant-numeric:tabular-nums; font-size:.82rem; font-weight:700; line-height:1.5; }
+  .line { position:relative; }
+  .line::before { content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; margin-left:-1px; background:#c3d3d1; }
+  .ev:first-child .line::before { top:19px; }
+  .ev:last-child .line::before { bottom:calc(100% - 19px); }
+  .line i { position:absolute; left:50%; top:14px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--snow); border:2px solid var(--lake); }
+  .txt { min-width:0; padding:8px 0 12px; font-size:.95rem; }
+  .txt .t { margin-top:5px; font-weight:550; line-height:1.4; }
+  .t svg { width:16px; height:16px; margin:-3px 5px 0 0; vertical-align:middle; color:var(--lake); }
+  .chip { display:inline-block; padding:0 8px; border-radius:var(--r-pill); font-size:.75rem; font-weight:600; line-height:1.6; }
+  .detail { margin-top:2px; color:var(--mute); font-size:.85rem; line-height:1.45; }
+  .zh-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:6px; padding:2px 2px 2px 12px; background:var(--chili-tint); border-radius:var(--r-field); }
+  .zh { flex:1; min-width:0; min-height:40px; padding:0; border:0; background:none; text-align:left; cursor:pointer; font:inherit; font-family:var(--zh); font-size:1.08rem; line-height:1.3; color:var(--chili); }
+  .zh-row .icon-btn { background:none; border-color:transparent; color:var(--chili); }
+  .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
+  .ref b { color:var(--ink); font-weight:650; letter-spacing:.01em; }
+  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.8rem; font-weight:500; color:var(--lake); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-pill);
+          touch-action:manipulation; -webkit-tap-highlight-color:transparent; display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; }
+  .icon-btn:active { transform:scale(.94); }
+  .icon-btn.done { color:var(--ok); }
+
+  table { width:100%; font-variant-numeric:tabular-nums; border-collapse:collapse; font-size:.88rem; }
+  td:first-child { font-weight:600; }
+  td:not(:first-child) { white-space:nowrap; }
+  th, td { text-align:left; padding:9px 8px 9px 0; border-top:1px solid var(--line); }
+  th { color:var(--mute); font-weight:500; font-size:.78rem; border-top:0; }
+  .sub { margin:16px 0 4px; color:var(--mute); font-size:.8rem; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; }
+  .grid a { display:block; padding:10px 14px; border-radius:var(--r-field); background:var(--lake-tint); color:var(--lake-deep); font-size:.82rem; text-decoration:none; }
+  .grid b { display:block; color:var(--ink); font-size:1.5rem; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+  .tips { margin:0; padding-left:18px; font-size:.88rem; line-height:1.5; }
+  .tips li { margin:8px 0; padding-left:2px; }
+  .tips li::marker { color:var(--lake); }
+  footer { padding:20px 20px calc(40px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.78rem; line-height:1.5; }
+  footer a { display:inline-block; padding:10px 2px; color:inherit; }
+  #offline-status { margin:0 0 6px; font-weight:600; }
+  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
+  .overlay .big { font-family:var(--zh); font-size:clamp(2rem,10vw,3.4rem); line-height:1.3; font-weight:600; word-break:break-all; }
+  .overlay small { color:var(--mute); font-size:.9rem; }
+  .overlay button { min-height:48px; padding:0 28px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  .plan { margin:0; }
+  .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-card); overflow:hidden; background:var(--paper); box-shadow:var(--shadow); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
+  .plan img { display:block; width:100%; height:auto; }
+  .plan figcaption { margin:8px 4px 0; color:var(--mute); font-size:.78rem; }
+  .viewer { position:fixed; inset:0; z-index:100; overflow:auto; background:var(--lake-deep); overscroll-behavior:contain; }
+  .viewer img { display:block; width:1024px; max-width:none; height:auto; }
+  .viewer button { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--paper); color:var(--ink); font:inherit; font-weight:650; cursor:pointer; box-shadow:0 2px 10px rgb(0 0 0 / 30%); }
+  :focus-visible { outline:3px solid var(--lake); outline-offset:2px; }
+  @media (min-width:640px) { .hero { min-height:380px; } .card { padding:22px; } .cover { margin:0; border-radius:var(--r-card); overflow:hidden; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+  .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
+  .ref b { color:var(--ink); font-weight:650; letter-spacing:.01em; }
+  .sheet { position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:var(--snow); padding:0 16px calc(40px + env(safe-area-inset-bottom)); }
+  .sheet > * { max-width:760px; margin-left:auto; margin-right:auto; }
+  .sheet-bar { position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between; margin:0 -16px !important; max-width:none !important; padding:calc(8px + env(safe-area-inset-top)) 16px 8px;
+          background:color-mix(in srgb,var(--snow) 88%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  .sheet-bar h2 { margin:0; font-size:1.2rem; }
+  .sheet-bar button { min-height:44px; padding:0 22px; border:0; border-radius:999px; background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
+  .sheet-h { margin:22px auto 0; font-size:1.05rem; }
+  .edit-card { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px auto; padding:14px 16px; }
+  .edit-day { padding:0; }
+  .edit-day > summary { min-height:48px; padding:12px 16px; font-weight:650; font-size:.95rem; cursor:pointer; }
+  .edit-day[open] > summary { border-bottom:1px solid var(--line); }
+  .edit-day .edit-ev, .edit-day .edit-note { margin:0 16px; }
+  .edit-ev { padding:4px 0 14px; border-bottom:1px solid var(--line); }
+  .edit-ev:last-child { border-bottom:0; }
+  .edit-note { padding:12px 0; font-size:.85rem; color:var(--mute); }
+  .field-row { display:flex; gap:10px; }
+  .field-row .field { flex:1; min-width:0; }
+  .field-row .f-time { flex:0 0 34%; }
+  .field { display:block; margin-top:10px; }
+  .field > span { display:block; margin-bottom:4px; font-size:.78rem; color:var(--mute); }
+  .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
+  .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
+  .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:#92400e; font:inherit; font-weight:650; cursor:pointer; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <img id="hero-img" alt="" crossorigin="anonymous">
+  <div class="hero-top">
+    <span class="countdown" id="countdown"></span>
+    <button class="edit-btn" id="edit-btn" type="button" aria-label="Edit trip details"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+  </div>
+  <div class="hero-inner">
+    <h1>Chengdu to Jiuzhaigou</h1>
+    <p>7–14 Nov 2026 · climbs to 4,860 m on day 3</p>
+  </div>
+</header>
+
+<main>
+  <nav id="nav"></nav>
+
+  <h2 class="block">Flights</h2>
+  <div id="flights"></div>
+  <p class="flight-note">Local times at each airport. Both flights are booked.</p>
+
+  <details class="card warn">
+    <summary>3 items not booked yet · tap to view</summary>
+    <ul>
+      <li>Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov.</li>
+      <li>Car to Tianfu airport on 14 Nov.</li>
+      <li>Check-in time at each hotel.</li>
+    </ul>
+  </details>
+
+  <h2 class="block">Daily plan</h2>
+  <div id="days"></div>
+
+  <h2 class="block">Original plan</h2>
+  <figure class="plan">
+    <button type="button" id="plan-btn" aria-label="Enlarge the original plan">
+      <img src="plan.jpg" width="1024" height="1536" loading="lazy" alt="Infographic of the original 8-day plan: flights, hotels, car, day-by-day timeline, route map, altitude, weather, budget and tips. Text is in Thai and English.">
+    </button>
+    <figcaption>Drawn before booking. Flight times and hotels above replace the ones shown here. Tap to enlarge.</figcaption>
+  </figure>
+
+  <h2 class="block">Parks and weather</h2>
+  <div class="card">
+    <table>
+      <tr><th>Place</th><th>Open</th><th>Altitude</th></tr>
+      <tr><td>Bipenggou</td><td>08:30–18:00</td><td>2,800–3,300 m</td></tr>
+      <tr><td>Dagu Glacier</td><td>08:30–18:00</td><td>3,000–4,860 m</td></tr>
+      <tr><td>Jiuzhaigou</td><td>07:30–17:30</td><td>2,000–3,100 m</td></tr>
+    </table>
+    <div class="sub">November weather and sun times</div>
+    <table>
+      <tr><th>City</th><th>Temp</th><th>Rise</th><th>Set</th></tr>
+      <tr><td>Chengdu</td><td>8–15°C</td><td>07:10</td><td>18:00</td></tr>
+      <tr><td>Heishui</td><td>2–10°C</td><td>07:05</td><td>17:55</td></tr>
+      <tr><td>Dagu Glacier</td><td>−10–0°C</td><td>–</td><td>–</td></tr>
+      <tr><td>Jiuzhaigou</td><td>−1–10°C</td><td>07:00</td><td>17:40</td></tr>
+    </table>
+  </div>
+
+  <h2 class="block">Tips and emergency numbers</h2>
+  <div class="card">
+    <ul class="tips">
+      <li>Above 3,000 m, rest well, walk slowly and drink water. Bring medicine and canned oxygen. If you feel dizzy or short of breath, go down to lower ground right away.</li>
+      <li>Use Alipay / WeChat Pay and install a map app that works in China. Park and train tickets need your passport.</li>
+      <li>Dress in layers. Bring a thick jacket and gloves for Dagu Glacier. Carry power banks in your cabin bag.</li>
+    </ul>
+    <div class="grid">
+      <a href="tel:110">Police<b>110</b></a><a href="tel:119">Fire<b>119</b></a>
+      <a href="tel:120">Ambulance<b>120</b></a><a href="tel:122">Traffic accident<b>122</b></a>
+    </div>
+  </div>
+</main>
+<footer>
+  <p id="offline-status" role="status">Preparing offline…</p>
+  Photos from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licensed by each photographer)<br>
+  Open this page once online to save photos for offline use
+</footer>
+
+<script>
+/* zh = ชื่อภาษาจีนสำหรับคัดลอกให้คนขับ · map = คำค้นแผนที่ */
+const IMAGES = {
+  chengdu:"2/20/Chengdu_skyline_June_2017.jpg",
+  bipenggou:"d/dc/%E7%95%A2%E6%A3%9A%E6%BA%9D_Bipenggou_Valley_1.jpg",
+  dagu:"3/32/Dagu_Glacier_panoramio61669499.jpg",
+  jiuzhai:"a/a3/Jiuzhaigou_Sichuan_China_Jiuzhaigou-Valley-02.jpg",
+  longlake:"e/e5/%E4%B9%9D%E5%AF%A8%E6%BA%9D-%E9%95%B7%E6%B5%B7_Jiuzhaigou_Long_Lake_1.jpg",
+  train:"f/f3/Huanglongjiuzhai_Railway_Station%2C_December_2024%2C_02.jpg",
+  panda:"d/df/Chengdu_Sichuan_China_Panda-breeding-and-research-center-02.jpg",
+  jinli:"f/fa/Jinli_Street_-_Chengdu%2C_China_-_DSC05404.jpg",
+  airport:"2/25/%E6%88%90%E9%83%BD%E5%A4%A9%E5%BA%9C%E5%9B%BD%E9%99%85%E6%9C%BA%E5%9C%BA_Chengdu_Tianfu_International_Airport_1.jpg",
+};
+// ใช้ลิงก์ตรงของ upload.wikimedia.org (ขนาด 960px) เพราะ Special:FilePath ใช้ fetch ข้ามโดเมนไม่ได้ (redirect ไม่มี CORS)
+const imgUrl = key => { const path = IMAGES[key]; return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/960px-${path.split("/").pop()}`; };
+
+const FLIGHTS = [
+  { airline:"Thai Airways", no:"TG618", date:"2026-11-07", dur:"2h 55m", depart:"10:05", arrive:"14:00",
+    from:{ code:"BKK", city:"Bangkok" }, to:{ code:"CTU", city:"Chengdu · T1" } },
+  { airline:"Thai Airways", no:"TG619", date:"2026-11-14", dur:"3h 15m", depart:"15:05", arrive:"17:20",
+    from:{ code:"CTU", city:"Chengdu · T1" }, to:{ code:"BKK", city:"Bangkok" } },
+];
+
+const HOTELS = {
+  atour:    { name:"Atour Hotel (Chengdu Taikoo Li Dacisi)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
+  heishui:  { name:"Heishui Guanshan Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
+  jiuzhai:  { name:"Rezen Retreat · Four Seasons Manju Hotel (Jiuzhaigou Tourist Center)", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  kuanzhai: { name:"Chuanxing Yinli Hotel (Kuanzhai Alley, Chengdu)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
+};
+const hotelEv = (time, key) => { const h = HOTELS[key];
+  return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:true }; };
+
+// alt = highest point of the day in metres: park table below, Chengdu is about 500 m
+const DAYS = [
+  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu", sub:"Fly in, check in, then stroll near the hotel", events:[
+    { flight:0, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
+    hotelEv("After landing", "atour"),
+    { time:"Evening", text:"Stroll Taikoo Li", map:"成都太古里" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road", map:"成都国金中心" },
+    { time:"Night", text:"Sichuan hotpot" },
+  ]},
+  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~220 km, 4–4.5 h drive · car not booked", events:[
+    { time:"06:15", text:"Leave the hotel" },
+    { time:"08:15", text:"Rest stop at Dujiangyan Service Area" },
+    { time:"09:45", text:"Arrive at Bipenggou, buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
+    { time:"10:15", text:"Explore Bipenggou for about 5 h", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
+    { time:"15:15", text:"Leave the park → Heishui" },
+    hotelEv("17:15", "heishui"),
+    { time:"18:00", text:"Yak meat hotpot" },
+  ]},
+  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~280 km, 4.5–5 h drive · car not booked", events:[
+    { time:"07:00", text:"Leave the hotel" },
+    { time:"08:00", text:"Arrive at Dagu Glacier (open 08:30–18:00)", zh:"达古冰川", map:"达古冰川景区" },
+    { time:"08:30", text:"Explore until 14:00 · cable car to the 4,860 m summit", detail:"Very high. Walk slowly and bring oxygen and a warm jacket." },
+    { time:"14:00", text:"Lunch" },
+    { time:"15:00", text:"Drive to Jiuzhaigou (4.5–5 h, arrive about 19:30)" },
+    hotelEv("~19:30", "jiuzhai"),
+  ]},
+  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou", sub:"Open 07:30–17:30 · shuttle buses inside the park", events:[
+    { time:"07:20", text:"Enter the park", zh:"九寨沟景区", map:"九寨沟景区" },
+    { time:"07:30", text:"Long Lake (ride up to the highest point first)" },
+    { time:"09:30", text:"Five Color Pond" },
+    { time:"10:30", text:"Nuorilang Waterfall" },
+    { time:"11:30", text:"Lunch at Nuorilang" },
+    { time:"12:30", text:"Five Flower Lake" },
+    { time:"13:30", text:"Pearl Shoal" },
+    { time:"14:30", text:"Shuzheng Valley" },
+    { time:"16:30", text:"Leave the park (closes 17:30)" },
+  ]},
+  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", sub:"Bus, then first-class train back to Chengdu", events:[
+    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai station (2 people)", detail:"฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨", detail:"Arrives 成都东 (Chengdu East) 14:15 · 2 h 1 min", ref:"", zh:"成都东站", map:"成都东站" },
+    hotelEv("After 14:15", "kuanzhai"),
+    { time:"19:00", text:"Dinner at Kuanzhai Alley (walk from the hotel)" },
+  ]},
+  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu", sub:"Pandas, a temple and shopping", events:[
+    { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
+    { time:"11:30", text:"Wenshu Monastery", zh:"文殊院", map:"文殊院" },
+    { time:"13:00", text:"Lunch" },
+    { time:"15:00", text:"Coffee at Taikoo Li", map:"成都太古里" },
+    { time:"17:00", text:"Stroll SKP Chengdu", map:"成都SKP" },
+    { time:"19:00", text:"Sichuan hotpot" },
+  ]},
+  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu", sub:"Old town walk and shopping", events:[
+    { time:"09:00", text:"Jinli Ancient Street", zh:"锦里古街", map:"锦里古街" },
+    { time:"11:30", text:"Wuhou Shrine", zh:"武侯祠", map:"武侯祠" },
+    { time:"13:00", text:"Lunch" },
+    { time:"14:30", text:"Shopping / cafes", map:"春熙路" },
+    { time:"18:00", text:"Dinner" },
+    { time:"19:30", text:"Stroll / relax" },
+  ]},
+  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", sub:"Allow time to reach Tianfu airport", events:[
+    { time:"Before flight", text:"Check out and allow time to the airport (car not booked)", detail:"Tianfu airport is far from the city. Arrive at least 3 h before departure (~12:00). This is a suggestion, not a booking." },
+    { flight:1, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
+  ]},
+];
+
+const MAX_ALT = 4860;
+const WEEKDAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MONTH = "Nov";
+const STORE_KEY = "chengdu-trip-edits";
+let edits = {};
+try { const saved = JSON.parse(localStorage.getItem(STORE_KEY)); if (saved && typeof saved === "object" && !Array.isArray(saved)) edits = saved; } catch (_) { /* ข้อมูลเสีย: เริ่มจากแผนเดิม */ }
+const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(edits)); } catch (_) { /* โหมดส่วนตัว: บันทึกไม่ได้ */ } };
+const withEdits = (id, base) => ({ ...base, ...edits[id] });
+const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
+const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
+const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base.flight === undefined ? ev : { ...ev, ...flightSummary(flightAt(base.flight)) }; };
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
+const dateOf = iso => new Date(iso + "T00:00:00");
+const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
+const photo = (key, cls) => { const i = el("img", cls); i.src = imgUrl(key); i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
+  i.onerror = () => i.remove(); return i; };
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch (_) { /* ตกไปใช้วิธีสำรอง */ }
+  const ta = Object.assign(document.createElement("textarea"), { value: text });
+  ta.style.cssText = "position:fixed;opacity:0";
+  document.body.append(ta); ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (_) { /* ไม่รองรับ */ }
+  ta.remove();
+  return ok;
+}
+
+function showBig(text) {
+  const o = el("div", "overlay", `<div class="big">${esc(text)}</div><small>Show this to your driver</small><button type="button">Close</button>`);
+  o.setAttribute("role", "dialog");
+  o.setAttribute("aria-modal", "true");
+  o.setAttribute("aria-label", text);
+  const opener = document.activeElement;
+  const close = () => { o.remove(); removeEventListener("keydown", onKey); opener?.focus(); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  o.onclick = close;
+  addEventListener("keydown", onKey);
+  document.body.append(o);
+  o.querySelector("button").focus();
+}
+
+function showPlan() {
+  const v = el("div", "viewer", `<img src="plan.jpg" alt="Original plan, full size">`);
+  const close = el("button", "", "Close");
+  close.type = "button";
+  v.append(close);
+  v.setAttribute("role", "dialog");
+  v.setAttribute("aria-modal", "true");
+  v.setAttribute("aria-label", "Original plan");
+  const opener = document.activeElement;
+  const hide = () => { v.remove(); document.body.style.overflow = ""; removeEventListener("keydown", onKey); opener?.focus(); };
+  const onKey = e => { if (e.key === "Escape") hide(); };
+  close.onclick = hide;
+  addEventListener("keydown", onKey);
+  document.body.style.overflow = "hidden";
+  document.body.append(v);
+  close.focus();
+}
+
+const svg = d => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONS = {
+  copy: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>'),
+  check: svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  fail: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+  plane: svg('<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>'),
+  hotel: svg('<path d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle cx="7" cy="12" r="1.8"/>'),
+  pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
+};
+const iconButton = (tag, icon, label, text = "") => {
+  const b = el(tag, "icon-btn", icon + (text ? `<span>${text}</span>` : ""));
+  b.title = label; b.setAttribute("aria-label", label);
+  return b;
+};
+
+function copyButton(label, text, caption) {
+  const b = iconButton("button", ICONS.copy, label, caption);
+  b.setAttribute("aria-live", "polite");
+  let resetTimer;
+  b.onclick = async () => {
+    const ok = await copyText(text);
+    clearTimeout(resetTimer);
+    b.firstElementChild.outerHTML = ok ? ICONS.check : ICONS.fail;
+    b.classList.toggle("done", ok);
+    b.setAttribute("aria-label", ok ? "Copied" : "Copy failed. Select and copy the text manually");
+    resetTimer = setTimeout(() => { b.firstElementChild.outerHTML = ICONS.copy; b.classList.remove("done"); b.setAttribute("aria-label", label); }, 1800);
+  };
+  return b;
+}
+
+function mapLink(query) {
+  const a = iconButton("a", ICONS.pin, "Open in map");
+  Object.assign(a, { href: amapUrl(query), target: "_blank", rel: "noopener" });
+  return a;
+}
+
+function copyRow(content, label, text) {
+  const row = el("div", "zh-row");
+  row.append(content, copyButton(label, text));
+  return row;
+}
+
+function renderEvent(ev) {
+  const li = el("li", "ev");
+  const head = el("div", "ev-head", `<span class="time">${esc(ev.time)}</span>`);
+  if (ev.map) {
+    const tools = el("div", "ev-tools");
+    tools.append(mapLink(ev.map));
+    head.append(tools);
+  }
+  const txt = el("div", "txt");
+  txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${esc(ev.text)}`));
+  if (ev.detail) txt.append(el("div", "detail", esc(ev.detail)));
+  if (ev.ref) txt.append(copyRow(el("span", "ref", `Booking no. <b>${esc(ev.ref)}</b>`), "Copy booking number", ev.ref));
+  if (ev.zh) {
+    const zh = el("button", "zh", esc(ev.zh));
+    zh.type = "button";
+    zh.setAttribute("aria-label", `Show ${ev.zh} large`);
+    zh.onclick = () => showBig(ev.zh);
+    txt.append(copyRow(zh, "Copy Chinese name", ev.zh));
+  }
+  li.append(el("div", "line", "<i></i>"), txt);
+  return li;
+}
+
+function renderDays() {
+  const today = new Date().toLocaleDateString("en-CA");
+  const nav = document.getElementById("nav"), root = document.getElementById("days");
+  nav.replaceChildren(); root.replaceChildren();
+  DAYS.forEach((d, i) => {
+    const id = `day${i + 1}`;
+    const sec = el("article", `day${d.date === today ? " today" : ""}`);
+    sec.id = id;
+    const cover = el("div", "cover");
+    cover.append(photo(d.cover, ""));
+    cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2>`));
+    sec.append(cover, el("div", "dsub", esc(d.sub)));
+    const ul = el("ul", "tl");
+    d.events.forEach((base, j) => ul.append(renderEvent(resolveEvent(`d${i}e${j}`, base))));
+    sec.append(ul);
+    root.append(sec);
+    const dt = dateOf(d.date);
+    const a = el("a", "", `<span class="alt"><i style="height:${Math.max(5, Math.round(d.alt / MAX_ALT * 34))}px"></i></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
+    a.title = `Up to ${d.alt.toLocaleString("en")} m`;
+    if (d.date === today) a.classList.add("today");
+    a.href = `#${id}`; a.dataset.id = id; a.setAttribute("aria-label", `Day ${i + 1} · ${dateLabel(d.date)} · up to ${d.alt.toLocaleString("en")} m`);
+    nav.append(a);
+  });
+}
+
+function renderFlights() {
+  const end = (time, e, cls) => `<div class="f-end ${cls}"><b>${esc(time)}</b><span>${e.code}</span><small>${esc(e.city)}</small></div>`;
+  document.getElementById("flights").replaceChildren(...FLIGHTS.map((_, i) => {
+    const f = flightAt(i);
+    return el("article", "flight",
+      `<div class="f-head"><span>${esc(f.no)} · ${esc(f.airline)}</span><span class="chip">${dateLabel(f.date)}</span></div>
+       <div class="f-route">${end(f.depart, f.from, "from")}<div class="f-mid">${esc(f.dur)}<div class="f-line">${ICONS.plane}</div></div>${end(f.arrive, f.to, "to")}</div>`);
+  }));
+}
+
+// ช่องว่างในช่องเหล่านี้ = กลับไปใช้ค่าเดิม ไม่เช่นนั้นจะแสดงป้ายว่าง
+const REQUIRED_KEYS = new Set(["time", "text", "airline", "no", "depart", "arrive", "dur"]);
+function setEdit(id, key, value, baseValue) {
+  const next = { ...edits[id] };
+  if (value === baseValue || (value.trim() === "" && REQUIRED_KEYS.has(key))) delete next[key]; else next[key] = value;
+  if (Object.keys(next).length) edits[id] = next; else delete edits[id];
+  saveEdits();
+}
+
+function field(label, id, key, base, { multiline = false, cls = "" } = {}) {
+  const wrap = el("label", `field ${cls}`.trim(), `<span>${label}</span>`);
+  const input = el(multiline ? "textarea" : "input");
+  if (multiline) input.rows = key === "text" ? 2 : 1;
+  input.value = withEdits(id, base)[key] ?? "";
+  input.autocomplete = "off";
+  input.oninput = () => setEdit(id, key, input.value, base[key] ?? "");
+  wrap.append(input);
+  return wrap;
+}
+
+const fieldRow = (...fields) => { const row = el("div", "field-row"); row.append(...fields); return row; };
+
+function flightEditor(i) {
+  const base = FLIGHTS[i], id = `f${i}`;
+  const card = el("section", "edit-card", `<b>${base.from.code} → ${base.to.code} · ${dateLabel(base.date)}</b>`);
+  card.append(
+    fieldRow(field("Airline", id, "airline", base), field("Flight no.", id, "no", base)),
+    fieldRow(field("Departs", id, "depart", base), field("Arrives", id, "arrive", base), field("Duration", id, "dur", base)));
+  return card;
+}
+
+function eventEditor(base, id) {
+  if (base.flight !== undefined) return el("p", "edit-note", `${esc(flightSummary(flightAt(base.flight)).text)} · edit it in Flights above.`);
+  const box = el("div", "edit-ev");
+  box.setAttribute("role", "group");
+  box.setAttribute("aria-label", `${withEdits(id, base).time}, ${withEdits(id, base).text}`);
+  box.append(
+    fieldRow(field("Time", id, "time", base, { cls: "f-time" }), field("Title", id, "text", base, { multiline: true })),
+    field("Details", id, "detail", base, { multiline: true }));
+  if (base.hotel || "ref" in base) box.append(field("Booking no.", id, "ref", base));
+  return box;
+}
+
+function dayEditor(day, i) {
+  const card = el("details", "edit-card edit-day", `<summary>Day ${i + 1} · ${dateLabel(day.date)} · ${esc(day.title)}</summary>`);
+  card.append(...day.events.map((base, j) => eventEditor(base, `d${i}e${j}`)));
+  return card;
+}
+
+function openSettings() {
+  const sheet = el("div", "sheet");
+  sheet.setAttribute("role", "dialog");
+  sheet.setAttribute("aria-modal", "true");
+  sheet.setAttribute("aria-label", "Edit trip");
+  const opener = document.activeElement;
+  const scrollY0 = scrollY;
+  const done = el("button", "", "Done");
+  done.type = "button";
+  const reset = el("button", "reset", "Reset everything to the original plan");
+  reset.type = "button";
+  sheet.append(
+    el("div", "sheet-bar", "<h2>Edit trip</h2>"),
+    el("p", "flight-note", "Changes are saved on this phone only."),
+    el("h3", "sheet-h", "Flights"), ...FLIGHTS.map((_, i) => flightEditor(i)),
+    el("h3", "sheet-h", "Days"), ...DAYS.map(dayEditor),
+    reset);
+  sheet.querySelector(".sheet-bar").append(done);
+  const close = () => {
+    sheet.remove();
+    document.body.style.overflow = "";
+    removeEventListener("keydown", onKey);
+    renderTrip();
+    scrollTo({ top: scrollY0, behavior: "instant" });
+    opener?.focus();
+  };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  done.onclick = close;
+  reset.onclick = () => { if (confirm("Remove all your edits and restore the original plan?")) { edits = {}; saveEdits(); close(); } };
+  addEventListener("keydown", onKey);
+  document.body.style.overflow = "hidden";
+  document.body.append(sheet);
+  done.focus();
+}
+
+function renderCountdown() {
+  const start = dateOf(DAYS[0].date), end = dateOf(DAYS[DAYS.length - 1].date);
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  const diff = Math.round((start - now) / 864e5);
+  const label = diff > 0 ? `${diff} ${diff === 1 ? "day" : "days"} to go` : now <= end ? `Day ${Math.round((now - start) / 864e5) + 1} of the trip` : "Trip over";
+  document.getElementById("countdown").textContent = label;
+}
+
+function trackActiveDay() {
+  const nav = document.getElementById("nav");
+  let queued = false;
+  const update = () => {
+    queued = false;
+    // วันปัจจุบัน = วันสุดท้ายที่ขอบบนเลื่อนผ่านใต้แถบวันที่ไปแล้ว
+    const day = [...document.querySelectorAll(".day")].filter(d => d.getBoundingClientRect().top <= 120).pop();
+    const next = day?.id ?? null;
+    nav.querySelectorAll("a").forEach(l => l.classList.toggle("active", l.dataset.id === next));
+  };
+  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+  return update;
+}
+
+// ดึงรูปทั้งหมดมาเก็บในแคชตอนมีเน็ต เพื่อให้เปิดออฟไลน์ได้ (service worker ดักคำขอเหล่านี้)
+function precacheImages() {
+  const status = document.getElementById("offline-status");
+  const total = Object.keys(IMAGES).length;
+  const wanted = new Set(Object.keys(IMAGES).map(imgUrl));
+  const cachedCount = async () => (await (await caches.open("chengdu-trip-images")).keys()).filter(r => wanted.has(r.url)).length;
+  const show = async () => {
+    const n = await cachedCount();
+    status.textContent = n >= total ? `Ready offline ✓ (${n}/${total} photos)` : `Saving photos for offline ${n}/${total}…`;
+    return n >= total;
+  };
+  // ทีละรูป: เพื่อให้ service worker เขียนแคชทีละรายการ
+  const warm = async () => {
+    await navigator.serviceWorker.ready;
+    for (const k of Object.keys(IMAGES)) { await fetch(imgUrl(k), { mode: "cors" }).catch(() => {}); await show(); }
+    if (!(await show())) status.textContent = `Saved ${await cachedCount()}/${total} photos · reopen this page while online`;
+  };
+  show();
+  setTimeout(warm, 1500);
+}
+
+const heroImg = document.getElementById("hero-img");
+heroImg.src = imgUrl("jiuzhai");
+heroImg.onerror = () => heroImg.remove();
+const refreshActiveDay = trackActiveDay();
+function renderTrip() {
+  renderFlights();
+  renderDays();
+  refreshActiveDay();
+}
+renderCountdown();
+renderTrip();
+document.getElementById("edit-btn").onclick = openSettings;
+document.getElementById("plan-btn").onclick = showPlan;
+document.querySelector(".day.today")?.scrollIntoView();
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
+    document.getElementById("offline-status").textContent = "Offline mode is not available here";
+  });
+} else {
+  document.getElementById("offline-status").textContent = "Offline mode is not available here";
+}
+</script>
+</body>
+</html>
