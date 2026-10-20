@@ -325,7 +325,8 @@ const HOTELS = {
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
-// map query → Thai stop name and GCJ-02 [lng, lat] for the day route; places without a known point (most hotels) are left off
+// map query → Thai stop name and GCJ-02 [lng, lat] for the day route; places without a known point are left off
+// hotel points are Ctrip's GD coordinates, except Kuanzhai which is Amap's own
 const PLACES = {
   "成都天府国际机场":       { th:"สนามบินเทียนฟู่ T1", at:[104.443079, 30.313466] },
   "成都太古里":            { th:"ไท่กู๋หลี่", at:[104.083496, 30.653415] },
@@ -348,6 +349,10 @@ const PLACES = {
   "锦里古街":              { th:"ถนนโบราณจิ่นหลี่", at:[104.049975, 30.646344] },
   "武侯祠":                { th:"ศาลเจ้าอู่โหว", at:[104.048115, 30.645379] },
   "春熙路":                { th:"ถนนชุนซี", at:[104.077822, 30.656778] },
+  [HOTELS.atour.zh]:       { th:"โรงแรม Atour ไท่กู๋หลี่", at:[104.084653, 30.650239] },
+  [HOTELS.heishui.zh]:     { th:"ที่พักกวนซานซู่ เฮยสุ่ย", at:[102.979133, 32.091264] },
+  [HOTELS.jiuzhai.zh]:     { th:"โรงแรมรีเซน จิ่วจ้ายโกว", at:[103.913108, 33.267419] },
+  [HOTELS.kuanzhai.zh]:    { th:"โรงแรมชวนสิงอิ่นหลี่ ควานไจ๋", at:[104.045375, 30.664015] },
 };
 
 // a day with needs:"<id>" says so in its subtitle until the item is ticked
@@ -447,9 +452,14 @@ const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
-// first stop → last stop through every stop between; phones are redirected to m.amap.com, which offers to open the app
-const dayRouteUrl = events => {
-  const pins = [...new Set(events.map(ev => PLACES[ev.map]).filter(Boolean))];
+// morning hotel → every stop → that night's hotel; phones are redirected to m.amap.com, which offers to open the app
+const dayRouteUrl = (date, events) => {
+  const hotels = Object.values(HOTELS);
+  const morning = hotels.find(h => h.checkIn < date && date <= h.checkOut);
+  const night = hotels.find(h => h.checkIn <= date && date < h.checkOut);
+  const pins = [morning?.zh, ...events.map(ev => ev.map), night?.zh]
+    .map(q => PLACES[q]).filter(Boolean)
+    .filter((p, i, all) => p !== all[i - 1]);
   if (pins.length < 2) return null;
   const q = new URLSearchParams({ type:"car", policy:"1" });
   const put = (key, p) => { q.set(`${key}[lnglat]`, p.at.join(",")); q.set(`${key}[name]`, p.th); };
@@ -612,7 +622,7 @@ function renderDays() {
     const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
     const sub = el("div", "dsub");
     sub.append(el("span", "", dayNote(d)));
-    const url = dayRouteUrl(events);
+    const url = dayRouteUrl(d.date, events);
     if (url) {
       const a = iconButton("a", ICONS.pin, "Open this day's route in Amap", "Route");
       Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
