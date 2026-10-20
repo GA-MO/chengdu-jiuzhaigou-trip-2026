@@ -55,6 +55,13 @@
   nav a.active { color:var(--ink); }
   nav a.active .peak { width:11px; height:11px; margin:-5.5px 0 0 -5.5px; background:var(--larch); border-color:var(--larch); box-shadow:0 0 0 4px var(--larch-soft); }
   nav a.today small { color:var(--larch); font-weight:650; }
+  nav a.today .peak { background:var(--larch); border-color:var(--larch); }
+  /* opening: the ridge draws left to right and a gold dot climbs with it to today */
+  nav.intro .ridge { animation:ridge-draw var(--intro-ms) linear both; }
+  nav.intro .peak { animation:peak-in .25s ease-out both; animation-delay:calc(var(--intro-ms) * var(--at)); }
+  .climber { position:absolute; left:0; top:0; z-index:1; width:11px; height:11px; margin:-5.5px 0 0 -5.5px; border-radius:50%; background:var(--larch); box-shadow:0 0 0 4px var(--larch-soft); pointer-events:none; }
+  @keyframes ridge-draw { from { clip-path:inset(0 100% 0 0); } to { clip-path:inset(0 0 0 0); } }
+  @keyframes peak-in { from { opacity:0; transform:scale(.3); } to { opacity:1; transform:scale(1); } }
 
   h2.block { margin:52px 0 16px; font-size:2rem; line-height:1.05; }
   .card { background:var(--paper); border-radius:var(--r-card); padding:18px 20px; margin:12px 0; box-shadow:var(--shadow); }
@@ -140,6 +147,8 @@
   .icon-btn svg { width:18px; height:18px; stroke-width:1.6; }
   .icon-btn:active { transform:scale(.94); }
   .icon-btn.done { color:var(--ok); }
+  .icon-btn.done svg { animation:pop .28s cubic-bezier(.3,1.6,.5,1) both; }
+  @keyframes pop { from { opacity:0; transform:scale(.4); } to { opacity:1; transform:scale(1); } }
 
   table { width:100%; font-variant-numeric:tabular-nums; border-collapse:collapse; font-size:.88rem; }
   td:first-child { font-weight:600; }
@@ -158,6 +167,10 @@
   #offline-status { margin:0 0 6px; font-weight:600; color:var(--ink); }
   .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
   .overlay .big { font-family:var(--zh); font-size:clamp(2rem,10vw,3.4rem); line-height:1.3; font-weight:600; word-break:break-all; }
+  .overlay { animation:fade-in .16s ease-out both; }
+  .overlay .big { animation:grow-in .26s cubic-bezier(.2,.9,.3,1) both; }
+  @keyframes fade-in { from { opacity:0; } }
+  @keyframes grow-in { from { opacity:0; transform:scale(.88); } }
   .overlay small { color:var(--mute); font-size:.9rem; }
   .overlay button { min-height:48px; padding:0 30px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
   .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
@@ -171,7 +184,7 @@
   .viewer button { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--paper); color:var(--ink); font:inherit; font-weight:650; cursor:pointer; box-shadow:0 2px 10px rgb(0 0 0 / 30%); }
   :focus-visible { outline:2px solid var(--larch); outline-offset:3px; }
   @media (min-width:640px) { .card { padding:24px 28px; } .cover { margin:0; min-height:300px; border-radius:var(--r-card); } .cover h2 { font-size:2.5rem; } }
-  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { transition:none !important; animation:none !important; } }
   .sheet { position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:var(--snow); padding:0 16px calc(40px + env(safe-area-inset-bottom)); }
   .sheet > * { max-width:760px; margin-left:auto; margin-right:auto; }
   .sheet-bar { position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between; margin:0 -16px !important; max-width:none !important; padding:calc(8px + env(safe-area-inset-top)) 16px 8px;
@@ -565,7 +578,7 @@ function renderDays() {
     sec.append(ul);
     root.append(sec);
     const dt = dateOf(d.date);
-    const a = el("a", "", `<span class="peak" style="top:${ridgeY(d.alt)}px"></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
+    const a = el("a", "", `<span class="peak" style="top:${ridgeY(d.alt)}px; --at:${(i + .5) / DAYS.length}"></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
     a.title = `Up to ${d.alt.toLocaleString("en")} m`;
     if (d.date === today) a.classList.add("today");
     a.style.gridColumn = i + 1;
@@ -586,6 +599,36 @@ function ridge() {
     <path d="M0,${RIDGE_H} L0,${first} L${pts.join(" L")} L${DAYS.length},${last} L${DAYS.length},${RIDGE_H} Z"/>
     <polyline points="0,${first} ${pts.join(" ")} ${DAYS.length},${last}"/></svg>`);
   return wrap.firstElementChild;
+}
+
+// plays on the first open of each day only, so daily use during the trip is not slowed down
+const INTRO_KEY = "chengdu-trip-intro", INTRO_MS = 600;
+function playRidgeIntro() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const today = todayIso();
+  try { if (localStorage.getItem(INTRO_KEY) === today) return; localStorage.setItem(INTRO_KEY, today); } catch (_) { /* โหมดส่วนตัว: เล่นทุกครั้ง */ }
+  const nav = document.getElementById("nav");
+  nav.style.setProperty("--intro-ms", `${INTRO_MS}ms`);
+  nav.classList.add("intro");
+  setTimeout(() => nav.classList.remove("intro"), INTRO_MS + 300);
+
+  const links = [...nav.querySelectorAll("a")];
+  const end = links.findIndex(a => a.classList.contains("today"));
+  if (end < 1) return;
+  const box = nav.getBoundingClientRect(), ridgeBox = nav.querySelector(".ridge").getBoundingClientRect();
+  const pts = links.slice(0, end + 1).map(a => {
+    const r = a.querySelector(".peak").getBoundingClientRect();
+    return { x: r.left + r.width / 2 - box.left, y: r.top + r.height / 2 - box.top };
+  });
+  // the ridge is revealed linearly left to right, so timing by x keeps the dot on the line's leading edge
+  const reveal = x => (x - (ridgeBox.left - box.left)) / ridgeBox.width;
+  const from = reveal(pts[0].x), to = reveal(pts[end].x);
+  const climber = el("span", "climber");
+  nav.append(climber);
+  climber.animate(
+    pts.map(p => ({ transform: `translate(${p.x}px, ${p.y}px)`, offset: (reveal(p.x) - from) / (to - from) })),
+    { duration: INTRO_MS * (to - from), delay: INTRO_MS * from, easing: "linear", fill: "backwards" }
+  ).finished.then(() => climber.remove());
 }
 
 function renderFlights() {
@@ -795,6 +838,7 @@ renderTrip();
 setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
 document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("plan-btn").onclick = showPlan;
+playRidgeIntro();
 (document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
