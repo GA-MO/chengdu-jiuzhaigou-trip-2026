@@ -325,7 +325,7 @@ const HOTELS = {
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
-// map query → Thai pin label and GCJ-02 [lng, lat] for the day map; places without a known point (most hotels) are left off
+// map query → Thai stop name and GCJ-02 [lng, lat] for the day route; places without a known point (most hotels) are left off
 const PLACES = {
   "成都天府国际机场":       { th:"สนามบินเทียนฟู่ T1", at:[104.443079, 30.313466] },
   "成都太古里":            { th:"ไท่กู๋หลี่", at:[104.083496, 30.653415] },
@@ -447,10 +447,16 @@ const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
-const dayMapUrl = events => {
+// first stop → last stop through every stop between; phones are redirected to m.amap.com, which offers to open the app
+const dayRouteUrl = events => {
   const pins = [...new Set(events.map(ev => PLACES[ev.map]).filter(Boolean))];
   if (pins.length < 2) return null;
-  return `https://uri.amap.com/marker?markers=${pins.map(p => `${p.at.join(",")},${encodeURIComponent(p.th)}`).join("|")}&src=chengdu-trip&callnative=1`;
+  const q = new URLSearchParams({ type:"car", policy:"1" });
+  const put = (key, p) => { q.set(`${key}[lnglat]`, p.at.join(",")); q.set(`${key}[name]`, p.th); };
+  put("from", pins[0]);
+  put("to", pins.at(-1));
+  pins.slice(1, -1).forEach((p, i) => put(`via[${i}]`, p));
+  return `https://ditu.amap.com/dir?${q}`;
 };
 const dateOf = iso => new Date(iso + "T00:00:00");
 const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
@@ -606,9 +612,9 @@ function renderDays() {
     const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
     const sub = el("div", "dsub");
     sub.append(el("span", "", dayNote(d)));
-    const url = dayMapUrl(events);
+    const url = dayRouteUrl(events);
     if (url) {
-      const a = iconButton("a", ICONS.pin, "Open this day's stops in Amap", "Day map");
+      const a = iconButton("a", ICONS.pin, "Open this day's route in Amap", "Route");
       Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
       sub.append(a);
     }
