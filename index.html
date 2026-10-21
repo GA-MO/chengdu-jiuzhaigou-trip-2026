@@ -110,6 +110,10 @@
   .dlabel { font-size:.8rem; font-weight:500; letter-spacing:.02em; color:rgb(255 255 255 / 84%); }
   .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 3px rgb(180 134 47 / 35%); }
   .cover h2 { margin:6px 0 0; font-size:2rem; font-weight:450; line-height:1.04; letter-spacing:-.015em; text-wrap:balance; }
+  /* Thai reading in brackets after a place name: smaller and quieter than the name */
+  .th { font-family:var(--sans); font-weight:450; letter-spacing:0; opacity:.78; white-space:nowrap; }
+  .cover h2 .th { font-size:.5em; }
+  .t .th { font-size:.94em; }
   .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
   .dsub .icon-btn { flex:none; }
   .not-booked { color:var(--warn); font-weight:600; }
@@ -259,17 +263,18 @@
   <div class="card">
     <table>
       <tr><th>Place</th><th>Open</th><th>Altitude</th></tr>
-      <tr><td>Bipenggou</td><td>08:30–18:00</td><td>2,800–3,300 m</td></tr>
-      <tr><td>Dagu Glacier</td><td>08:30–18:00</td><td>3,000–4,860 m</td></tr>
-      <tr><td>Jiuzhaigou</td><td>07:30–17:30</td><td>2,000–3,100 m</td></tr>
+      <tr><td>Bipenggou <span class="th">(ปี้เผิงโกว)</span></td><td>08:30–18:00</td><td>2,800–3,300 m</td></tr>
+      <tr><td>Dagu Glacier <span class="th">(ต๋ากู่)</span></td><td>08:00–17:30</td><td>3,000–4,860 m</td></tr>
+      <tr><td>Jiuzhaigou <span class="th">(จิ่วจ้ายโกว)</span></td><td>07:30–18:00</td><td>2,000–3,100 m</td></tr>
     </table>
     <div class="sub">November weather and sun times</div>
+    <p class="flight-note">Sun times are for a flat horizon; in a valley the sun goes behind the mountains earlier. Jiuzhaigou: entry 07:30–14:00.</p>
     <table>
       <tr><th>City</th><th>Temp</th><th>Rise</th><th>Set</th></tr>
-      <tr><td>Chengdu</td><td>8–15°C</td><td>07:10</td><td>18:00</td></tr>
-      <tr><td>Heishui</td><td>2–10°C</td><td>07:05</td><td>17:55</td></tr>
-      <tr><td>Dagu Glacier</td><td>−10–0°C</td><td>–</td><td>–</td></tr>
-      <tr><td>Jiuzhaigou</td><td>−1–10°C</td><td>07:00</td><td>17:40</td></tr>
+      <tr><td>Chengdu <span class="th">(เฉิงตู)</span></td><td>8–15°C</td><td>07:23</td><td>18:12</td></tr>
+      <tr><td>Heishui <span class="th">(เฮยสุ่ย)</span></td><td>2–10°C</td><td>07:30</td><td>18:14</td></tr>
+      <tr><td>Dagu Glacier <span class="th">(ต๋ากู่)</span></td><td>−10–0°C</td><td>–</td><td>–</td></tr>
+      <tr><td>Jiuzhaigou <span class="th">(จิ่วจ้ายโกว)</span></td><td>−1–10°C</td><td>07:30</td><td>18:07</td></tr>
     </table>
   </div>
 
@@ -317,10 +322,10 @@ const FLIGHTS = [
 
 // checkOut is the morning after the last night
 const HOTELS = {
-  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", name:"Atour Hotel (Chengdu Taikoo Li Dacisi)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
-  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", name:"Heishui Guanshan Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
-  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju Hotel (Jiuzhaigou Tourist Center)", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
-  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", name:"Chuanxing Yinli Hotel (Kuanzhai Alley, Chengdu)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
+  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
+  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
+  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
@@ -329,7 +334,7 @@ const hotelEv = (time, key) => { const h = HOTELS[key];
 // hotel points are Ctrip's GD coordinates, except Kuanzhai which is Amap's own
 const PLACES = {
   "成都天府国际机场":       { th:"สนามบินเทียนฟู่ T1", at:[104.443079, 30.313466] },
-  "成都太古里":            { th:"ไท่กู๋หลี่", at:[104.083496, 30.653415] },
+  "成都太古里":            { th:"ไท่กู่หลี่", at:[104.083496, 30.653415] },
   "成都国金中心":          { th:"IFS แพนด้าปีนตึก", at:[104.081598, 30.655321] },
   "绵虒服务区":            { th:"จุดพักรถเหมียนซือ", at:[103.48332, 31.332599] },
   "毕棚沟景区":            { th:"ปี้เผิงโกว", at:[102.979627, 31.412521] },
@@ -337,12 +342,12 @@ const PLACES = {
   "九寨沟景区":            { th:"ทางเข้าจิ่วจ้ายโกว", at:[103.918969, 33.266901] },
   "九寨沟长海":            { th:"ทะเลสาบฉางไห่", at:[103.934068, 33.041414] },
   "九寨沟五彩池":          { th:"สระห้าสี", at:[103.932598, 33.046529] },
-  "诺日朗瀑布":            { th:"น้ำตกนั่วรื่อหลาง", at:[103.906999, 33.162815] },
+  "诺日朗瀑布":            { th:"น้ำตกนั่วรื่อหล่าง", at:[103.906999, 33.162815] },
   "九寨沟五花海":          { th:"ทะเลสาบอู่ฮัวไห่", at:[103.880462, 33.155493] },
   "珍珠滩瀑布":            { th:"หาดไข่มุก", at:[103.887165, 33.166371] },
   "树正群海":              { th:"หุบเขาซู่เจิ้ง", at:[103.90125, 33.198653] },
   "红原月亮湾":            { th:"อ่าวพระจันทร์ หงหยวน", at:[102.50565, 32.785087] },
-  "川主寺镇":              { th:"ฉวนจู่ซื่อ", at:[103.627255, 32.781092] },
+  "川主寺镇":              { th:"ชวนจู่ซื่อ", at:[103.627255, 32.781092] },
   "黄龙九寨站":            { th:"สถานีหวงหลงจิ่วจ้าย", at:[103.615484, 32.745392] },
   "成都东站":              { th:"สถานีเฉิงตูตะวันออก", at:[104.141407, 30.62874] },
   "成都大熊猫繁育研究基地": { th:"ศูนย์วิจัยแพนด้า", at:[104.135457, 30.740846] },
@@ -351,82 +356,83 @@ const PLACES = {
   "锦里古街":              { th:"ถนนโบราณจิ่นหลี่", at:[104.049975, 30.646344] },
   "武侯祠":                { th:"ศาลเจ้าอู่โหว", at:[104.048115, 30.645379] },
   "春熙路":                { th:"ถนนชุนซี", at:[104.077822, 30.656778] },
-  [HOTELS.atour.zh]:       { th:"โรงแรม Atour ไท่กู๋หลี่", at:[104.084653, 30.650239] },
+  [HOTELS.atour.zh]:       { th:"โรงแรม Atour ไท่กู่หลี่", at:[104.084653, 30.650239] },
   [HOTELS.heishui.zh]:     { th:"ที่พักกวนซานซู่ เฮยสุ่ย", at:[102.979133, 32.091264] },
   [HOTELS.jiuzhai.zh]:     { th:"โรงแรมรีเซน จิ่วจ้ายโกว", at:[103.913108, 33.267419] },
-  [HOTELS.kuanzhai.zh]:    { th:"โรงแรมชวนสิงอิ่นหลี่ ควานไจ๋", at:[104.045375, 30.664015] },
+  [HOTELS.kuanzhai.zh]:    { th:"โรงแรมชวนสิงอิ่นหลี่ ควานไจ่", at:[104.045375, 30.664015] },
 };
 
 // a day with needs:"<id>" says so in its subtitle until the item is ticked
 const OPEN_ITEMS = [
   { id:"car-west", label:"car not booked", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
   { id:"car-airport", label:"car not booked", text:"Car to Tianfu airport on 14 Nov." },
+  { id:"jiuzhai-tickets", label:"park tickets not booked", text:"Jiuzhaigou ticket + park bus for 10 Nov (¥190 + ¥90 each): real-name booking in the WeChat mini program 九寨沟旅游官方平台, 7–14 days ahead. No booking, no entry." },
   { id:"checkin-times", text:"Check-in time at each hotel." },
 ];
 
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m
 const DAYS = [
-  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu", sub:"Fly in, check in, then stroll near the hotel", events:[
+  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu (เฉิงตู)", sub:"Fly in, check in, then stroll near the hotel", events:[
     { flight:0, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
-    { time:"Evening", text:"Stroll Taikoo Li", zh:"成都太古里", map:"成都太古里" },
-    { time:"Evening", text:"IFS Panda · Chunxi Road", zh:"成都国金中心", map:"成都国金中心" },
-    { time:"Night", text:"Sichuan hotpot" },
+    { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", zh:"成都太古里", map:"成都太古里" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", zh:"成都国金中心", map:"成都国金中心" },
+    { time:"Night", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
-    { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou: 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
-    { time:"07:45", text:"Rest stop at Mianchi Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区", map:"绵虒服务区" },
-    { time:"09:45", text:"Arrive at Bipenggou, buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
+  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu (เฉิงตู) → Bipenggou (ปี้เผิงโกว) → Heishui (เฮยสุ่ย)", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
+    { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
+    { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区", map:"绵虒服务区" },
+    { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
     { time:"10:15", text:"Explore Bipenggou for about 5 h", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
-    { time:"15:15", text:"Leave the park → Heishui", detail:"199 km, about 2 h 50 min via G4217, the G0615 Dekang Expressway and G347. Leave by 16:00 at the latest to reach the hotel before 19:00." },
+    { time:"15:15", text:"Leave the park → Heishui (เฮยสุ่ย)", detail:"199 km, about 2 h 50 min via G4217, the G0615 Dekang Expressway and G347. Leave by 16:00 at the latest to reach the hotel before 19:00." },
     hotelEv("~18:15", "heishui"),
     { time:"19:00", text:"Yak meat hotpot" },
   ]},
-  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", sub:"~434 km, about 7 h 40 min of driving", needs:"car-west", events:[
-    { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier ticket office is 5 km away, about 10 min" },
-    { time:"08:00", text:"Dagu Glacier: tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川", map:"达古冰川景区" },
+  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui (เฮยสุ่ย) → Dagu Glacier (ต๋ากู่) → Jiuzhaigou (จิ่วจ้ายโกว)", sub:"~434 km, about 7 h 40 min of driving", needs:"car-west", events:[
+    { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
+    { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川", map:"达古冰川景区" },
     { time:"~09:10", text:"Summit, 30–45 min", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
     { time:"~11:15", text:"Back at the visitor centre · take lunch to eat in the car" },
-    { time:"11:30", text:"Drive to Jiuzhaigou (429 km, about 7 h 20 min of driving)", detail:"Via G347, Hongyuan and the Jiuhong grassland road past Songpan. Sunset is about 18:05, so the last hour, including the Gonggangling pass (~3,700 m, can be icy in November), is after dark. Every extra 10 min at Dagu or on the road is 10 min later at the hotel." },
-    { time:"~14:05", text:"Photo stop: Moon Bay, Hongyuan (10 min)", detail:"Viewing deck by the road, parking ¥10", zh:"月亮湾", map:"红原月亮湾" },
-    { time:"~17:40", text:"Toilet and fuel: Chuanzhusi (10 min)", detail:"Last town before Jiuzhaigou", zh:"川主寺镇", map:"川主寺镇" },
+    { time:"11:30", text:"Drive to Jiuzhaigou (จิ่วจ้ายโกว) (429 km, about 7 h 20 min of driving)", detail:"Via G347, Hongyuan (หงหยวน) and the Jiuhong (จิ่วหง) grassland road past Songpan (ซงพาน). Sunset is about 18:07, so the last hour, including the Gonggangling (กงก้างหลิ่ง) pass (~3,700 m, can be icy in November), is after dark. Every extra 10 min at Dagu or on the road is 10 min later at the hotel." },
+    { time:"~14:05", text:"Photo stop: Moon Bay (เยว่เลี่ยงวาน), Hongyuan (หงหยวน) (10 min)", detail:"Viewing deck by the road, parking ¥10", zh:"月亮湾", map:"红原月亮湾" },
+    { time:"~17:40", text:"Toilet and fuel: Chuanzhusi (ชวนจู่ซื่อ) (10 min)", detail:"Last town before Jiuzhaigou", zh:"川主寺镇", map:"川主寺镇" },
     hotelEv("~19:20", "jiuzhai"),
   ]},
-  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou", sub:"Open 07:30–17:30 · shuttle buses inside the park", events:[
-    { time:"07:20", text:"Enter the park", zh:"九寨沟景区", map:"九寨沟景区" },
-    { time:"07:30", text:"Long Lake (ride up to the highest point first)", map:"九寨沟长海" },
-    { time:"09:30", text:"Five Color Pond", map:"九寨沟五彩池" },
-    { time:"10:30", text:"Nuorilang Waterfall", map:"诺日朗瀑布" },
-    { time:"11:30", text:"Lunch at Nuorilang" },
-    { time:"12:30", text:"Five Flower Lake", map:"九寨沟五花海" },
-    { time:"13:30", text:"Pearl Shoal", map:"珍珠滩瀑布" },
-    { time:"14:30", text:"Shuzheng Valley", map:"树正群海" },
-    { time:"16:30", text:"Leave the park (closes 17:30)" },
+  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou (จิ่วจ้ายโกว)", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
+    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", zh:"九寨沟景区", map:"九寨沟景区" },
+    { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
+    { time:"~09:15", text:"Five Color Pond (อู่ไฉ่ฉือ)", detail:"Walk 1.2 km down the boardwalk from Long Lake", map:"九寨沟五彩池" },
+    { time:"10:30", text:"Nuorilang (นั่วรื่อหล่าง) Waterfall", detail:"Park bus about 25 min from Five Color Pond", map:"诺日朗瀑布" },
+    { time:"11:30", text:"Lunch at Nuorilang (นั่วรื่อหล่าง)" },
+    { time:"12:30", text:"Five Flower Lake (อู่ฮัวไห่)", detail:"Park bus about 10 min from Nuorilang", map:"九寨沟五花海" },
+    { time:"13:30", text:"Pearl Shoal (เจินจูทาน)", detail:"Walk 1.9 km down the boardwalk from Five Flower Lake", map:"珍珠滩瀑布" },
+    { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
+    { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
-  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", sub:"Bus, then first-class train back to Chengdu", events:[
-    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai station (2 people)", detail:"92 km, about 2 h by road · ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
-    { time:"12:14", text:"Train C5764 first class from 黄龙九寨", detail:"Arrives 成都东 (Chengdu East) 14:15 · 2 h 1 min", ref:"", zh:"成都东站", map:"成都东站" },
+  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou (จิ่วจ้ายโกว) → train → Chengdu (เฉิงตู)", sub:"Bus, then first-class train back to Chengdu", events:[
+    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"92 km, about 2 h by road · ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min", ref:"", zh:"成都东站", map:"成都东站" },
     hotelEv("After 14:15", "kuanzhai"),
-    { time:"19:00", text:"Dinner at Kuanzhai Alley (walk from the hotel)" },
+    { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ), a walk from the hotel" },
   ]},
-  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu (เฉิงตู)", sub:"Pandas, a temple and shopping", events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
-    { time:"11:30", text:"Wenshu Monastery", zh:"文殊院", map:"文殊院" },
+    { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
-    { time:"15:00", text:"Coffee at Taikoo Li", zh:"成都太古里", map:"成都太古里" },
+    { time:"15:00", text:"Coffee at Taikoo Li (ไท่กู่หลี่)", zh:"成都太古里", map:"成都太古里" },
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
-    { time:"19:00", text:"Sichuan hotpot" },
+    { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu", sub:"Old town walk and shopping", events:[
-    { time:"09:00", text:"Jinli Ancient Street", zh:"锦里古街", map:"锦里古街" },
-    { time:"11:30", text:"Wuhou Shrine", zh:"武侯祠", map:"武侯祠" },
+  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu (เฉิงตู)", sub:"Old town walk and shopping", events:[
+    { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
+    { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", zh:"武侯祠", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
-    { time:"14:30", text:"Shopping / cafes on Chunxi Road", zh:"春熙路", map:"春熙路" },
+    { time:"14:30", text:"Shopping / cafes on Chunxi Road (ชุนซีลู่)", zh:"春熙路", map:"春熙路" },
     { time:"18:00", text:"Dinner" },
     { time:"19:30", text:"Stroll / relax" },
   ]},
-  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
-    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
+  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu (เฉิงตู) → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
+    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
   ]},
 ];
@@ -455,6 +461,7 @@ const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${
 const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base.flight === undefined ? ev : { ...ev, ...flightSummary(flightAt(base.flight)) }; };
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const withReadings = s => esc(s).replace(/\(([฀-๿][^)]*)\)/g, '<span class="th">($1)</span>');
 // a known point opens as a pin with its Thai name; anything else falls back to Amap's search, which may ask for a login
 const amapUrl = q => {
   const p = PLACES[q];
@@ -585,7 +592,7 @@ function eventBody(ev) {
     head.append(tools);
   }
   const txt = el("div", "txt");
-  txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${esc(ev.text)}`));
+  txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${withReadings(ev.text)}`));
   if (ev.detail) txt.append(el("div", "detail", esc(ev.detail)));
   if (ev.ref) txt.append(copyRow(el("span", "ref", `Booking no. <b>${esc(ev.ref)}</b>`), "Copy booking number", ev.ref));
   if (ev.zh) {
@@ -637,7 +644,7 @@ function renderDays() {
     sec.id = id;
     const cover = el("div", "cover");
     cover.append(photo(d.cover, ""));
-    cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2>`));
+    cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${withReadings(d.title)}</h2>`));
     const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
     const sub = el("div", "dsub");
     sub.append(el("span", "", dayNote(d)));
