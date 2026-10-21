@@ -43,9 +43,10 @@
   .cd:empty { display:none; }
   .hero .cd p { margin:0; padding:0; border:0; max-width:none; }
   .hero .cd-cap { display:flex; align-items:center; gap:10px; margin:0 0 10px; font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#e2c48a; }
-  .cd-cap::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,rgb(226 196 138 / 60%),transparent); }
-  .cd-units { display:flex; align-items:flex-end; gap:clamp(10px,4vw,22px); }
-  .cd-unit { display:flex; flex-direction:column; align-items:flex-start; min-width:2ch; }
+  .cd-cap::before, .cd-cap::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgb(226 196 138 / 60%)); }
+  .cd-cap::after { background:linear-gradient(90deg,rgb(226 196 138 / 60%),transparent); }
+  .cd-units { display:flex; justify-content:center; align-items:flex-end; gap:clamp(10px,4vw,22px); }
+  .cd-unit { display:flex; flex-direction:column; align-items:center; min-width:2ch; }
   .cd-unit b { font-family:var(--serif); font-size:clamp(2.6rem,12vw,3.8rem); font-weight:450; line-height:.9; letter-spacing:-.02em; font-variant-numeric:lining-nums tabular-nums; }
   .cd-unit small { margin-top:6px; font-size:.62rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgb(255 255 255 / 70%); }
   .cd-sep { align-self:flex-start; margin-top:.35em; width:1px; height:clamp(2rem,9vw,2.9rem); background:rgb(255 255 255 / 28%); }
@@ -53,14 +54,12 @@
   .cd-trip b { font-family:var(--serif); font-size:clamp(2.6rem,12vw,3.8rem); font-weight:450; line-height:.9; }
   .cd-trip b small { font-size:.45em; color:rgb(255 255 255 / 60%); }
   .hero .cd-trip p:last-child:not(.cd-cap) { margin-top:8px; font-size:.9rem; }
-  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:var(--r-pill); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
-  .edit-btn svg { width:18px; height:18px; stroke-width:1.6; }
   .hero-tools { display:flex; gap:8px; margin-left:auto; }
   .guide-btn { display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 16px 0 14px; color:#fff; font-size:.85rem; font-weight:600; text-decoration:none; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:var(--r-pill); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); -webkit-tap-highlight-color:transparent; }
   .guide-btn svg { width:17px; height:17px; stroke-width:1.6; }
-  .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 20px 34px; }
+  .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 20px 34px; text-align:center; }
   .hero h1 { margin:0; font-size:clamp(2.9rem,14vw,4.6rem); font-weight:450; line-height:.98; letter-spacing:-.02em; text-wrap:balance; }
-  .hero p { margin:16px 0 0; padding-top:14px; border-top:1px solid rgb(255 255 255 / 28%); font-size:.9rem; letter-spacing:.01em; color:rgb(255 255 255 / 86%); max-width:44ch; }
+  .hero p { margin:16px auto 0; padding-top:14px; border-top:1px solid rgb(255 255 255 / 28%); font-size:.9rem; letter-spacing:.01em; color:rgb(255 255 255 / 86%); max-width:44ch; }
 
   /* day strip: an altitude ridge through each day's highest point */
   nav { position:sticky; top:0; z-index:10; display:grid; grid-template-columns:repeat(8,1fr); margin:0 -20px; padding:calc(10px + env(safe-area-inset-top)) 14px 8px;
@@ -230,7 +229,6 @@
   /* 说: the phrase sheet from anywhere, bottom right */
   .say-fab { position:fixed; z-index:92; right:calc(16px + env(safe-area-inset-right)); bottom:calc(16px + env(safe-area-inset-bottom)); width:58px; height:58px; display:grid; place-items:center; padding:0 0 3px; border:0; border-radius:var(--r-field); background:var(--lake-deep); color:#fff; box-shadow:inset 0 -3px 0 var(--larch), 0 10px 24px -8px rgb(14 44 48 / 55%); font-family:var(--zh); font-size:1.65rem; font-weight:600; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:transform .12s; }
   .say-fab:active { transform:scale(.94); }
-  body:has(.edit-sheet) .say-fab { display:none; }
   .ps-scrim { position:fixed; inset:0; z-index:95; background:rgb(14 44 48 / 40%); animation:fade-in .16s ease-out both; }
   .ps { position:fixed; z-index:96; left:0; right:0; bottom:0; max-width:760px; max-height:min(88svh,900px); margin:0 auto; display:flex; flex-direction:column; background:var(--snow); border-radius:var(--r-card) var(--r-card) 0 0; box-shadow:0 -12px 40px -20px rgb(14 44 48 / 50%); animation:sheet-up .24s cubic-bezier(.2,.9,.3,1) both; }
   @keyframes sheet-up { from { transform:translateY(40%); opacity:0; } }
@@ -303,26 +301,7 @@
   .sheet-bar { position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between; margin:0 -16px !important; max-width:none !important; padding:calc(8px + env(safe-area-inset-top)) 16px 8px;
           background:color-mix(in srgb,var(--snow) 88%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
   .sheet-bar h2 { margin:0; font-size:1.2rem; }
-  .save-status { flex:1; margin:0 12px; color:var(--ok); font-size:.8rem; font-weight:600; text-align:right; opacity:0; transition:opacity .3s; }
-  .save-status.show { opacity:1; }
-  .save-status.fail { color:var(--chili); }
   .sheet-bar button { min-height:44px; padding:0 22px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
-  .sheet-h { margin:22px auto 0; font-size:1.05rem; }
-  .edit-card { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px auto; padding:14px 16px; }
-  .edit-day { padding:0; }
-  .edit-day > summary { min-height:48px; padding:12px 16px; font-weight:650; font-size:.95rem; cursor:pointer; }
-  .edit-day[open] > summary { border-bottom:1px solid var(--line); }
-  .edit-day .edit-ev, .edit-day .edit-note { margin:0 16px; }
-  .edit-ev { padding:4px 0 14px; border-bottom:1px solid var(--line); }
-  .edit-ev:last-child { border-bottom:0; }
-  .edit-note { padding:12px 0; font-size:.85rem; color:var(--mute); }
-  .field-row { display:flex; gap:10px; }
-  .field-row .field { flex:1; min-width:0; }
-  .field-row .f-time { flex:0 0 34%; }
-  .field { display:block; margin-top:10px; }
-  .field > span { display:block; margin-bottom:4px; font-size:.78rem; color:var(--mute); }
-  .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
-  .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
   /* guide: a .sheet with two-row bar (back + title, then section pills) */
   .guide { padding-bottom:calc(150px + env(safe-area-inset-bottom)); }
   body:has(.guide) .say-fab { bottom:calc(74px + env(safe-area-inset-bottom)); }
@@ -390,7 +369,6 @@
   .gd-tip[open] summary::after { transform:rotate(-135deg); margin-top:4px; }
   .gd-tip h3 { margin:0; font-size:1.1rem; line-height:1.3; }
   .gd-tip p { margin:0; padding:0 20px 18px; font-size:.92rem; }
-  .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -399,7 +377,6 @@
   <div class="hero-top">
     <div class="hero-tools">
     <a class="guide-btn" href="#guide"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Guide</a>
-    <button class="edit-btn" id="edit-btn" type="button" aria-label="Edit trip details"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
     </div>
   </div>
   <div class="hero-inner">
@@ -722,8 +699,9 @@ const MONTH = "Nov";
 const STORE_KEY = "chengdu-trip-edits";
 let edits = {};
 try { const saved = JSON.parse(localStorage.getItem(STORE_KEY)); if (saved && typeof saved === "object" && !Array.isArray(saved)) edits = saved; } catch (_) { /* ข้อมูลเสีย: เริ่มจากแผนเดิม */ }
-let lastSaveOk = true;
-const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(edits)); lastSaveOk = true; } catch (_) { lastSaveOk = false; /* โหมดส่วนตัว: บันทึกไม่ได้ */ } };
+// the store keeps only what the reader chooses on this phone; edits to the plan from the old edit sheet are dropped
+for (const k of Object.keys(edits)) if (!["booked", "saved", "rate"].includes(k)) delete edits[k];
+const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(edits)); } catch (_) { /* โหมดส่วนตัว: บันทึกไม่ได้ */ } };
 // เวลาปัจจุบันมาจากที่เดียว เพื่อทดสอบด้วยการแทนที่ฟังก์ชันนี้ในคอนโซลได้
 function currentTime() { return new Date(); }
 const todayIso = () => currentTime().toLocaleDateString("en-CA");
@@ -799,11 +777,10 @@ const Saved = {
     document.dispatchEvent(new Event("saved-change"));
   },
 };
-const withEdits = (id, base) => ({ ...base, ...edits[id] });
-const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
+const flightAt = i => FLIGHTS[i];
 const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
-const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base.flight === undefined ? ev : { ...ev, ...flightSummary(flightAt(base.flight)) }; };
-const eventsOf = i => DAYS[i].events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
+const resolveEvent = base => base.flight === undefined ? base : { ...base, ...flightSummary(flightAt(base.flight)) };
+const eventsOf = i => DAYS[i].events.map(resolveEvent);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const withReadings = s => esc(s).replace(/\(([฀-๿][^)]*)\)/g, '<span class="th">($1)</span>');
@@ -1460,7 +1437,7 @@ function posterSvg() {
       const n = evs.length, slot = cw / n, railY = y + 96;
       const labels = evs.map((e, j) => {
         const f = e.flight !== undefined && flightAt(e.flight);
-        const text = edits[`d${i}e${j}`]?.text ? e.text : f ? `บิน ${f.no} ถึง${TH_CITY[f.to.code] ?? f.to.code} ${f.arrive}` : e.th ?? PLACES[e.map]?.th ?? e.text;
+        const text = f ? `บิน ${f.no} ถึง${TH_CITY[f.to.code] ?? f.to.code} ${f.arrive}` : e.th ?? PLACES[e.map]?.th ?? e.text;
         return wrap(text, "ev", slot - 8, 3);
       });
       p.push(`<path d="M${r1(x0 + slot / 2)},${railY}H${r1(x0 + cw - slot / 2)}" stroke="${C.line}" stroke-width="2"/>`);
@@ -1707,7 +1684,7 @@ function renderTonight() {
     if (HOTELS[base.hotel] !== night) return;
     const card = el("section", "card tonight", `<h2 class="tonight-h">Tonight · ${dateLabel(today)}</h2>`);
     card.setAttribute("aria-label", "Tonight's hotel");
-    card.append(eventBody(resolveEvent(`d${i}e${j}`, base)));
+    card.append(eventBody(resolveEvent(base)));
     root.append(card);
   }));
 }
@@ -1728,102 +1705,6 @@ function buildOpenItems() {
     return li;
   }));
   renderOpenItems();
-}
-
-// ช่องว่างในช่องเหล่านี้ = กลับไปใช้ค่าเดิม ไม่เช่นนั้นจะแสดงป้ายว่าง
-const REQUIRED_KEYS = new Set(["time", "text", "airline", "no", "depart", "arrive", "dur"]);
-function setEdit(id, key, value, baseValue) {
-  const next = { ...edits[id] };
-  if (value === baseValue || (value.trim() === "" && REQUIRED_KEYS.has(key))) delete next[key]; else next[key] = value;
-  if (Object.keys(next).length) edits[id] = next; else delete edits[id];
-  saveEdits();
-}
-
-function field(label, id, key, base, { multiline = false, cls = "" } = {}) {
-  const wrap = el("label", `field ${cls}`.trim(), `<span>${label}</span>`);
-  const input = el(multiline ? "textarea" : "input");
-  if (multiline) input.rows = key === "text" ? 2 : 1;
-  input.value = withEdits(id, base)[key] ?? "";
-  input.autocomplete = "off";
-  input.oninput = () => setEdit(id, key, input.value, base[key] ?? "");
-  wrap.append(input);
-  return wrap;
-}
-
-const fieldRow = (...fields) => { const row = el("div", "field-row"); row.append(...fields); return row; };
-
-function flightEditor(i) {
-  const base = FLIGHTS[i], id = `f${i}`;
-  const card = el("section", "edit-card", `<b>${base.from.code} → ${base.to.code} · ${dateLabel(base.date)}</b>`);
-  card.append(
-    fieldRow(field("Airline", id, "airline", base), field("Flight no.", id, "no", base)),
-    fieldRow(field("Departs", id, "depart", base), field("Arrives", id, "arrive", base), field("Duration", id, "dur", base)));
-  return card;
-}
-
-function eventEditor(base, id) {
-  if (base.flight !== undefined) return el("p", "edit-note", `${esc(flightSummary(flightAt(base.flight)).text)} · edit it in Flights above.`);
-  const box = el("div", "edit-ev");
-  box.setAttribute("role", "group");
-  box.setAttribute("aria-label", `${withEdits(id, base).time}, ${withEdits(id, base).text}`);
-  box.append(
-    fieldRow(field("Time", id, "time", base, { cls: "f-time" }), field("Title", id, "text", base, { multiline: true })),
-    field("Details", id, "detail", base, { multiline: true }));
-  if (base.hotel || "ref" in base) box.append(field("Booking no.", id, "ref", base));
-  return box;
-}
-
-function dayEditor(day, i) {
-  const card = el("details", "edit-card edit-day", `<summary>Day ${i + 1} · ${dateLabel(day.date)} · ${esc(day.title)}</summary>`);
-  card.append(...day.events.map((base, j) => eventEditor(base, `d${i}e${j}`)));
-  card.open = day.date === todayIso();
-  return card;
-}
-
-function openSettings() {
-  const sheet = el("div", "sheet edit-sheet");
-  sheet.setAttribute("role", "dialog");
-  sheet.setAttribute("aria-modal", "true");
-  sheet.setAttribute("aria-label", "Edit trip");
-  const opener = document.activeElement;
-  const scrollY0 = scrollY;
-  const done = el("button", "", "Done");
-  done.type = "button";
-  const reset = el("button", "reset", "Reset everything to the original plan");
-  reset.type = "button";
-  sheet.append(
-    el("div", "sheet-bar", "<h2>Edit trip</h2>"),
-    el("p", "flight-note", "Changes are saved on this phone only."),
-    el("h3", "sheet-h", "Flights"), ...FLIGHTS.map((_, i) => flightEditor(i)),
-    el("h3", "sheet-h", "Days"), ...DAYS.map(dayEditor),
-    reset);
-  const status = el("span", "save-status");
-  status.setAttribute("role", "status");
-  let statusTimer;
-  // field() saves in its own input handler, which runs before this bubbled one
-  sheet.addEventListener("input", () => {
-    clearTimeout(statusTimer);
-    status.textContent = lastSaveOk ? "Saved ✓" : "Not saved on this phone";
-    status.classList.toggle("fail", !lastSaveOk);
-    status.classList.add("show");
-    statusTimer = setTimeout(() => status.classList.remove("show"), 1500);
-  });
-  sheet.querySelector(".sheet-bar").append(status, done);
-  const close = () => {
-    sheet.remove();
-    document.body.style.overflow = "";
-    removeEventListener("keydown", onKey);
-    renderTrip();
-    scrollTo({ top: scrollY0, behavior: "instant" });
-    opener?.focus();
-  };
-  const onKey = e => { if (e.key === "Escape") close(); };
-  done.onclick = close;
-  reset.onclick = () => { if (confirm("Remove all your edits and restore the original plan?")) { edits = {}; saveEdits(); close(); } };
-  addEventListener("keydown", onKey);
-  document.body.style.overflow = "hidden";
-  document.body.append(sheet);
-  done.focus();
 }
 
 const itemCard = item => placeCard({ zh: item.zh, thai: item.th, addr: item.addr });
@@ -2315,7 +2196,6 @@ function renderTrip() {
 }
 renderTrip();
 setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
-document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("poster-btn").onclick = showPoster;
 renderTables();
 // the infographic measures its text to wrap it, so it is drawn again once its fonts have loaded
