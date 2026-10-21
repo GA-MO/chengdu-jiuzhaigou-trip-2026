@@ -185,8 +185,11 @@
   @keyframes pop { from { opacity:0; transform:scale(.4); } to { opacity:1; transform:scale(1); } }
 
   /* parks and weather: a card per stop */
-  .wx-list { display:grid; gap:10px; }
-  .wx { margin:0; padding:16px 18px; }
+  /* a side-scrolling row that bleeds to the screen edge; the next card peeks in to show there is more */
+  .wx-list { display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; margin:0 -20px; padding:4px 20px 14px; scroll-padding:0 20px; overscroll-behavior-x:contain; }
+  .wx-list::-webkit-scrollbar { display:none; }
+  .wx { flex:0 0 min(82%, 330px); margin:0; padding:16px 18px; scroll-snap-align:start; display:flex; flex-direction:column; }
+  @media (min-width:640px) { .wx-list { margin:0; padding:4px 0 14px; scroll-padding:0; } }
   .wx header { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
   .wx h3 { margin:0; font-size:1.3rem; line-height:1.2; }
   .wx h3 .th { margin-left:4px; font-size:.68em; color:var(--mute); }
@@ -197,8 +200,9 @@
   .wx-bar { position:relative; height:8px; border-radius:4px; background:var(--line-soft); }
   .wx-bar i { position:absolute; top:0; bottom:0; border-radius:4px; background:linear-gradient(90deg,#6f9fb3,#e2c48a 70%,#c9893a); }
   .wx-bar em { position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--mute); opacity:.5; }
-  .wx-facts { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:12px; font-size:.85rem; color:var(--mute); }
-  .wx-facts span { display:inline-flex; align-items:center; gap:6px; }
+  .wx-facts { display:flex; flex-direction:column; gap:7px; margin-top:12px; font-size:.85rem; color:var(--mute); }
+  .wx-facts > span { display:flex; align-items:flex-start; gap:7px; }
+  .wx-facts > span > svg { flex:none; margin-top:2px; }
   .wx-facts svg { width:16px; height:16px; stroke-width:1.5; color:var(--lake); }
   .wx-facts b { color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
   .wx-facts .wx-high, .wx-facts .wx-high svg { color:var(--warn); }
@@ -1246,9 +1250,9 @@ function renderTables() {
     const deg = t => `${t < 0 ? "−" : ""}${Math.abs(t)}°`;
     const temp = w ? `<div class="wx-temp"><b>${deg(lo)}</b><span class="wx-bar"><i style="left:${pct(lo)}%; right:${100 - pct(hi)}%"></i><em style="left:${pct(0)}%" title="0°"></em></span><b>${deg(hi)}</b></div>` : "";
     const facts = [
-      w && w.rise !== "–" ? `<span>${ICONS.sun}<b>${w.rise}</b> – <b>${w.set}</b></span>` : "",
-      park ? `<span>${ICONS.clock}Open <b>${park.open}</b>${park.last ? ` · entry until <b>${park.last}</b>` : ""}</span>` : "",
-      park ? `<span class="${park.alt[1] > SICK ? "wx-high" : ""}">${ICONS.mountain}<b>${park.alt.map(num).join("–")} m</b>${park.alt[1] > SICK ? " · altitude sickness risk" : ""}</span>` : "",
+      w && w.rise !== "–" ? `<span>${ICONS.sun}<span><b>${w.rise}</b> – <b>${w.set}</b></span></span>` : "",
+      park ? `<span>${ICONS.clock}<span>Open <b>${park.open}</b>${park.last ? ` · entry until <b>${park.last}</b>` : ""}</span></span>` : "",
+      park ? `<span class="${park.alt[1] > SICK ? "wx-high" : ""}">${ICONS.mountain}<span><b>${park.alt.map(num).join("–")} m</b>${park.alt[1] > SICK ? " · high altitude" : ""}</span></span>` : "",
     ].filter(Boolean).join("");
     return `<article class="card wx"><header><h3>${esc(stop.en)} <span class="th">${esc(info.th)}</span></h3><span class="chip">${esc(stop.when)}</span></header>${temp}<div class="wx-facts">${facts}</div></article>`;
   }).join("");
