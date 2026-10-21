@@ -40,7 +40,9 @@
             "Park free, open all day",
             "Tea from ¥16 per person",
             "Metro Line 2 People's Park, one stop from Tonghuimen"
-          ]
+          ],
+          "addr": "成都市少城路12号",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/5233721.html (鹤鸣茶社, 人民公园店)"
         },
         {
           "id": "dufu",
@@ -145,7 +147,9 @@
             "Morning slot 08:00–12:00",
             "Metro Line 3 Panda Avenue (熊猫大道) exit A + bus D025",
             "About 12 km from the hotel"
-          ]
+          ],
+          "addr": "成都市熊猫大道1375号",
+          "addrSource": "OSM node 12574196373 (熊猫邮局 at the Base address)"
         },
         {
           "id": "taikoo-li",

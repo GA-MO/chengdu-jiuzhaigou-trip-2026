@@ -139,6 +139,8 @@
   /* timeline: time column, hairline rail, content */
   ul.tl { list-style:none; margin:0; padding:8px 0 0; }
   .ev { display:grid; grid-template-columns:15px 1fr; gap:0 14px; scroll-margin-top:calc(104px + env(safe-area-inset-top)); }
+  /* a day's first stop also keeps the day's Guide and Route bar above it in view */
+  .tl > .ev:first-child { scroll-margin-top:calc(180px + env(safe-area-inset-top)); }
   /* the map button gets its own column beside the time and title rows, so a long title wraps before it */
   .ev-head { display:contents; }
   .ev-tools { grid-column:2; grid-row:1 / span 2; align-self:start; display:flex; gap:6px; margin:-8px -2px 0 10px; }
@@ -165,7 +167,7 @@
   .zh-row .icon-btn { background:none; border-color:transparent; color:var(--chili); }
   .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
   .ref b { color:var(--ink); font-weight:650; letter-spacing:.02em; }
-  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--lake); background:transparent; border:1px solid transparent; border-radius:var(--r-pill);
+  .icon-btn { gap:6px; justify-content:center; min-height:44px; min-width:44px; padding:0 10px; font:inherit; font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--lake); background:transparent; border:1px solid transparent; border-radius:var(--r-pill);
           touch-action:manipulation; -webkit-tap-highlight-color:transparent; display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; transition:transform .12s; }
   .icon-btn svg { width:18px; height:18px; stroke-width:1.4; }
   .icon-btn:active { transform:scale(.94); }
@@ -185,17 +187,91 @@
   .tips { margin:0; padding-left:18px; font-size:.88rem; line-height:1.55; }
   .tips li { margin:10px 0; padding-left:4px; }
   .tips li::marker { color:var(--larch); }
-  footer { max-width:760px; margin:40px auto 0; padding:24px 20px calc(44px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.76rem; line-height:1.6; border-top:1px solid var(--line); }
+  footer { max-width:760px; margin:40px auto 0; padding:24px 20px calc(100px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.76rem; line-height:1.6; border-top:1px solid var(--line); }
   footer a { display:inline-block; padding:10px 2px; margin:-10px 0; color:inherit; }
   #offline-status { margin:0 0 6px; font-weight:600; color:var(--ink); }
-  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
-  .overlay .big { font-family:var(--zh); font-size:clamp(2rem,10vw,3.4rem); line-height:1.3; font-weight:600; word-break:break-all; }
-  .overlay { animation:fade-in .16s ease-out both; }
-  .overlay .big { animation:grow-in .26s cubic-bezier(.2,.9,.3,1) both; }
+  /* show card: Chinese sized to fill the width, for a driver or a waiter to read at arm's length */
+  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; padding:calc(20px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left)); background:#fff; color:var(--chili); text-align:center; animation:fade-in .16s ease-out both; }
+  .show-body { flex:1; min-height:0; overflow:hidden auto; display:flex; flex-direction:column; gap:22px; }
+  /* auto margins centre the stack but, unlike justify-content, never push a tall one off the top */
+  .show-body > :first-child { margin-top:auto; } .show-body > :last-child { margin-bottom:auto; }
+  .show-driver { display:flex; flex-direction:column; align-items:center; gap:2px; padding-bottom:16px; border-bottom:1px solid var(--chili-line); }
+  .show-driver span { font-family:var(--zh); font-size:1.6rem; font-weight:600; line-height:1.3; }
+  .show-driver small, .show-place { color:var(--mute); font-size:.9rem; }
+  .show-entry { position:relative; display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .show-entry + .show-entry { padding-top:22px; border-top:1px solid var(--chili-line); }
+  .overlay .big { width:100%; font-family:var(--zh); font-size:3rem; line-height:1.2; font-weight:600; text-wrap:balance; animation:grow-in .26s cubic-bezier(.2,.9,.3,1) both; }
+  .show-addr { margin-top:6px; color:var(--ink); font-family:var(--zh); font-size:1.25rem; line-height:1.4; }
+  .show-th { color:var(--ink); font-size:1.3rem; font-weight:600; line-height:1.35; }
+  .show-rd { color:#2b4245; font-size:1.1rem; line-height:1.4; }
+  .show-entry .drop { position:absolute; right:0; bottom:-6px; }
+  .show-entry:has(.drop) :is(.show-th, .show-rd) { padding:0 44px; }
+  .show-bar { flex:none; display:flex; justify-content:center; gap:10px; padding-top:14px; }
+  .show-bar button { min-height:48px; padding:0 26px; border:1px solid var(--ink); border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  .show-bar .add { background:transparent; color:var(--ink); }
+  .show-cap { color:var(--mute); font-size:.9rem; }
   @keyframes fade-in { from { opacity:0; } }
   @keyframes grow-in { from { opacity:0; transform:scale(.88); } }
-  .overlay small { color:var(--mute); font-size:.9rem; }
-  .overlay button { min-height:48px; padding:0 30px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  @media (orientation:landscape) and (max-height:500px) { .show-body { gap:10px; } .show-driver { padding-bottom:8px; } .show-entry + .show-entry { padding-top:10px; } }
+
+  /* 说: the phrase sheet from anywhere, bottom right */
+  .say-fab { position:fixed; z-index:92; right:calc(16px + env(safe-area-inset-right)); bottom:calc(16px + env(safe-area-inset-bottom)); width:58px; height:58px; display:grid; place-items:center; padding:0 0 3px; border:0; border-radius:var(--r-field); background:var(--lake-deep); color:#fff; box-shadow:inset 0 -3px 0 var(--larch), 0 10px 24px -8px rgb(14 44 48 / 55%); font-family:var(--zh); font-size:1.65rem; font-weight:600; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:transform .12s; }
+  .say-fab:active { transform:scale(.94); }
+  body:has(.edit-sheet) .say-fab { display:none; }
+  .ps-scrim { position:fixed; inset:0; z-index:95; background:rgb(14 44 48 / 40%); animation:fade-in .16s ease-out both; }
+  .ps { position:fixed; z-index:96; left:0; right:0; bottom:0; max-width:760px; max-height:min(88svh,900px); margin:0 auto; display:flex; flex-direction:column; background:var(--snow); border-radius:var(--r-card) var(--r-card) 0 0; box-shadow:0 -12px 40px -20px rgb(14 44 48 / 50%); animation:sheet-up .24s cubic-bezier(.2,.9,.3,1) both; }
+  @keyframes sheet-up { from { transform:translateY(40%); opacity:0; } }
+  .ps-head { flex:none; display:flex; align-items:center; gap:8px; padding:12px 8px 0 16px; border-bottom:1px solid var(--line); }
+  .ps-head::before { content:""; position:absolute; left:50%; top:6px; width:36px; height:4px; margin-left:-18px; border-radius:2px; background:var(--line); }
+  .ps-tabs { flex:1; display:flex; gap:18px; }
+  .ps-tabs button { min-height:48px; padding:6px 2px 0; border:0; background:none; color:var(--mute); font:inherit; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; box-shadow:inset 0 -1.5px 0 transparent; }
+  .ps-tabs button[aria-selected="true"] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
+  .ps-body { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:14px 16px calc(24px + env(safe-area-inset-bottom)); }
+  .ps-adding { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 12px; padding:8px 4px 8px 12px; border:1px solid var(--chili-line); border-radius:var(--r-field); background:var(--paper); color:var(--chili); font-size:.88rem; font-weight:600; }
+  .ps-adding span { font-family:var(--zh); }
+  .ps-h { margin:20px 0 8px; font-family:var(--serif); font-size:1.08rem; font-weight:500; }
+  .ps-h:first-child { margin-top:0; }
+  .ph-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  @media (min-width:640px) { .ph-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  .ph-cell { position:relative; display:flex; }
+  .ph-tile { flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-height:92px; padding:11px 12px 10px; text-align:left; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); color:var(--ink); font:inherit; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .ph-tile:active { background:var(--lake-tint); }
+  .ph-tile b { font-size:.95rem; font-weight:600; line-height:1.3; }
+  .ph-zh { color:var(--chili); font-family:var(--zh); font-size:1.3rem; font-weight:500; line-height:1.25; }
+  .ph-rd { color:#1f3538; font-size:.98rem; line-height:1.35; }
+  .ph-recent { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px 2px; }
+  .ph-recent::-webkit-scrollbar { display:none; }
+  .ph-recent .ph-tile { flex:0 0 auto; min-height:0; max-width:62%; padding:8px 12px; }
+  .ph-recent .ph-zh { font-size:1.15rem; }
+  .hotel-tile { width:100%; display:grid; grid-template-columns:auto 1fr; align-items:center; gap:2px 12px; padding:12px 14px; text-align:left; border:0; border-radius:var(--r-field); background:var(--lake-deep); color:#fff; font:inherit; cursor:pointer; box-shadow:inset 0 -3px 0 var(--larch); -webkit-tap-highlight-color:transparent; }
+  .hotel-tile svg { grid-row:1 / span 3; width:24px; height:24px; color:#e2c48a; stroke-width:1.6; }
+  .hotel-tile b { font-family:var(--serif); font-size:1.15rem; font-weight:500; }
+  .hotel-tile small { color:rgb(255 255 255 / 72%); font-size:.8rem; }
+  .hotel-tile span { color:#e2c48a; font-family:var(--zh); font-size:1.05rem; }
+  /* ¥ amounts carry their baht; the converter types one side and the other follows */
+  .thb { color:var(--lake); font-weight:500; white-space:nowrap; opacity:.85; }
+  .rate-label.stale { color:var(--warn); }
+  .rate-label.stale::after { content:" · may be out of date"; }
+  .cv { display:flex; flex-direction:column; gap:8px; }
+  .cv-line { display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:0 12px; padding:12px 16px; text-align:left; border:1px solid var(--line); border-radius:var(--r-field); background:var(--paper); color:var(--ink); font:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .cv-line.from { border-color:var(--ink); box-shadow:inset 3px 0 0 var(--larch); cursor:default; }
+  .cv-line b { min-width:0; overflow-wrap:anywhere; font-family:var(--serif); font-size:2.6rem; font-weight:500; line-height:1.1; font-variant-numeric:lining-nums; text-align:right; }
+  .cv-line.to b { font-size:2rem; color:var(--lake); }
+  .cv-sym { grid-row:1 / span 2; font-family:var(--serif); font-size:1.6rem; color:var(--mute); }
+  .cv-line small { grid-column:2; color:var(--mute); font-size:.78rem; text-align:right; }
+  .cv-fee { display:flex; align-items:center; gap:10px; min-height:44px; font-size:.88rem; cursor:pointer; }
+  .cv-fee input { flex:none; width:20px; height:20px; margin:0; accent-color:var(--lake); }
+  .cv-pad { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .cv-pad button { min-height:58px; border:1px solid var(--line); border-radius:var(--r-field); background:var(--paper); color:var(--ink); font-family:var(--serif); font-size:1.7rem; font-weight:500; font-variant-numeric:lining-nums; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .cv-pad button:active { background:var(--lake-tint); }
+  .cv-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--mute); font-size:.82rem; }
+  .cv-link { flex:none; min-height:44px; padding:0 2px; border:0; background:none; color:var(--lake); font:inherit; font-size:.82rem; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .cv-own[hidden] { display:none; }
+  .cv-own { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; }
+  .cv-own label { flex:1 1 160px; font-size:.78rem; color:var(--mute); }
+  .cv-own input { display:block; width:100%; margin-top:4px; padding:10px 12px; font:inherit; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
+  .cv-own button[type=submit] { min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
+  .gd-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px auto 0; color:var(--mute); font-size:.8rem; }
   .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
   .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
@@ -238,6 +314,7 @@
   .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
   /* guide: a .sheet with two-row bar (back + title, then section pills) */
+  .guide { padding-bottom:calc(100px + env(safe-area-inset-bottom)); }
   .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
   .guide-bar h2 { flex:1; }
   .gd-pills { flex:0 0 100%; display:flex; justify-content:space-between; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
@@ -245,25 +322,57 @@
   .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 4px; color:var(--mute); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; box-shadow:inset 0 -1.5px 0 transparent; -webkit-tap-highlight-color:transparent; }
   .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
   .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
-  .gd-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
+  .gd-sec > h2 { margin:32px 0 4px; font-size:2rem; line-height:1.05; }
   .gd-sec > h2 .th, h2.block .th { font-size:.5em; vertical-align:.35em; }
-  .gd-sec .sub { margin-top:22px; }
+  .gd-sec .sub { margin:20px 0 6px; }
+  .gd-sec .ph-tile { min-height:0; padding:9px 11px 8px; }
   .gd-item { padding:0; overflow:hidden; }
   .gd-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
   .gd-credit { margin:0; padding:6px 20px 0; color:var(--mute); font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .gd-body { padding:12px 20px 18px; }
-  .gd-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-  .gd-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
-  .gd-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
+  .gd-item { margin:8px 0; }
+  .gd-item .gd-row { padding-right:4px; }
+  .gd-item .gd-tools { flex-direction:column; }
+  .gd-item .gd-tools .icon-btn { padding:0; }
+  .gd-item:not(.open) :is(.gd-photo, .gd-credit, .gd-more) { display:none; }
+  .gd-item.open .gd-row :is(.gd-thumb, .gd-mini) { display:none; }
+  .gd-item.open .gd-toggle { padding:12px 4px 4px 20px; }
+  .gd-item.open .gd-name b { font-size:1.4rem; line-height:1.15; }
+  .gd-more { padding:0 20px 18px; }
+  .gd-tools { flex:none; display:flex; }
+  .heart { color:var(--mute); }
+  .heart[aria-pressed="true"] { color:var(--chili); }
+  .heart[aria-pressed="true"] svg { fill:currentColor; animation:pop .28s cubic-bezier(.3,1.6,.5,1) both; }
+  .ph-cell .heart { position:absolute; top:0; right:0; }
+  .ph-cell:has(.heart) .ph-tile b { padding-right:30px; }
+  .gd-saved-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:24px 0 4px; }
+  .gd-saved-head h2 { margin:0; font-size:2rem; line-height:1.05; }
+  .gd-saved-head h2 .th { font-size:.5em; vertical-align:.35em; }
+  .gd-saved-head .icon-btn { flex:none; min-height:44px; padding:0 12px 0 10px; color:var(--ink); border-color:var(--ink); }
+  .gd-empty { margin:8px 0 0; color:var(--mute); font-size:.9rem; }
+  .gd-list { padding:4px 0; }
+  .gd-row { display:flex; align-items:center; gap:4px; padding:0 8px 0 0; }
+  .gd-list .gd-row + .gd-row { border-top:1px solid var(--line-soft); }
+  .gd-toggle { flex:1; min-width:0; display:flex; align-items:center; gap:12px; padding:10px 4px 10px 12px; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .gd-thumb { flex:none; width:64px; height:64px; border-radius:var(--r-pill); object-fit:cover; background:var(--lake-tint); }
+  .gd-name { min-width:0; display:flex; flex-direction:column; gap:1px; }
+  .gd-name b { font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.25; }
+  .gd-th { color:var(--mute); font-size:.85rem; line-height:1.35; }
+  /* one line of tags: a tag that does not fit whole wraps onto a hidden second line */
+  .gd-mini { display:flex; flex-wrap:wrap; gap:4px; max-height:calc(.7rem * 1.6); margin-top:4px; overflow:hidden; }
+  .gd-mini .chip { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; background:var(--lake-tint); color:var(--lake); font-size:.7rem; }
+  .zh-show { flex:none; color:var(--chili) !important; border-color:var(--chili-line) !important; }
+  .gd-item { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
   .gd-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .gd-tags .chip { background:var(--lake-tint); color:var(--lake); }
   .gd-note { margin:10px 0 0; font-size:.92rem; }
   .gd-ask { margin:12px 0 -4px; color:var(--mute); font-size:.85rem; }
-  .gd-phrase + .gd-phrase { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
-  .gd-phrase b { display:block; font-size:1.15rem; font-weight:600; line-height:1.35; }
-  .gd-phrase span { display:block; color:var(--mute); font-size:.88rem; }
-  .gd-tip h3 { margin:0; font-size:1.15rem; }
-  .gd-tip p { margin:6px 0 0; font-size:.92rem; }
+  .gd-tip { margin:8px 0; padding:0; }
+  .gd-tip summary { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:10px 18px 10px 20px; cursor:pointer; list-style:none; }
+  .gd-tip summary::-webkit-details-marker { display:none; }
+  .gd-tip summary::after { content:""; flex:none; width:8px; height:8px; margin-top:-4px; border:solid var(--mute); border-width:0 1.5px 1.5px 0; transform:rotate(45deg); transition:transform .2s; }
+  .gd-tip[open] summary::after { transform:rotate(-135deg); margin-top:4px; }
+  .gd-tip h3 { margin:0; font-size:1.1rem; line-height:1.3; }
+  .gd-tip p { margin:0; padding:0 20px 18px; font-size:.92rem; }
   .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
@@ -342,6 +451,7 @@
   Photos from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licensed by each photographer)<br>
   Open this page once online to save photos for offline use
 </footer>
+<button class="say-fab" id="say-fab" type="button" lang="zh-CN" aria-label="Chinese phrases and the hotel address">说</button>
 
 <script>
 /* zh = ชื่อภาษาจีนสำหรับคัดลอกให้คนขับ · map = คำค้นแผนที่ */
@@ -371,11 +481,15 @@ const FLIGHTS = [
 
 // checkOut is the morning after the last night
 const HOTELS = {
-  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", short:"Atour, Taikoo Li", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
-  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", short:"Guanshan Villa, Heishui", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
-  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", short:"Rezen Retreat, Jiuzhaigou", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
-  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", short:"Chuanxing Yinli, Kuanzhai Alley", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
+  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", short:"Atour, Taikoo Li", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", addr:"成都市锦江区东大街下东大街段199号睿东中心B座26楼", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
+  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", short:"Guanshan Villa, Heishui", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", addr:"黑水县芦花镇泽盖村3组49号", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
+  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", short:"Rezen Retreat, Jiuzhaigou", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", addr:"九寨沟县漳扎镇彭丰村100号", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", short:"Chuanxing Yinli, Kuanzhai Alley", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", addr:"成都市金牛区十二桥路19号1栋", detail:"11–14 Nov (3 nights)" },
 };
+const nightHotel = date => Object.values(HOTELS).find(h => h.checkIn <= date && date < h.checkOut);
+const morningHotel = date => Object.values(HOTELS).find(h => h.checkIn < date && date <= h.checkOut);
+// the hotel to ride back to: tonight's, else the one left that morning, else before the trip the first one
+const hotelToReturnTo = date => nightHotel(date) ?? morningHotel(date) ?? (date < DAYS[0].date ? Object.values(HOTELS)[0] : null);
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, th:"เช็กอินที่พัก", detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
@@ -492,14 +606,14 @@ const GUIDE = [
   { id:"see", title:"Places", th:"ที่เที่ยว", groups:[
     { title:"West side, near the hotel", items:[
       { id:"kuanzhai", name:"Kuanzhai Alley", zh:"宽窄巷子", th:"ควานไจ่เซี่ยงจึ", at:[104.053283, 30.66375], photo:"8/8a/Street_scene_-_Kuanzhai_Alleys_-_Chengdu%2C_China_-_DSC05311.jpg", photoCredit:"Daderot · CC0", note:"Three restored Qing-era lanes of courtyard houses, teahouses and snack stalls. Come at dusk when the lanterns come on; after 10 pm it is calmest.", tags:["Free", "Open 24h", "Shops ~10:00–22:00", "Walk from the hotel, about 750 m"] },
-      { id:"peoples-park", name:"People's Park & Heming Teahouse", zh:"人民公园 · 鹤鸣茶社", th:"สวนประชาชน · ร้านน้ำชาเฮ่อหมิง", at:[104.058334, 30.656921], photo:"d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg", photoCredit:"Daderot · CC0", note:"Sit with a gaiwan of tea by the lake at Chengdu's oldest park teahouse and watch locals play cards. A price board at the door set a ¥16 minimum per person, ¥18 after 6 pm (April 2026 review).", tags:["Park free, open all day", "Tea from ¥16 per person", "Metro Line 2 People's Park, one stop from Tonghuimen"] },
+      { id:"peoples-park", name:"People's Park & Heming Teahouse", zh:"人民公园 · 鹤鸣茶社", addr:"成都市少城路12号", th:"สวนประชาชน · ร้านน้ำชาเฮ่อหมิง", at:[104.058334, 30.656921], photo:"d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg", photoCredit:"Daderot · CC0", note:"Sit with a gaiwan of tea by the lake at Chengdu's oldest park teahouse and watch locals play cards. A price board at the door set a ¥16 minimum per person, ¥18 after 6 pm (April 2026 review).", tags:["Park free, open all day", "Tea from ¥16 per person", "Metro Line 2 People's Park, one stop from Tonghuimen"] },
       { id:"dufu", name:"Du Fu Thatched Cottage", zh:"杜甫草堂", th:"กระท่อมตู้ฝู่", at:[104.028629, 30.660348], photo:"7/79/Traditional_housing_inside_Du_Fu_Thatched_Cottage.jpg", photoCredit:"Pauloleong2002 · CC BY-SA 4.0", note:"A quiet bamboo-and-pond garden museum built around the Tang poet Du Fu's rebuilt cottage. Allow two hours; buy tickets on the museum's WeChat account.", tags:["¥50", "09:00–18:00, tickets until 17:00", "Walk from the hotel, about 1.7 km"] },
       { id:"qingyang", name:"Qingyang Palace", zh:"青羊宫", th:"วังชิงหยาง", at:[104.042482, 30.661233], photo:"a/ac/Hall_-_Qingyang_Gong_-_Chengdu%2C_China_-_DSC04110.jpg", photoCredit:"Daderot · CC0", note:"Chengdu's main Taoist temple, closest sight to the hotel. Rub the bronze goats for luck and have ¥10 gaiwan tea under the old trees; an hour is enough.", tags:["¥10, pay at the gate", "08:00–17:20, last entry 17:00", "Walk from the hotel, about 400 m"] },
       { id:"wuhou-jinli", name:"Wuhou Shrine & Jinli", zh:"武侯祠 · 锦里古街", th:"อู่โหวฉือ · จิ่นหลี่", at:[104.049586, 30.644623], photo:"5/5a/Corridor_-_Wuhou_Shrine_-_Chengdu%2C_China_-_DSC05483.jpg", photoCredit:"Daderot · CC0", note:"Three Kingdoms shrine with the famous red-wall bamboo lane; arrive at 9:00 for empty photos and bring your passport. Exit into Jinli next door, a free old-style street that lights its lanterns around 6:30 pm in winter.", tags:["Shrine ¥50", "Shrine 09:00–18:00, last entry 17:00", "Jinli free, 09:00–22:30", "Metro Line 3/5 Gaoshengqiao, exit D, ~10 min walk", "From the hotel, about 2.2 km"] },
       { id:"wenshu", name:"Wenshu Monastery", zh:"文殊院", th:"เหวินซูย่วน", at:[104.072722, 30.675494], photo:"f/f7/Hall_-_Wenshu_Monastery_-_Chengdu%2C_China_-_DSC05213.jpg", photoCredit:"Daderot · CC0", note:"A working Buddhist monastery with incense halls, a gaiwan teahouse and a cheap vegetarian canteen. One to two hours; pair it with Taikoo Li the same day.", tags:["Free", "08:00–17:00, last entry 16:30", "Metro Line 1 Wenshu Monastery (文殊院站)"] },
     ]},
     { title:"City centre and east", items:[
-      { id:"panda-base", name:"Chengdu Panda Base", zh:"成都大熊猫繁育研究基地", th:"ศูนย์แพนด้าเฉิงตู", at:[104.135457, 30.740846], photo:"f/fe/Panda_in_Chengdu_Research_Base_of_Giant_Panda_Breeding_-_7708872342.jpg", photoCredit:"George Lu · CC BY 2.0", note:"Real-name online booking is required for every visitor (passport number; bring the same passport). In November the morning slot opens at 08:00: be at the South Gate for opening, because pandas are most active 8–11 am at feeding time. Allow 3.5–5 hours.", tags:["¥55", "Book online, real name", "Nov: 08:00–17:30, last entry 16:30", "Morning slot 08:00–12:00", "Metro Line 3 Panda Avenue (熊猫大道) exit A + bus D025", "About 12 km from the hotel"] },
+      { id:"panda-base", name:"Chengdu Panda Base", zh:"成都大熊猫繁育研究基地", addr:"成都市熊猫大道1375号", th:"ศูนย์แพนด้าเฉิงตู", at:[104.135457, 30.740846], photo:"f/fe/Panda_in_Chengdu_Research_Base_of_Giant_Panda_Breeding_-_7708872342.jpg", photoCredit:"George Lu · CC BY 2.0", note:"Real-name online booking is required for every visitor (passport number; bring the same passport). In November the morning slot opens at 08:00: be at the South Gate for opening, because pandas are most active 8–11 am at feeding time. Allow 3.5–5 hours.", tags:["¥55", "Book online, real name", "Nov: 08:00–17:30, last entry 16:30", "Morning slot 08:00–12:00", "Metro Line 3 Panda Avenue (熊猫大道) exit A + bus D025", "About 12 km from the hotel"] },
       { id:"taikoo-li", name:"Taikoo Li & Daci Temple", zh:"成都远洋太古里 · 大慈寺", th:"ไท่กู่หลี่ · วัดต้าฉือซื่อ", at:[104.083685, 30.654078], photo:"c/c5/Sino-Ocean_Taikoo_Li_Chengdu_7.jpg", photoCredit:"EditQ · CC0", note:"Open-air luxury shopping lanes built in old Sichuan style around the Tang-founded Daci Temple. See the temple in the morning quiet, the lanes in the evening lights.", tags:["Taikoo Li free, 10:00–22:00", "Daci Temple 08:00–17:30", "Daci entry: free per Ctrip, ¥30 per one guide", "Metro Line 2/3 Chunxi Road"] },
       { id:"chunxi-ifs", name:"Chunxi Road & the IFS climbing panda", zh:"春熙路 · 成都国际金融中心(IFS)", th:"ชุนซีลู่ · ไอเอฟเอส", at:[104.081598, 30.655321], photo:"f/fb/Chunxi_Road_20260512.jpg", photoCredit:"Suicasmo · CC0", note:"Chengdu's busiest shopping street. The giant panda sculpture \"I Am Here\" hangs off the IFS wall; go up to the 7th-floor rooftop garden to stand beside it, ideally around 10 am before the queues.", tags:["Free", "IFS 10:00–22:00", "Metro Line 2/3 Chunxi Road, exit A", "Avoid 17:00–19:00 traffic"] },
       { id:"anshun-bridge", name:"Anshun Bridge & Jiuyan Bridge at night", zh:"安顺廊桥 · 九眼桥", th:"สะพานอานซุ่น · จิ่วเหยี่ยนเฉียว", at:[104.085967, 30.641734], photo:"8/8c/%E5%AE%89%E9%A1%BA%E5%BB%8A%E6%A1%A5%E5%A4%9C%E6%99%AF.jpg", photoCredit:"Prcmise · CC BY-SA 4.0", note:"The lit covered bridge reflected in the Jin River, with Jiuyan Bridge's bar strip just downstream. Arrive around 7 pm as the lights come up; the metro stops around 11:30 pm.", tags:["Free", "Open all day", "Optional river boat from Dongmen Wharf ~¥80–118", "Walk from Taikoo Li, about 1.4 km", "About 4.6 km from the hotel"] },
@@ -507,25 +621,25 @@ const GUIDE = [
   ]},
   { id:"eat", title:"Food", th:"ของกิน", groups:[
     { title:"Hotpot and chuanchuan", items:[
-      { id:"longsenyuan", name:"Long Sen Yuan Hotpot", zh:"龙森园火锅(琴台路店)", th:"หลงเซินหยวน", at:[104.045477, 30.658766], photo:"2/2c/Chengdu_double_hotpot.jpg", photoCredit:"Jpatokal · CC BY-SA 4.0 (hotpot, not this restaurant)", note:"Old-style Chengdu hotpot a short walk south of the hotel on Qintai Road. Michelin picks the Emei eel-shred pot (峨眉鳝丝锅), spicy rabbit belly and brown-sugar ciba; it is busy, so expect to wait at peak times.", tags:["Michelin Bib Gourmand 2027", "~¥131 per person", "Queue at peak times"] },
-      { id:"maojiao", name:"Mao Jiao Huo La skewers", zh:"冒椒火辣(奎星楼街店)", th:"เม่าเจียวหั่วล่า", at:[104.053651, 30.668282], photo:"0/0a/%E5%86%B7%E9%94%85_%E4%B8%B2_Cold-pot_Skewers_Y1_per_skewer_%281495465364%29.jpg", photoCredit:"Alpha from Melbourne · CC BY-SA 2.0 (cold-pot skewers, not this shop)", note:"Cold-pot skewer (冷锅串串) institution on Kuixinglou Street, near Kuanzhai Alley. Order the Huanhou rabbit kidneys (桓侯兔腰), braised quail eggs and rabbit head; open 11:00–22:00, and there is usually a queue.", tags:["Dianping Must-Eat 8+ years in a row", "~¥65 per person", "11:00–22:00", "Queue"] },
-      { id:"houtang", name:"Houtang Hotpot", zh:"吼堂老火锅(太古里总店)", th:"โหว่ถังเหล่าหั่วกัว", at:[104.081589, 30.650558], photo:"4/4e/Chengdu_Hot_Pot_Yuanyangguo_style_2019.jpg", photoCredit:"Breaknet2025 · CC BY 4.0 (split-pot hotpot, not this restaurant)", note:"Three floors dressed as old Chengdu, five minutes from Chunxi Road metro, open until 2 am. Get a split pot and the fresh tripe, crab-roe shrimp paste and crispy pork (酥肉); queues are long at lunch and dinner, so go late.", tags:["Trip.com Global 100 Must-visit 2026", "~¥112 per person", "11:00–02:00", "Queue"] },
+      { id:"longsenyuan", name:"Long Sen Yuan Hotpot", zh:"龙森园火锅(琴台路店)", addr:"成都市青羊区琴台路60号", th:"หลงเซินหยวน", at:[104.045477, 30.658766], photo:"2/2c/Chengdu_double_hotpot.jpg", photoCredit:"Jpatokal · CC BY-SA 4.0 (hotpot, not this restaurant)", note:"Old-style Chengdu hotpot a short walk south of the hotel on Qintai Road. Michelin picks the Emei eel-shred pot (峨眉鳝丝锅), spicy rabbit belly and brown-sugar ciba; it is busy, so expect to wait at peak times.", tags:["Michelin Bib Gourmand 2027", "~¥131 per person", "Queue at peak times"] },
+      { id:"maojiao", name:"Mao Jiao Huo La skewers", zh:"冒椒火辣(奎星楼街店)", addr:"成都市奎星楼街33号", th:"เม่าเจียวหั่วล่า", at:[104.053651, 30.668282], photo:"0/0a/%E5%86%B7%E9%94%85_%E4%B8%B2_Cold-pot_Skewers_Y1_per_skewer_%281495465364%29.jpg", photoCredit:"Alpha from Melbourne · CC BY-SA 2.0 (cold-pot skewers, not this shop)", note:"Cold-pot skewer (冷锅串串) institution on Kuixinglou Street, near Kuanzhai Alley. Order the Huanhou rabbit kidneys (桓侯兔腰), braised quail eggs and rabbit head; open 11:00–22:00, and there is usually a queue.", tags:["Dianping Must-Eat 8+ years in a row", "~¥65 per person", "11:00–22:00", "Queue"] },
+      { id:"houtang", name:"Houtang Hotpot", zh:"吼堂老火锅(太古里总店)", addr:"成都市东大街下东大街段166号1-3层", th:"โหว่ถังเหล่าหั่วกัว", at:[104.081589, 30.650558], photo:"4/4e/Chengdu_Hot_Pot_Yuanyangguo_style_2019.jpg", photoCredit:"Breaknet2025 · CC BY 4.0 (split-pot hotpot, not this restaurant)", note:"Three floors dressed as old Chengdu, five minutes from Chunxi Road metro, open until 2 am. Get a split pot and the fresh tripe, crab-roe shrimp paste and crispy pork (酥肉); queues are long at lunch and dinner, so go late.", tags:["Trip.com Global 100 Must-visit 2026", "~¥112 per person", "11:00–02:00", "Queue"] },
     ]},
     { title:"Sichuan restaurants", items:[
-      { id:"yuzhilan", name:"Yu Zhi Lan", zh:"玉芝兰(长发街店)", th:"ยวี่จือหลาน", at:[104.058661, 30.666769], photo:"1/18/Dumplings_in_Red_Chili_Oil.jpg", photoCredit:"ZhengZhou · CC BY-SA 4.0 (red-oil dumplings, a dish on its menu; not taken here)", note:"Chef Lan Guijun's low-key two-star tasting room behind a plain door on Changfa Street. Set menus only, built around his hair-thin gold-thread noodles (金丝面); book well ahead, and a Ctrip reviewer says half is paid as a deposit.", tags:["Michelin 2 stars 2027", "~¥1,900 per person", "Booking required"] },
-      { id:"chenmapo", name:"Chen Mapo Tofu (Qinghua Road)", zh:"陈麻婆豆腐(青华路店)", th:"เฉินหมาโผวโต้วฝุ", at:[104.032821, 30.662939], photo:"8/86/Mapo_doufu_by_Chen_Mapo_Restaurant_in_Chengdu_Sichuan%EF%BC%88%E9%99%B3%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%E5%BA%97%E3%81%AE%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%EF%BC%89.JPG", photoCredit:"Kos88 · CC BY-SA 4.0 (mapo tofu at Chen Mapo)", note:"The flagship of the shop that claims to have invented mapo tofu, near Du Fu Cottage. Order the stone-pot mapo tofu with rice, Zhong dumplings and lotus-leaf steamed pork; it is often full at mealtimes.", tags:["Michelin Bib Gourmand 2027", "~¥70 per person", "Near Du Fu Cottage"] },
-      { id:"woos", name:"The Woo's", zh:"吴氏荟(锦江)", th:"อู๋ซื่อฮุ่ย", at:[104.094559, 30.643248], photo:"4/42/Brown_sugar_ciba.pic.jpg", photoCredit:"Kaisery · CC BY-SA 4.0 (brown-sugar ciba, not taken here)", note:"Modernised Sichuan cooking in a restored three-storey old villa, about 1.5 km south-east of Taikoo Li. Michelin recommends the chilli-smothered yellow croaker (炝锅舟山海捕黄鱼) and molten ciba for dessert.", tags:["Michelin Bib Gourmand 2027", "Mid-range (Michelin ¥¥)"] },
+      { id:"yuzhilan", name:"Yu Zhi Lan", zh:"玉芝兰(长发街店)", addr:"成都市青羊区长发街24号附1号", th:"ยวี่จือหลาน", at:[104.058661, 30.666769], photo:"1/18/Dumplings_in_Red_Chili_Oil.jpg", photoCredit:"ZhengZhou · CC BY-SA 4.0 (red-oil dumplings, a dish on its menu; not taken here)", note:"Chef Lan Guijun's low-key two-star tasting room behind a plain door on Changfa Street. Set menus only, built around his hair-thin gold-thread noodles (金丝面); book well ahead, and a Ctrip reviewer says half is paid as a deposit.", tags:["Michelin 2 stars 2027", "~¥1,900 per person", "Booking required"] },
+      { id:"chenmapo", name:"Chen Mapo Tofu (Qinghua Road)", zh:"陈麻婆豆腐(青华路店)", addr:"成都市青羊区青华路10号附10-12号", th:"เฉินหมาโผวโต้วฝุ", at:[104.032821, 30.662939], photo:"8/86/Mapo_doufu_by_Chen_Mapo_Restaurant_in_Chengdu_Sichuan%EF%BC%88%E9%99%B3%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%E5%BA%97%E3%81%AE%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%EF%BC%89.JPG", photoCredit:"Kos88 · CC BY-SA 4.0 (mapo tofu at Chen Mapo)", note:"The flagship of the shop that claims to have invented mapo tofu, near Du Fu Cottage. Order the stone-pot mapo tofu with rice, Zhong dumplings and lotus-leaf steamed pork; it is often full at mealtimes.", tags:["Michelin Bib Gourmand 2027", "~¥70 per person", "Near Du Fu Cottage"] },
+      { id:"woos", name:"The Woo's", zh:"吴氏荟(锦江)", addr:"成都市锦江区宏济中路39号附17号", th:"อู๋ซื่อฮุ่ย", at:[104.094559, 30.643248], photo:"4/42/Brown_sugar_ciba.pic.jpg", photoCredit:"Kaisery · CC BY-SA 4.0 (brown-sugar ciba, not taken here)", note:"Modernised Sichuan cooking in a restored three-storey old villa, about 1.5 km south-east of Taikoo Li. Michelin recommends the chilli-smothered yellow croaker (炝锅舟山海捕黄鱼) and molten ciba for dessert.", tags:["Michelin Bib Gourmand 2027", "Mid-range (Michelin ¥¥)"] },
     ]},
     { title:"Snacks and old shops", items:[
-      { id:"longchaoshou", name:"Long Chao Shou (Chunxi Road flagship)", zh:"龙抄手(春熙路总店)", th:"หลงเชาโส่ว", at:[104.077597, 30.654539], photo:"e/eb/Open_Kitchen_-_%E9%BE%99%E6%8A%84%E6%89%8B%E9%A4%90%E5%8E%85_Long_Chao_Shou_Canting_%281483881148%29.jpg", photoCredit:"Alpha from Melbourne · CC BY-SA 2.0 (Long Chao Shou open kitchen)", note:"Wonton house founded in 1941, a block from Chunxi Road. Order the sour-spicy chaoshou (酸辣龙抄手) or a small bowl in clear broth; the ground floor is noisy and upstairs sells set menus per head.", tags:["Since 1941", "~¥31 per person", "09:00–21:30"] },
-      { id:"zhanglaoer", name:"Dongzikou Zhang Lao Er Liangfen", zh:"洞子口张老二凉粉(文殊院店)", th:"จางเหล่าเอ้อร์เหลียงเฝิ่น", at:[104.07261, 30.674198], photo:"0/0e/201908_Liang_Fen_sold_on_5634.jpg", photoCredit:"MNXANL · CC BY-SA 4.0 (liangfen in Sichuan dressing, not taken here)", note:"Old snack shop across from Wenshu Monastery. Order the sweet water noodles (甜水面), yellow or white liangfen and brown-sugar ice jelly (冰粉); queue to pay at the counter first, then share tables.", tags:["~¥16 per person", "08:30–18:30", "Opposite Wenshu Monastery"] },
-      { id:"no37", name:"No. 37 Lao Yuanba Chaoshou", zh:"37号老院坝抄手", th:"เกี๊ยวเสฉวนร้านเบอร์ 37", at:[104.076855, 30.667228], photo:"e/e8/Red_Oil_Wontons_%28%E7%BA%A2%E6%B2%B9%E6%8A%84%E6%89%8B%29_%282%29.jpg", photoCredit:"NeoBatfreak · CC BY-SA 4.0 (red-oil chaoshou, not taken here)", note:"Husband-and-wife shop on Mawangmiao Street, about 1 km south of Wenshu Monastery. Order the dry-tossed chaoshou (干拌抄手) and the house sweet water noodles, choosing your spice level.", tags:["Michelin Bib Gourmand 2027", "Budget (Michelin ¥)"] },
-      { id:"ganji", name:"Gan Ji Feichang Fen", zh:"甘记肥肠粉(马鞍北路店)", th:"กานจี้เฝยฉางเฝิ่น", at:[104.086883, 30.676947], photo:"8/88/Hot_and_sour_noodles_with_pork_intestines.jpg", photoCredit:"Jpatokal · CC BY-SA 4.0 (sweet-potato noodles with pork intestine, not taken here)", note:"Breakfast-to-dinner noodle shop with a blue sign, about 1.4 km east of Wenshu Monastery. Order the spicy pork-intestine noodles (红味肥肠粉) with an extra 冒节子 and a pork guokui flatbread; there is often a long line.", tags:["Michelin Bib Gourmand 2027", "~¥19 per person", "07:30–20:00", "Queue"] },
-      { id:"wansan", name:"Wan San Noodles", zh:"万三面馆(青龙正街店)", th:"ว่านซานเมี่ยนกว่าน", at:[104.089445, 30.645224], photo:"f/f3/Ranmian_at_Beijing_Yibin_Hostel_%2820210401111937%29.jpg", photoCredit:"N509FZ · CC BY-SA 4.0 (Yibin ranmian, not taken here)", note:"Yibin-style noodle shop about 1 km south of Taikoo Li. Order the ranmian (燃面) with ginger duck or fresh-chilli beef topping; most of the cured meats only come out after 18:00, so come in the evening.", tags:["Michelin Bib Gourmand 2027", "Budget (Michelin ¥)", "Best after 18:00"] },
+      { id:"longchaoshou", name:"Long Chao Shou (Chunxi Road flagship)", zh:"龙抄手(春熙路总店)", addr:"成都市城守街63号", th:"หลงเชาโส่ว", at:[104.077597, 30.654539], photo:"e/eb/Open_Kitchen_-_%E9%BE%99%E6%8A%84%E6%89%8B%E9%A4%90%E5%8E%85_Long_Chao_Shou_Canting_%281483881148%29.jpg", photoCredit:"Alpha from Melbourne · CC BY-SA 2.0 (Long Chao Shou open kitchen)", note:"Wonton house founded in 1941, a block from Chunxi Road. Order the sour-spicy chaoshou (酸辣龙抄手) or a small bowl in clear broth; the ground floor is noisy and upstairs sells set menus per head.", tags:["Since 1941", "~¥31 per person", "09:00–21:30"] },
+      { id:"zhanglaoer", name:"Dongzikou Zhang Lao Er Liangfen", zh:"洞子口张老二凉粉(文殊院店)", addr:"成都市文殊院街39号", th:"จางเหล่าเอ้อร์เหลียงเฝิ่น", at:[104.07261, 30.674198], photo:"0/0e/201908_Liang_Fen_sold_on_5634.jpg", photoCredit:"MNXANL · CC BY-SA 4.0 (liangfen in Sichuan dressing, not taken here)", note:"Old snack shop across from Wenshu Monastery. Order the sweet water noodles (甜水面), yellow or white liangfen and brown-sugar ice jelly (冰粉); queue to pay at the counter first, then share tables.", tags:["~¥16 per person", "08:30–18:30", "Opposite Wenshu Monastery"] },
+      { id:"no37", name:"No. 37 Lao Yuanba Chaoshou", zh:"37号老院坝抄手", addr:"成都市青羊区马王庙街37号2栋", th:"เกี๊ยวเสฉวนร้านเบอร์ 37", at:[104.076855, 30.667228], photo:"e/e8/Red_Oil_Wontons_%28%E7%BA%A2%E6%B2%B9%E6%8A%84%E6%89%8B%29_%282%29.jpg", photoCredit:"NeoBatfreak · CC BY-SA 4.0 (red-oil chaoshou, not taken here)", note:"Husband-and-wife shop on Mawangmiao Street, about 1 km south of Wenshu Monastery. Order the dry-tossed chaoshou (干拌抄手) and the house sweet water noodles, choosing your spice level.", tags:["Michelin Bib Gourmand 2027", "Budget (Michelin ¥)"] },
+      { id:"ganji", name:"Gan Ji Feichang Fen", zh:"甘记肥肠粉(马鞍北路店)", addr:"成都市金牛区马鞍北路18号附1-3号", th:"กานจี้เฝยฉางเฝิ่น", at:[104.086883, 30.676947], photo:"8/88/Hot_and_sour_noodles_with_pork_intestines.jpg", photoCredit:"Jpatokal · CC BY-SA 4.0 (sweet-potato noodles with pork intestine, not taken here)", note:"Breakfast-to-dinner noodle shop with a blue sign, about 1.4 km east of Wenshu Monastery. Order the spicy pork-intestine noodles (红味肥肠粉) with an extra 冒节子 and a pork guokui flatbread; there is often a long line.", tags:["Michelin Bib Gourmand 2027", "~¥19 per person", "07:30–20:00", "Queue"] },
+      { id:"wansan", name:"Wan San Noodles", zh:"万三面馆(青龙正街店)", addr:"成都市锦江区青龙正街131号附1号", th:"ว่านซานเมี่ยนกว่าน", at:[104.089445, 30.645224], photo:"f/f3/Ranmian_at_Beijing_Yibin_Hostel_%2820210401111937%29.jpg", photoCredit:"N509FZ · CC BY-SA 4.0 (Yibin ranmian, not taken here)", note:"Yibin-style noodle shop about 1 km south of Taikoo Li. Order the ranmian (燃面) with ginger duck or fresh-chilli beef topping; most of the cured meats only come out after 18:00, so come in the evening.", tags:["Michelin Bib Gourmand 2027", "Budget (Michelin ¥)", "Best after 18:00"] },
     ]},
     { title:"Tea and sweets", items:[
-      { id:"heming", name:"Heming Teahouse, People's Park", zh:"鹤鸣茶社", th:"เฮ่อหมิงฉาเซ่อ", at:[104.0586, 30.65688], photo:"d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg", photoCredit:"Daderot · CC0 (teahouse in People's Park)", note:"Lakeside teahouse in People's Park, open since 1923, a 20-minute walk from the hotel. Order a gaiwan of jasmine tea (花毛峰) or Mengding; reviewers put a cup at ¥13–30, and the shady seats fill early in the morning.", tags:["Since 1923", "Tea ~¥13–30 a cup", "Go in the morning"] },
-      { id:"laitangyuan", name:"Lai Tangyuan", zh:"赖汤圆(总店)", th:"ไล่ทางหยวน", at:[104.078168, 30.658526], photo:"8/82/Lai_Tang_Yuan.jpg", photoCredit:"ZhengZhou · CC BY-SA 4.0 (Lai tangyuan)", note:"Century-old sweet dumpling shop on Zongfu Road at the north end of Chunxi Road. Order the mixed tangyuan with the dipping sauce served alongside; it also sells Zhong dumplings and other snacks, open 08:00–23:00.", tags:["~¥28 per person", "08:00–23:00", "Chunxi Road"] },
+      { id:"heming", name:"Heming Teahouse, People's Park", zh:"鹤鸣茶社", addr:"成都市少城路12号", th:"เฮ่อหมิงฉาเซ่อ", at:[104.0586, 30.65688], photo:"d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg", photoCredit:"Daderot · CC0 (teahouse in People's Park)", note:"Lakeside teahouse in People's Park, open since 1923, a 20-minute walk from the hotel. Order a gaiwan of jasmine tea (花毛峰) or Mengding; reviewers put a cup at ¥13–30, and the shady seats fill early in the morning.", tags:["Since 1923", "Tea ~¥13–30 a cup", "Go in the morning"] },
+      { id:"laitangyuan", name:"Lai Tangyuan", zh:"赖汤圆(总店)", addr:"成都市总府路23号附2号", th:"ไล่ทางหยวน", at:[104.078168, 30.658526], photo:"8/82/Lai_Tang_Yuan.jpg", photoCredit:"ZhengZhou · CC BY-SA 4.0 (Lai tangyuan)", note:"Century-old sweet dumpling shop on Zongfu Road at the north end of Chunxi Road. Order the mixed tangyuan with the dipping sauce served alongside; it also sells Zhong dumplings and other snacks, open 08:00–23:00.", tags:["~¥28 per person", "08:00–23:00", "Chunxi Road"] },
     ]},
   ]},
   { id:"shop", title:"Shopping", th:"ช้อปปิ้ง", groups:[
@@ -540,7 +654,7 @@ const GUIDE = [
       { id:"hotpot-base", name:"Hotpot base and Sichuan pepper", zh:"伊藤洋华堂(双楠店)", th:"ซุปหม้อไฟก้อน · พริกหมาล่า", at:[104.021321, 30.646209], photo:"4/4e/Chengdu_Hot_Pot_Yuanyangguo_style_2019.jpg", photoCredit:"Breaknet2025 · CC BY 4.0 (photo of a Chengdu hotpot, not the packet)", note:"Ito Yokado is Chengdu's big Japanese-run supermarket chain, and Shuangnan has been its best-selling store. Supermarket hotpot base is about ¥20 a pack (beef-tallow, vegetable-oil, mushroom or tomato), and Sichuan pepper comes in small sealed packs of red or green.", tags:["About ¥20 per pack", "¥30–80 in tourist shops", "Keep oily packs sealed"], ask:{"zh": "火锅底料 · 花椒", "th": "หั่วกัวตี่เลี่ยว · ฮวาเจียว"} },
       { id:"doubanjiang", name:"Pixian chili bean paste", zh:"伊藤洋华堂(双楠店)", th:"เต้าเจี้ยวพริกผีเซี่ยน", at:[104.021321, 30.646209], photo:"e/e9/Doubanjiang.jpg", photoCredit:"Badagnani · CC BY 3.0", note:"The fermented broad-bean chili paste behind mapo tofu, from Pixian in Chengdu's Pidu district. The 鹃城 red-oil 500 g tub sold for about ¥10–11 online in mid-2026; pick a factory-sealed pack with a printed expiry date.", tags:["About ¥10–11 per 500 g", "Same supermarket as the hotpot base"], ask:{"zh": "郫县豆瓣", "th": "ผีเซี่ยนโต้วป้าน"} },
       { id:"tea", name:"Sichuan green tea", zh:"大西南茶城", th:"ชาเสฉวน", at:null, photo:"d/d2/Zhu-Ye-Qing-Tea-03.jpg", photoCredit:"CEphoto, Uwe Aranas · CC BY-SA 4.0", note:"Chengdu's big tea market, about 600 traders from China's tea regions; taste before you buy. Mengding tea runs about ¥80–300, while genuine Zhuyeqing costs far more and loose \"Zhuyeqing\" is often fake, so buy it boxed.", tags:["Mengding ¥80–300", "Taste first"], ask:{"zh": "蒙顶甘露 · 竹叶青", "th": "เหมิงติ่งกันลู่ · จู๋เย่ชิง"} },
-      { id:"panda-goods", name:"Panda souvenirs", zh:"熊猫邮局", th:"ของที่ระลึกแพนด้า", at:[104.137012, 30.743879], photo:"d/d7/Toy_Pandas_in_Gift_Shop_of_Shiraraso_Grandhotel_20100214.jpg", photoCredit:"玄史生 · CC BY-SA 3.0 (panda toys in a hotel gift shop, not in Chengdu)", note:"China Post's panda post office at the Panda Base address, and the Base's own souvenir shops sell licensed panda goods. Plush toys, keychains, magnets, mugs and postcards cost about ¥20–200; Kuanzhai Alley and Jinli sell the same kind of goods if you skip the Base.", tags:["About ¥20–200", "At the Panda Base"], ask:{"zh": "熊猫公仔", "th": "สยงเมากงจ่าย"} },
+      { id:"panda-goods", name:"Panda souvenirs", zh:"熊猫邮局", addr:"成都市熊猫大道1375号", th:"ของที่ระลึกแพนด้า", at:[104.137012, 30.743879], photo:"d/d7/Toy_Pandas_in_Gift_Shop_of_Shiraraso_Grandhotel_20100214.jpg", photoCredit:"玄史生 · CC BY-SA 3.0 (panda toys in a hotel gift shop, not in Chengdu)", note:"China Post's panda post office at the Panda Base address, and the Base's own souvenir shops sell licensed panda goods. Plush toys, keychains, magnets, mugs and postcards cost about ¥20–200; Kuanzhai Alley and Jinli sell the same kind of goods if you skip the Base.", tags:["About ¥20–200", "At the Panda Base"], ask:{"zh": "熊猫公仔", "th": "สยงเมากงจ่าย"} },
       { id:"shu-brocade", name:"Shu brocade", zh:"蜀锦织绣博物馆", th:"ผ้าไหมซู่จิ่น", at:[104.036937, 30.657279], photo:"a/a6/Sichuan_%28Shu%29_Brocade_%289958396875%29.jpg", photoCredit:"Gary Todd · CC0", note:"Chengdu's silk brocade, sold as scarves, framed pieces, bags and fans; price depends on handmade or machine-made. The Shu Brocade and Embroidery Museum, about 1 km west of the hotel, is the safer place for genuine pieces.", tags:["About ¥100–500", "Hours (OSM): 9:00–18:00, weekends to 17:30"], ask:{"zh": "蜀锦", "th": "สู่จิ่น"} },
     ]},
   ]},
@@ -607,6 +721,59 @@ const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(e
 // เวลาปัจจุบันมาจากที่เดียว เพื่อทดสอบด้วยการแทนที่ฟังก์ชันนี้ในคอนโซลได้
 function currentTime() { return new Date(); }
 const todayIso = () => currentTime().toLocaleDateString("en-CA");
+
+// small values that are not trip edits; a private window or full storage just forgets them
+const local = {
+  get(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (_) { return fallback; } },
+  set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* โหมดส่วนตัว: จำไม่ได้ */ } },
+};
+
+// baht per yuan: the user's own bank rate (an edit, so Reset clears it), else the last one fetched, else the one baked in
+// the fetch runs at most once a day, only online; every ≈ ฿ on the page is a .thb span repainted when the rate changes
+const Rate = (() => {
+  const BAKED = { thbPerCny: 5.0147, date: "2026-10-21", source: "open.er-api.com" };
+  const KEY = "chengdu-trip-rate", URL = "https://open.er-api.com/v6/latest/CNY", STALE_DAYS = 7, ALIPAY_FREE = 200, ALIPAY_FEE = .03;
+  const fetched = () => { const r = local.get(KEY, null); return r?.thbPerCny > 0 ? r : null; };
+  const own = () => edits.rate?.thbPerCny > 0 ? edits.rate : null;
+  const current = () => own() ?? fetched() ?? BAKED;
+  const stale = () => (dateOf(todayIso()) - dateOf(current().date)) / 864e5 > STALE_DAYS;
+  const shortDate = iso => dateOf(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const label = () => { const r = current(); return `${own() ? "your rate" : "rate"} ${r.thbPerCny.toFixed(2)} · ${shortDate(r.date)}`; };
+  // ≈ is a guide, so it rounds: to the baht under ฿100, to ฿10 under ฿1,000, then to ฿100
+  const round = v => { const step = v < 100 ? 1 : v < 1000 ? 10 : 100; return Math.round(v / step) * step; };
+  const baht = cny => round(cny * current().thbPerCny).toLocaleString("en");
+  const approx = range => `≈ ฿${range.map(baht).join("–")}`;
+  const num = s => Number(s.replace(/,/g, ""));
+  // every ¥ amount or range in already-escaped text gets its baht after it
+  const annotate = html => html.replace(/¥\s?(\d+(?:,\d{3})*(?:\.\d+)?)(?:\s?[–-]\s?(\d+(?:,\d{3})*(?:\.\d+)?))?/g, (m, lo, hi) => {
+    const range = hi ? [num(lo), num(hi)] : [num(lo)];
+    return `${m} <span class="thb" data-cny="${range.join("-")}">${approx(range)}</span>`;
+  });
+  const paint = () => {
+    for (const s of document.querySelectorAll(".thb[data-cny]")) s.textContent = approx(s.dataset.cny.split("-").map(Number));
+    for (const s of document.querySelectorAll(".rate-label")) { s.textContent = label(); s.classList.toggle("stale", stale()); }
+  };
+  async function refresh() {
+    if (fetched()?.fetchedOn === todayIso() || !navigator.onLine) return;
+    try {
+      const j = await (await fetch(URL)).json();
+      const thb = j?.rates?.THB;
+      if (j?.result !== "success" || !(thb > 0)) return;
+      const date = new Date(j.time_last_update_unix * 1000).toLocaleDateString("en-CA");
+      local.set(KEY, { thbPerCny: thb, date, source: "open.er-api.com", fetchedOn: todayIso() });
+      paint();
+    } catch (_) { /* ออฟไลน์หรือเว็บอัตราแลกเปลี่ยนล่ม: ใช้อัตราเดิม */ }
+  }
+  function setOwn(thbPerCny) {
+    if (thbPerCny > 0) edits.rate = { thbPerCny, date: todayIso(), source: "your bank" }; else delete edits.rate;
+    saveEdits();
+    paint();
+  }
+  // Alipay adds its fee only on a payment above ¥200
+  const toThb = (cny, fee) => cny * current().thbPerCny * (fee && cny > ALIPAY_FREE ? 1 + ALIPAY_FEE : 1);
+  const toCny = (thb, fee) => { const c = thb / current().thbPerCny; return fee && c / (1 + ALIPAY_FEE) > ALIPAY_FREE ? c / (1 + ALIPAY_FEE) : c; };
+  return { current, label, stale, annotate, paint, refresh, setOwn, toThb, toCny, own };
+})();
 const isBooked = id => edits.booked?.[id] === true;
 function setBooked(id, on) {
   const next = { ...edits.booked };
@@ -614,6 +781,18 @@ function setBooked(id, on) {
   if (Object.keys(next).length) edits.booked = next; else delete edits.booked;
   saveEdits();
 }
+// saved guide items and phrases, oldest first; kept in edits so the edit sheet's Reset clears them too
+// a key is "<section>:<item id>" (Taikoo Li sits in two sections) or "say:<Chinese>" for a phrase
+const Saved = {
+  keys: () => Array.isArray(edits.saved) ? edits.saved : [],
+  has: key => Saved.keys().includes(key),
+  toggle(key) {
+    const next = Saved.has(key) ? Saved.keys().filter(k => k !== key) : [...Saved.keys(), key];
+    if (next.length) edits.saved = next; else delete edits.saved;
+    saveEdits();
+    document.dispatchEvent(new Event("saved-change"));
+  },
+};
 const withEdits = (id, base) => ({ ...base, ...edits[id] });
 const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
 const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
@@ -627,16 +806,11 @@ const amapUrl = (q, place) => place
   ? `https://uri.amap.com/marker?position=${place.at.join(",")}&name=${encodeURIComponent(place.th)}&src=chengdu-trip&coordinate=gaode&callnative=1`
   : `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
 const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
-// morning hotel → every stop → that night's hotel
+// an Amap driving route through pins ({ at, th }) in order, skipping a pin that repeats the one before it
 // phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
 // ditu.amap.com to phones keeps only the first via, and m.amap.com on a desktop drops them all
-const dayRouteUrl = (date, events) => {
-  const hotels = Object.values(HOTELS);
-  const morning = hotels.find(h => h.checkIn < date && date <= h.checkOut);
-  const night = hotels.find(h => h.checkIn <= date && date < h.checkOut);
-  const pins = [morning?.zh, ...events.map(ev => ev.map), night?.zh]
-    .map(q => PLACES[q]).filter(Boolean)
-    .filter((p, i, all) => p !== all[i - 1]);
+const routeUrl = stops => {
+  const pins = stops.filter((p, i, all) => String(p.at) !== String(all[i - 1]?.at));
   if (pins.length < 2) return null;
   const vias = pins.slice(1, -1);
   if (IS_PHONE) {
@@ -651,6 +825,22 @@ const dayRouteUrl = (date, events) => {
   vias.forEach((p, i) => put(`via[${i}]`, p));
   return `https://ditu.amap.com/dir?${q}`;
 };
+// morning hotel → every stop → that night's hotel
+const dayRouteUrl = (date, events) => routeUrl([morningHotel(date)?.zh, ...events.map(ev => ev.map), nightHotel(date)?.zh].map(q => PLACES[q]).filter(Boolean));
+// from today's Chengdu hotel (Kuanzhai, the guide's base, unless it is the Atour night), then always the nearest saved place not yet visited
+const ROUTE_MAX = 17;
+function savedRouteUrl(items) {
+  const h = nightHotel(todayIso()) ?? morningHotel(todayIso());
+  const pins = [PLACES[(h === HOTELS.atour ? h : HOTELS.kuanzhai).zh]];
+  const left = items.filter(i => i.at).map(i => ({ at: i.at, th: i.th }));
+  const dist = (a, b) => Math.hypot((a[0] - b[0]) * Math.cos(a[1] * Math.PI / 180), a[1] - b[1]);
+  while (left.length && pins.length < ROUTE_MAX) {
+    const from = pins.at(-1).at;
+    const i = left.reduce((best, p, j) => dist(from, p.at) < dist(from, left[best].at) ? j : best, 0);
+    pins.push(...left.splice(i, 1));
+  }
+  return routeUrl(pins);
+}
 const dateOf = iso => new Date(iso + "T00:00:00");
 const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
 const photo = (src, cls) => { const i = el("img", cls); i.src = src; i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
@@ -667,18 +857,79 @@ async function copyText(text) {
   return ok;
 }
 
-function showBig(text, caption = "Show this to your driver") {
-  const o = el("div", "overlay", `<div class="big">${esc(text)}</div><small>${esc(caption)}</small><button type="button">Close</button>`);
+// a show card is a stack of entries { zh, thai?, reading?, addr? } held up to someone who reads Chinese
+// driver: a place, under 师傅，麻烦去这里 · addable: phrases, with + to stack another one from the phrase sheet
+const placeCard = ({ zh, thai, addr }) => ({ driver: true, entries: [{ zh, thai, addr }] });
+let shown = null;
+function showCard(card) {
+  const opener = shown ? shown.opener : document.activeElement;
+  shown?.close(false);
+  const o = el("div", "overlay");
   o.setAttribute("role", "dialog");
   o.setAttribute("aria-modal", "true");
-  o.setAttribute("aria-label", text);
-  const opener = document.activeElement;
-  const close = () => { o.remove(); removeEventListener("keydown", onKey); opener?.focus(); };
+  o.setAttribute("aria-label", card.entries.map(e => e.zh).join(", "));
+  const body = el("div", "show-body");
+  if (card.driver) body.append(el("div", "show-driver", `<span lang="zh-CN">师傅，麻烦去这里</span><small>คุณคนขับ ช่วยพาไปที่นี่</small>`));
+  card.entries.forEach((e, i) => {
+    const box = el("div", "show-entry", `<div class="big" lang="zh-CN">${esc(e.zh)}</div>`);
+    if (e.addr) box.append(el("div", "show-addr", esc(e.addr)));
+    if (e.thai) box.append(el("div", card.driver ? "show-place" : "show-th", esc(e.thai)));
+    if (e.reading) box.append(el("div", "show-rd", esc(e.reading)));
+    if (card.entries.length > 1) {
+      const drop = iconButton("button", ICONS.fail, `Remove ${e.zh}`);
+      drop.classList.add("drop");
+      drop.onclick = () => showCard({ ...card, entries: card.entries.filter((_, j) => j !== i) });
+      box.append(drop);
+    }
+    body.append(box);
+  });
+  if (card.caption) body.append(el("small", "show-cap", esc(card.caption)));
+  const bar = el("div", "show-bar");
+  if (card.addable) {
+    const add = el("button", "add", "+ Add phrase");
+    add.onclick = () => { close(false); PhraseSheet.open({ adding: card.entries }); };
+    bar.append(add);
+  }
+  const done = el("button", "", "Close");
+  bar.append(done);
+  for (const b of bar.children) b.type = "button";
+  o.append(body, bar);
+  const fit = () => fitShowCard(o);
+  const close = (refocus = true) => {
+    o.remove(); shown = null;
+    removeEventListener("keydown", onKey); removeEventListener("resize", fit);
+    if (refocus) opener?.focus();
+  };
   const onKey = e => { if (e.key === "Escape") close(); };
-  o.onclick = close;
+  // a tap anywhere but a button puts the card away, as before
+  o.onclick = e => { if (!e.target.closest("button") || e.target === done) close(); };
   addEventListener("keydown", onKey);
+  addEventListener("resize", fit);
   document.body.append(o);
-  o.querySelector("button").focus();
+  shown = { close, opener };
+  fit();
+  done.focus();
+}
+
+// each Chinese line grows until it fills the width on its own number of lines (7 characters a line at most),
+// then the whole stack shrinks together if it is taller than the screen
+function fitShowCard(o) {
+  const bigs = [...o.querySelectorAll(".big")], body = o.querySelector(".show-body");
+  const cap = Math.min(260, innerHeight * .6);
+  const sizes = bigs.map(b => {
+    const lines = Math.ceil([...b.textContent].length / 7);
+    let lo = 16, hi = cap;
+    for (let k = 0; k < 12; k++) {
+      const s = (lo + hi) / 2;
+      b.style.fontSize = `${s}px`;
+      if (b.scrollWidth <= b.clientWidth + 1 && b.offsetHeight <= lines * s * 1.2 + 2) lo = s; else hi = s;
+    }
+    return lo;
+  });
+  let k = 1;
+  const apply = () => bigs.forEach((b, i) => { b.style.fontSize = `${Math.floor(sizes[i] * k)}px`; });
+  apply();
+  while (body.scrollHeight > body.clientHeight + 1 && k > .3) { k *= .92; apply(); }
 }
 
 // full screen picture: fits the screen width, a tap zooms to at least its own pixel width around the tapped point, pinch zoom still works
@@ -776,6 +1027,7 @@ const ICON_PATHS = {
   list: '<path d="M10 6h11M10 12h11M10 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/>',
   route: '<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H17a3.5 3.5 0 0 0 0-7H7a3.5 3.5 0 0 1 0-7h8.5"/>',
   bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+  heart: '<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
 };
 const svg = d => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const ICONS = Object.fromEntries(Object.entries(ICON_PATHS).map(([k, d]) => [k, svg(d)]));
@@ -812,11 +1064,12 @@ function copyRow(content, label, text) {
   return row;
 }
 
-function zhRow(zh, caption) {
+function zhRow(zh, card) {
   const b = el("button", "zh", esc(zh));
   b.type = "button";
+  b.lang = "zh-CN";
   b.setAttribute("aria-label", `Show ${zh} large`);
-  b.onclick = () => showBig(zh, caption);
+  b.onclick = () => showCard(card);
   return copyRow(b, "Copy Chinese name", zh);
 }
 
@@ -829,9 +1082,9 @@ function eventBody(ev) {
   }
   const txt = el("div", "txt");
   txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${withReadings(ev.text)}`));
-  if (ev.detail) txt.append(el("div", "detail", esc(ev.detail)));
+  if (ev.detail) txt.append(el("div", "detail", Rate.annotate(esc(ev.detail))));
   if (ev.ref) txt.append(copyRow(el("span", "ref", `Booking no. <b>${esc(ev.ref)}</b>`), "Copy booking number", ev.ref));
-  if (ev.zh) txt.append(zhRow(ev.zh));
+  if (ev.zh) txt.append(zhRow(ev.zh, placeCard({ zh: ev.zh, thai: PLACES[ev.map]?.th, addr: HOTELS[ev.hotel]?.addr })));
   return txt;
 }
 
@@ -876,7 +1129,7 @@ function freeDayPicks(ids) {
     for (const it of items) {
       const row = el("div", "pick");
       if (it.photo) row.append(photo(thumbUrl(it.photo), "pick-photo"));
-      const txt = el("div", "pick-txt", `<b>${withReadings(`${it.name} (${it.th})`)}</b>${it.tags.length ? `<small>${esc(it.tags.slice(0, 2).join(" · "))}</small>` : ""}`);
+      const txt = el("div", "pick-txt", `<b>${withReadings(`${it.name} (${it.th})`)}</b>${it.tags.length ? `<small>${Rate.annotate(esc(it.tags.slice(0, 2).join(" · ")))}</small>` : ""}`);
       const zh = el("button", "pick-zh", esc(it.zh));
       zh.type = "button";
       zh.setAttribute("aria-label", `Show ${it.zh} large`);
@@ -1441,11 +1694,11 @@ async function posterPng(scale = 2) {
 
 function renderTonight() {
   const today = todayIso(), root = document.getElementById("tonight");
-  const key = Object.keys(HOTELS).find(k => HOTELS[k].checkIn <= today && today < HOTELS[k].checkOut);
+  const night = nightHotel(today);
   root.replaceChildren();
-  if (!key) return;
+  if (!night) return;
   DAYS.forEach((d, i) => d.events.forEach((base, j) => {
-    if (base.hotel !== key) return;
+    if (HOTELS[base.hotel] !== night) return;
     const card = el("section", "card tonight", `<h2 class="tonight-h">Tonight · ${dateLabel(today)}</h2>`);
     card.setAttribute("aria-label", "Tonight's hotel");
     card.append(eventBody(resolveEvent(`d${i}e${j}`, base)));
@@ -1462,7 +1715,7 @@ function renderOpenItems() {
 
 function buildOpenItems() {
   document.querySelector("#open-items ul").replaceChildren(...OPEN_ITEMS.map(o => {
-    const li = el("li", "", `<label><input type="checkbox"><span>${esc(o.text)}</span></label>`);
+    const li = el("li", "", `<label><input type="checkbox"><span>${Rate.annotate(esc(o.text))}</span></label>`);
     const box = li.querySelector("input");
     box.checked = isBooked(o.id);
     box.onchange = () => { setBooked(o.id, box.checked); renderOpenItems(); renderDays(); renderPoster(); refreshActiveDay(); refreshClock(); };
@@ -1522,7 +1775,7 @@ function dayEditor(day, i) {
 }
 
 function openSettings() {
-  const sheet = el("div", "sheet");
+  const sheet = el("div", "sheet edit-sheet");
   sheet.setAttribute("role", "dialog");
   sheet.setAttribute("aria-modal", "true");
   sheet.setAttribute("aria-label", "Edit trip");
@@ -1567,47 +1820,300 @@ function openSettings() {
   done.focus();
 }
 
-function guideItem(item) {
+const itemCard = item => placeCard({ zh: item.zh, thai: item.th, addr: item.addr });
+
+function heartButton(key, name) {
+  const b = iconButton("button", ICONS.heart, `Save ${name}`);
+  b.classList.add("heart");
+  b.dataset.saved = key;
+  b.setAttribute("aria-pressed", Saved.has(key));
+  b.onclick = () => Saved.toggle(key);
+  return b;
+}
+
+// the one-line summary of an item: thumbnail, name, Thai and its first tags; a button, because tapping it opens the item
+function itemToggle(item, tags) {
+  const b = el("button", "gd-toggle");
+  b.type = "button";
+  const chips = item.tags.slice(0, tags).map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("");
+  b.append(item.photo ? photo(thumbUrl(item.photo), "gd-thumb") : el("span", "gd-thumb"),
+    el("span", "gd-name", `<b>${esc(item.name)}</b><span class="gd-th">${esc(item.th)}</span>${chips ? `<span class="gd-mini">${chips}</span>` : ""}`));
+  return b;
+}
+
+// a guide item starts as one row; opening it adds the photo, every tag, the note and the Chinese rows (built on first open)
+function guideItem(item, secId) {
   const card = el("article", "card gd-item");
-  card.dataset.id = item.id;
-  if (item.photo) card.append(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
-  const head = el("div", "gd-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
-  head.append(mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
-  const body = el("div", "gd-body");
-  body.append(head);
-  if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
-  body.append(el("p", "gd-note", esc(item.note)), zhRow(item.zh));
-  // a souvenir names its shop in zh and the product to ask for in ask
-  if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, "Show this in the shop"));
-  card.append(body);
+  card.dataset.key = `${secId}:${item.id}`;
+  const row = el("div", "gd-row");
+  const toggle = itemToggle(item, 2);
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.onclick = () => toggleItem(card);
+  const tools = el("div", "gd-tools");
+  tools.append(heartButton(card.dataset.key, item.name), mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
+  row.append(toggle, tools);
+  card.append(row);
   return card;
 }
 
-function phraseCard(phrases) {
-  const card = el("div", "card");
-  card.append(...phrases.map(ph => {
-    const row = el("div", "gd-phrase", `<b>${esc(ph.thai)}</b><span>${esc(ph.reading)}</span>`);
-    row.append(zhRow(ph.zh, "Show this screen"));
-    return row;
-  }));
-  return card;
+function itemDetails(card, item) {
+  if (item.photo) card.prepend(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
+  const more = el("div", "gd-more");
+  if (item.tags.length) more.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("")));
+  more.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, itemCard(item)));
+  // a souvenir names its shop in zh and the product to ask for in ask
+  if (item.ask) more.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
+  card.append(more);
 }
+
+function setItemOpen(card, open) {
+  if (open && !card.querySelector(".gd-more")) itemDetails(card, SAVABLE.get(card.dataset.key).item);
+  card.classList.toggle("open", open);
+  card.querySelector(".gd-toggle").setAttribute("aria-expanded", open);
+}
+
+// one item open at a time, so the guide stays a short list to scan; the tapped card keeps its place on screen
+function toggleItem(card, open = !card.classList.contains("open")) {
+  const top = card.getBoundingClientRect().top;
+  for (const c of guide.sheet.querySelectorAll(".gd-item.open")) if (c !== card) setItemOpen(c, false);
+  setItemOpen(card, open);
+  guide.sheet.scrollTop += card.getBoundingClientRect().top - top;
+  guide.save();
+}
+
 
 function guideSection(sec) {
   const box = el("section", "gd-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
   box.id = `g-${sec.id}`;
   for (const g of sec.groups ?? []) {
-    box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
-    if (g.phrases) box.append(phraseCard(g.phrases));
+    box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(item => guideItem(item, sec.id)));
+    if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph]), { hearts: true }));
   }
-  box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
+  box.append(...(sec.tips ?? []).map(t => el("details", "card gd-tip", `<summary><h3>${esc(t.title)}</h3></summary><p>${Rate.annotate(esc(t.text))}</p>`)));
   return box;
+}
+
+const PHRASE_GROUPS = GUIDE.find(s => s.id === "say").groups;
+const PHRASES = new Map(PHRASE_GROUPS.flatMap(g => g.phrases).map(ph => [ph.zh, ph]));
+// everything a heart can save, by its Saved key
+const SAVABLE = new Map([
+  ...GUIDE.flatMap(sec => (sec.groups ?? []).flatMap(g => (g.items ?? []).map(item => [`${sec.id}:${item.id}`, { sec: sec.id, item }]))),
+  ...[...PHRASES.values()].map(phrase => [`say:${phrase.zh}`, { sec: "say", phrase }]),
+]);
+// the last phrases shown, newest first, by their Chinese
+const RECENT_KEY = "chengdu-trip-recent", RECENT_MAX = 6;
+const recentPhrases = () => local.get(RECENT_KEY, []).map(zh => PHRASES.get(zh)).filter(Boolean);
+function showPhrases(entries) {
+  local.set(RECENT_KEY, [...new Set([...entries.map(e => e.zh).reverse(), ...local.get(RECENT_KEY, [])])].slice(0, RECENT_MAX));
+  showCard({ entries, addable: true });
+}
+
+function phraseTile(ph, onPick) {
+  const b = el("button", "ph-tile", `<b>${esc(ph.thai)}</b><span class="ph-zh" lang="zh-CN">${esc(ph.zh)}</span><span class="ph-rd">${esc(ph.reading)}</span>`);
+  b.type = "button";
+  b.onclick = () => onPick(ph);
+  return b;
+}
+
+function phraseGrid(phrases, onPick, { hearts = false } = {}) {
+  const grid = el("div", "ph-grid");
+  grid.append(...phrases.map(ph => {
+    const cell = el("div", "ph-cell");
+    cell.append(phraseTile(ph, onPick));
+    if (hearts) cell.append(heartButton(`say:${ph.zh}`, ph.thai));
+    return cell;
+  }));
+  return grid;
+}
+
+// the bottom sheet behind 说: back to the hotel, recent phrases, then every phrase group as tiles
+// adding: the entries of an open show card waiting for one more phrase
+const PhraseSheet = (() => {
+  let node = null, tab = "say", adding = null, opener = null, overflow0 = "";
+  const money = { from: "cny", input: "", fee: false };
+  const TABS = { say: "Phrases", money: "¥ ⇄ ฿" };
+  const pick = ph => { const entries = [...(adding ?? []), ph]; adding = null; showPhrases(entries); render(); };
+  function phrasesTab() {
+    const box = el("div");
+    if (adding) {
+      const bar = el("div", "ps-adding", `<div>Add to <span lang="zh-CN">${esc(adding.map(e => e.zh).join(" · "))}</span></div>`);
+      const cancel = iconButton("button", ICONS.fail, "Stop adding");
+      cancel.onclick = () => { adding = null; render(); };
+      bar.append(cancel);
+      box.append(bar);
+    }
+    const hotel = hotelToReturnTo(todayIso());
+    if (hotel && !adding) {
+      const t = el("button", "hotel-tile", `${ICONS.hotel}<b>Back to hotel</b><small>กลับโรงแรม · ${esc(hotel.short)}</small><span lang="zh-CN">${esc(hotel.zh)}</span>`);
+      t.type = "button";
+      t.onclick = () => showCard(placeCard({ zh: hotel.zh, thai: PLACES[hotel.zh]?.th, addr: hotel.addr }));
+      box.append(t);
+    }
+    const recent = recentPhrases();
+    if (recent.length) {
+      const row = el("div", "ph-recent");
+      row.append(...recent.map(ph => phraseTile(ph, pick)));
+      box.append(el("h3", "ps-h", "Recent"), row);
+    }
+    for (const g of PHRASE_GROUPS) box.append(el("h3", "ps-h", esc(g.title)), phraseGrid(g.phrases, pick));
+    return box;
+  }
+
+  // ¥ ⇄ ฿: one side is typed on the pad, the other follows; tapping the other side types there instead
+  const CUR = { cny: { sym: "¥", name: "yuan · หยวน", digits: 2 }, thb: { sym: "฿", name: "baht · บาท", digits: 0 } };
+  const other = cur => cur === "cny" ? "thb" : "cny";
+  const converted = () => { const v = Number(money.input || 0); return money.from === "cny" ? Rate.toThb(v, money.fee) : Rate.toCny(v, money.fee); };
+  const fmt = (v, cur) => v.toLocaleString("en", { maximumFractionDigits: CUR[cur].digits });
+  function press(key) {
+    if (key === "back") money.input = money.input.slice(0, -1);
+    else if (key === "." ? !money.input.includes(".") : !/\.\d\d$/.test(money.input)) money.input = (money.input + key).replace(/^0(?=\d)/, "").slice(0, 9);
+  }
+  function moneyTab() {
+    const box = el("div", "cv");
+    const line = cls => { const b = el("button", `cv-line ${cls}`); b.type = "button"; return b; };
+    const from = line("from"), to = line("to");
+    to.onclick = () => { const v = converted(); money.from = other(money.from); money.input = v ? String(+v.toFixed(CUR[money.from].digits)) : ""; update(); };
+    const fee = el("label", "cv-fee", `<input type="checkbox"><span>+3% Alipay fee on payments above ¥200</span>`);
+    const feeBox = fee.querySelector("input");
+    feeBox.checked = money.fee;
+    feeBox.onchange = () => { money.fee = feeBox.checked; update(); };
+    const pad = el("div", "cv-pad");
+    for (const k of ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "back"]) {
+      const b = el("button", "", k === "back" ? "⌫" : k);
+      b.type = "button";
+      if (k === "back") b.setAttribute("aria-label", "Delete");
+      b.onclick = () => { press(k); update(); };
+      pad.append(b);
+    }
+    const rateRow = el("div", "cv-rate", `<span class="rate-label"></span>`);
+    const change = el("button", "cv-link");
+    change.type = "button";
+    const form = el("form", "cv-own", `<label><span>Baht for ¥1 at your bank</span><input inputmode="decimal" autocomplete="off"></label><button type="submit">Save</button>`);
+    form.hidden = true;
+    const input = form.querySelector("input");
+    change.onclick = () => { form.hidden = !form.hidden; if (!form.hidden) { input.value = Rate.current().thbPerCny.toFixed(2); input.select(); } };
+    const live = el("button", "cv-link", "Use the live rate");
+    live.type = "button";
+    live.onclick = () => { Rate.setOwn(0); form.hidden = true; update(); };
+    form.onsubmit = e => { e.preventDefault(); const v = Number(input.value.replace(",", ".")); if (v > 0) { Rate.setOwn(v); form.hidden = true; update(); } };
+    rateRow.append(change);
+    form.append(live);
+    box.append(from, to, fee, pad, rateRow, form);
+    function update() {
+      const f = money.from, t = other(f);
+      from.innerHTML = `<span class="cv-sym">${CUR[f].sym}</span><b>${money.input ? fmt(Number(money.input), f) + (money.input.endsWith(".") ? "." : "") : "0"}</b><small>${CUR[f].name}</small>`;
+      to.innerHTML = `<span class="cv-sym">${CUR[t].sym}</span><b>≈ ${fmt(converted(), t)}</b><small>${CUR[t].name}</small>`;
+      to.setAttribute("aria-label", `${fmt(converted(), t)} ${CUR[t].name}. Tap to type ${CUR[t].sym} instead`);
+      from.setAttribute("aria-live", "polite");
+      change.textContent = Rate.own() ? "Change" : "Use my bank rate";
+      live.hidden = !Rate.own();
+      Rate.paint();
+    }
+    box.update = update;
+    update();
+    return box;
+  }
+
+  function render() {
+    if (!node) return;
+    for (const b of node.querySelectorAll(".ps-tabs button")) b.setAttribute("aria-selected", b.dataset.tab === tab);
+    node.querySelector(".ps-body").replaceChildren(tab === "money" ? moneyTab() : phrasesTab());
+  }
+  function open(opts = {}) {
+    adding = opts.adding ?? null;
+    tab = adding ? "say" : opts.tab ?? tab;
+    if (node) return render();
+    opener = document.activeElement;
+    const scrim = el("div", "ps-scrim");
+    const sheet = el("div", "ps");
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-label", "Chinese phrases and money");
+    const tabs = el("div", "ps-tabs");
+    tabs.setAttribute("role", "tablist");
+    tabs.append(...Object.entries(TABS).map(([id, label]) => {
+      const b = el("button", "", esc(label));
+      Object.assign(b, { type: "button", onclick: () => { tab = id; render(); } });
+      b.dataset.tab = id;
+      b.setAttribute("role", "tab");
+      return b;
+    }));
+    const head = el("div", "ps-head");
+    const x = iconButton("button", ICONS.fail, "Close");
+    x.onclick = close;
+    head.append(tabs, x);
+    sheet.append(head, el("div", "ps-body"));
+    scrim.onclick = close;
+    node = sheet;
+    node.scrim = scrim;
+    overflow0 = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.body.append(scrim, sheet);
+    addEventListener("keydown", onKey);
+    render();
+    x.focus();
+  }
+  function close() {
+    if (!node) return;
+    node.scrim.remove(); node.remove(); node = null; adding = null;
+    document.body.style.overflow = overflow0;
+    removeEventListener("keydown", onKey);
+    opener?.focus();
+  }
+  const onKey = e => {
+    if (document.querySelector(".overlay")) return;
+    if (e.key === "Escape") return close();
+    const cv = tab === "money" && !e.target.closest("input") && node.querySelector(".cv");
+    if (cv && /^[\d.]$|^Backspace$/.test(e.key)) { e.preventDefault(); press(e.key === "Backspace" ? "back" : e.key); cv.update(); }
+  };
+  return { open, close };
+})();
+
+const SAVED_GROUPS = [["see", "Places"], ["eat", "Food"], ["shop", "Shop"], ["say", "Phrases"]];
+function savedRow(key, item) {
+  const row = el("div", "gd-row");
+  const open = itemToggle(item, 1);
+  open.onclick = () => revealItem(key);
+  const show = iconButton("button", "", `Show ${item.zh} to the driver`, "Show");
+  show.classList.add("zh-show");
+  show.onclick = () => showCard(itemCard(item));
+  row.append(open, show);
+  return row;
+}
+
+function fillSaved(box) {
+  const entries = Saved.keys().map(key => ({ key, ...SAVABLE.get(key) })).filter(e => e.sec);
+  const head = el("div", "gd-saved-head", `<h2>Saved <span class="th">(ที่บันทึกไว้)</span></h2>`);
+  const url = savedRouteUrl(entries.filter(e => e.item).map(e => e.item));
+  if (url) {
+    const a = iconButton("a", ICONS.pin, "Open a route through the saved places in Amap", "Route");
+    Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
+    head.append(a);
+  }
+  box.replaceChildren(head);
+  if (!entries.length) return box.append(el("p", "gd-empty", "Tap ♡ on a place, a dish, a shop or a phrase to keep it here."));
+  for (const [id, title] of SAVED_GROUPS) {
+    const group = entries.filter(e => e.sec === id);
+    if (!group.length) continue;
+    box.append(el("h3", "sub", title));
+    if (id === "say") { box.append(phraseGrid(group.map(e => e.phrase), ph => showPhrases([ph]), { hearts: true })); continue; }
+    const list = el("div", "card gd-list");
+    list.append(...group.map(e => savedRow(e.key, e.item)));
+    box.append(list);
+  }
+}
+
+function revealItem(key) {
+  const card = guide?.sheet.querySelector(`.gd-sec:not(#g-saved) [data-key="${CSS.escape(key)}"]`);
+  if (!card) return;
+  toggleItem(card, true);
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // the guide lives at #guide so the phone's back gesture closes it; section pills replace the entry instead of stacking more
 let guide = null;
 function openGuide() {
-  const sheet = el("div", "sheet");
+  const sheet = el("div", "sheet guide");
   sheet.setAttribute("role", "dialog");
   sheet.setAttribute("aria-modal", "true");
   sheet.setAttribute("aria-label", "Chengdu guide");
@@ -1618,7 +2124,7 @@ function openGuide() {
   const pills = el("div", "gd-pills");
   pills.setAttribute("role", "navigation");
   pills.setAttribute("aria-label", "Guide sections");
-  pills.append(...GUIDE.map(sec => {
+  pills.append(...[{ id: "saved", title: "Saved" }, ...GUIDE].map(sec => {
     const a = el("a", "", esc(sec.title));
     a.href = `#guide-${sec.id}`;
     a.dataset.id = sec.id;
@@ -1626,7 +2132,21 @@ function openGuide() {
     return a;
   }));
   bar.append(back, el("h2", "", "Chengdu guide"), pills);
-  sheet.append(bar, ...GUIDE.map(guideSection));
+  const rate = el("p", "gd-rate", `<span>≈ ฿ uses <span class="rate-label">${esc(Rate.label())}</span></span>`);
+  const convert = el("button", "cv-link", "Convert");
+  convert.type = "button";
+  convert.onclick = () => PhraseSheet.open({ tab: "money" });
+  rate.append(convert);
+  const saved = el("section", "gd-sec gd-saved");
+  saved.id = "g-saved";
+  sheet.append(bar, rate, saved, ...GUIDE.map(guideSection));
+  const syncSaved = () => {
+    fillSaved(saved);
+    pills.querySelector('[data-id="saved"]').textContent = `Saved (${Saved.keys().length})`;
+    for (const b of sheet.querySelectorAll("[data-saved]")) b.setAttribute("aria-pressed", Saved.has(b.dataset.saved));
+  };
+  syncSaved();
+  document.addEventListener("saved-change", syncSaved);
   const markPill = () => {
     // a tapped pill stays lit while its smooth scroll passes the sections before it; the reader's own scroll takes over again
     if (guide?.picked) return setPill(guide.picked);
@@ -1644,12 +2164,18 @@ function openGuide() {
       a.toggleAttribute("aria-current", on);
     }
   };
-  sheet.addEventListener("scroll", markPill, { passive: true });
+  // where the reader was and which item was open, so reopening the guide in this tab lands back there
+  let saveTimer;
+  const save = () => {
+    clearTimeout(saveTimer);
+    try { sessionStorage.setItem(GUIDE_POS_KEY, JSON.stringify({ top: sheet.scrollTop, open: sheet.querySelector(".gd-item.open")?.dataset.key ?? null })); } catch (_) { /* จำตำแหน่งไม่ได้ */ }
+  };
+  sheet.addEventListener("scroll", () => { markPill(); clearTimeout(saveTimer); saveTimer = setTimeout(save, 200); }, { passive: true });
   for (const type of ["touchstart", "wheel", "keydown"]) sheet.addEventListener(type, () => { if (guide) guide.picked = null; }, { passive: true });
-  // showBig's overlay handles its own Escape
-  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay")) history.back(); };
+  // the show card and the phrase sheet handle their own Escape
+  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay, .ps")) history.back(); };
   addEventListener("keydown", onKey);
-  guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill };
+  guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill, syncSaved, save };
   document.body.style.overflow = "hidden";
   document.body.append(sheet);
   markPill();
@@ -1664,8 +2190,10 @@ function showGuideSection(id, behavior = "instant") {
 }
 
 function closeGuide() {
-  const { sheet, scrollY0, opener, onKey } = guide;
+  const { sheet, scrollY0, opener, onKey, syncSaved, save } = guide;
+  save();
   guide = null;
+  document.removeEventListener("saved-change", syncSaved);
   sheet.remove();
   document.body.style.overflow = "";
   removeEventListener("keydown", onKey);
@@ -1673,11 +2201,24 @@ function closeGuide() {
   opener?.focus();
 }
 
+const GUIDE_POS_KEY = "chengdu-guide-pos";
+function restoreGuide() {
+  let pos = null;
+  try { pos = JSON.parse(sessionStorage.getItem(GUIDE_POS_KEY)); } catch (_) { /* ไม่มีตำแหน่งเดิม */ }
+  if (typeof pos?.top !== "number") return false;
+  const card = pos.open && guide.sheet.querySelector(`.gd-sec:not(#g-saved) [data-key="${CSS.escape(pos.open)}"]`);
+  if (card) setItemOpen(card, true);
+  guide.sheet.scrollTop = pos.top;
+  guide.markPill();
+  return true;
+}
+
 function route() {
   const m = /^#guide(?:-([\w-]+))?$/.exec(location.hash);
   if (!m) { if (guide) closeGuide(); return; }
-  if (!guide) openGuide();
-  if (m[1]) showGuideSection(m[1]);
+  if (guide) { if (m[1]) showGuideSection(m[1]); return; }
+  openGuide();
+  if (!restoreGuide() && m[1]) showGuideSection(m[1]);
 }
 
 function renderCountdown() {
@@ -1754,6 +2295,7 @@ document.getElementById("poster-btn").onclick = showPoster;
 renderTables();
 // the infographic measures its text to wrap it, so it is drawn again once its fonts have loaded
 Promise.all(["400 1em Thai", "500 1em Thai", "600 1em Thai", '500 1em "Bodoni Moda"'].map(f => document.fonts.load(f, "กA1"))).then(renderPoster, () => {});
+document.getElementById("say-fab").onclick = () => PhraseSheet.open();
 playRidgeIntro();
 (document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
 // opened straight at #guide: put the plan underneath in history so Back lands on it instead of leaving the page
@@ -1764,6 +2306,8 @@ if (location.hash.startsWith("#guide")) {
 }
 addEventListener("hashchange", route);
 route();
+Rate.paint();
+Rate.refresh();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
     document.getElementById("offline-status").textContent = "Offline mode is not available here";

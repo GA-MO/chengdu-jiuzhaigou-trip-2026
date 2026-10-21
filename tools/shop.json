@@ -187,7 +187,9 @@
           "tags": [
             "About ¥20–200",
             "At the Panda Base"
-          ]
+          ],
+          "addr": "成都市熊猫大道1375号",
+          "addrSource": "OSM node 12574196373"
         },
         {
           "id": "shu-brocade",

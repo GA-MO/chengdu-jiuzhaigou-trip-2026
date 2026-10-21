@@ -20,7 +20,9 @@
             "Michelin Bib Gourmand 2027",
             "~¥131 per person",
             "Queue at peak times"
-          ]
+          ],
+          "addr": "成都市青羊区琴台路60号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/long-sen-yuan"
         },
         {
           "id": "maojiao",
@@ -40,7 +42,9 @@
             "~¥65 per person",
             "11:00–22:00",
             "Queue"
-          ]
+          ],
+          "addr": "成都市奎星楼街33号",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/11641134.html"
         },
         {
           "id": "houtang",
@@ -60,7 +64,9 @@
             "~¥112 per person",
             "11:00–02:00",
             "Queue"
-          ]
+          ],
+          "addr": "成都市东大街下东大街段166号1-3层",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/25031797.html"
         }
       ]
     },
@@ -84,7 +90,9 @@
             "Michelin 2 stars 2027",
             "~¥1,900 per person",
             "Booking required"
-          ]
+          ],
+          "addr": "成都市青羊区长发街24号附1号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/yu-zhi-lan-1196150"
         },
         {
           "id": "chenmapo",
@@ -103,7 +111,9 @@
             "Michelin Bib Gourmand 2027",
             "~¥70 per person",
             "Near Du Fu Cottage"
-          ]
+          ],
+          "addr": "成都市青羊区青华路10号附10-12号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/chen-mapo-tofu-qinghua-road"
         },
         {
           "id": "woos",
@@ -121,7 +131,9 @@
           "tags": [
             "Michelin Bib Gourmand 2027",
             "Mid-range (Michelin ¥¥)"
-          ]
+          ],
+          "addr": "成都市锦江区宏济中路39号附17号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/the-woo-s"
         }
       ]
     },
@@ -145,7 +157,9 @@
             "Since 1941",
             "~¥31 per person",
             "09:00–21:30"
-          ]
+          ],
+          "addr": "成都市城守街63号",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/4926065.html"
         },
         {
           "id": "zhanglaoer",
@@ -164,7 +178,9 @@
             "~¥16 per person",
             "08:30–18:30",
             "Opposite Wenshu Monastery"
-          ]
+          ],
+          "addr": "成都市文殊院街39号",
+          "addrSource": "OSM node in atSource"
         },
         {
           "id": "no37",
@@ -182,7 +198,9 @@
           "tags": [
             "Michelin Bib Gourmand 2027",
             "Budget (Michelin ¥)"
-          ]
+          ],
+          "addr": "成都市青羊区马王庙街37号2栋",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/no-37-lao-yuan-ba-chao-shou"
         },
         {
           "id": "ganji",
@@ -202,7 +220,9 @@
             "~¥19 per person",
             "07:30–20:00",
             "Queue"
-          ]
+          ],
+          "addr": "成都市金牛区马鞍北路18号附1-3号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/gan-ji-fei-chang-fen"
         },
         {
           "id": "wansan",
@@ -221,7 +241,9 @@
             "Michelin Bib Gourmand 2027",
             "Budget (Michelin ¥)",
             "Best after 18:00"
-          ]
+          ],
+          "addr": "成都市锦江区青龙正街131号附1号",
+          "addrSource": "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/wan-san-mian-guan-jinjiang"
         }
       ]
     },
@@ -245,7 +267,9 @@
             "Since 1923",
             "Tea ~¥13–30 a cup",
             "Go in the morning"
-          ]
+          ],
+          "addr": "成都市少城路12号",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/5233721.html"
         },
         {
           "id": "laitangyuan",
@@ -264,7 +288,9 @@
             "~¥28 per person",
             "08:00–23:00",
             "Chunxi Road"
-          ]
+          ],
+          "addr": "成都市总府路23号附2号",
+          "addrSource": "https://you.ctrip.com/food/chengdu104/347038.html"
         }
       ]
     }

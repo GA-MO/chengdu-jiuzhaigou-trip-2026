@@ -28,7 +28,7 @@ TH = {
     "panda-goods": "ของที่ระลึกแพนด้า",
     "shu-brocade": "ผ้าไหมซู่จิ่น",
 }
-KEYS = ["id", "name", "zh", "th", "at", "photo", "photoCredit", "note", "tags", "ask"]
+KEYS = ["id", "name", "zh", "addr", "th", "at", "photo", "photoCredit", "note", "tags", "ask"]
 js = lambda v: json.dumps(v, ensure_ascii=False)
 
 
