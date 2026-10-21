@@ -42,6 +42,9 @@
   .countdown::before { content:""; display:inline-block; width:6px; height:6px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); }
   .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:50%; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
   .edit-btn svg { width:18px; height:18px; stroke-width:1.6; }
+  .hero-tools { display:flex; gap:8px; }
+  .guide-btn { display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 16px 0 14px; color:#fff; font-size:.85rem; font-weight:600; text-decoration:none; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:var(--r-pill); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); -webkit-tap-highlight-color:transparent; }
+  .guide-btn svg { width:17px; height:17px; stroke-width:1.6; }
   .hero-inner { position:relative; z-index:1; width:100%; max-width:760px; margin:0 auto; padding:0 20px 34px; }
   .hero h1 { margin:0; font-size:clamp(2.9rem,14vw,4.6rem); font-weight:450; line-height:.98; letter-spacing:-.02em; text-wrap:balance; }
   .hero p { margin:16px 0 0; padding-top:14px; border-top:1px solid rgb(255 255 255 / 28%); font-size:.9rem; letter-spacing:.01em; color:rgb(255 255 255 / 86%); max-width:44ch; }
@@ -119,7 +122,8 @@
   .th { font-family:var(--sans); font-weight:450; letter-spacing:0; opacity:.78; white-space:nowrap; }
   .t .th { font-size:.94em; }
   .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
-  .dsub .icon-btn { flex:none; }
+  .dsub-tools { flex:none; display:flex; gap:6px; }
+  .dsub .icon-btn { min-height:44px; }
   .not-booked { color:var(--warn); font-weight:600; }
 
   /* timeline: time column, hairline rail, content */
@@ -219,6 +223,33 @@
   .field > span { display:block; margin-bottom:4px; font-size:.78rem; color:var(--mute); }
   .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
+  /* guide: a .sheet with two-row bar (back + title, then section pills) */
+  .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
+  .guide-bar h2 { flex:1; }
+  .guide-bar .icon-btn { min-height:44px; padding:0 14px 0 8px; color:var(--lake); background:var(--paper); border:1px solid var(--line); }
+  .g-pills { flex:0 0 100%; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
+  .g-pills::-webkit-scrollbar { display:none; }
+  .g-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:var(--r-pill); background:var(--paper); color:var(--lake); font-size:.84rem; font-weight:600; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  .g-pills a[aria-current] { background:var(--lake); border-color:var(--lake); color:#fff; }
+  .g-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
+  .g-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
+  .g-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
+  .g-sec .sub { margin-top:22px; }
+  .g-item { padding:0; overflow:hidden; }
+  .g-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
+  .g-credit { margin:0; padding:6px 20px 0; color:var(--mute); font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .g-body { padding:12px 20px 18px; }
+  .g-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .g-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
+  .g-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
+  .g-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .g-tags .chip { background:var(--lake-tint); color:var(--lake); }
+  .g-note { margin:10px 0 0; font-size:.92rem; }
+  .g-phrase + .g-phrase { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
+  .g-phrase b { display:block; font-size:1.15rem; font-weight:600; line-height:1.35; }
+  .g-phrase span { display:block; color:var(--mute); font-size:.88rem; }
+  .g-tip h3 { margin:0; font-size:1.15rem; }
+  .g-tip p { margin:6px 0 0; font-size:.92rem; }
   .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
@@ -227,7 +258,10 @@
   <img id="hero-img" alt="" crossorigin="anonymous">
   <div class="hero-top">
     <span class="countdown" id="countdown"></span>
+    <div class="hero-tools">
+    <a class="guide-btn" href="#guide"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Guide</a>
     <button class="edit-btn" id="edit-btn" type="button" aria-label="Edit trip details"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+    </div>
   </div>
   <div class="hero-inner">
     <h1>Chengdu to Jiuzhaigou</h1>
@@ -317,7 +351,8 @@ const IMAGES = {
 // ใช้ลิงก์ตรงของ upload.wikimedia.org เพราะ Special:FilePath ใช้ fetch ข้ามโดเมนไม่ได้ (redirect ไม่มี CORS)
 // the full-screen hero gets 1280px so it stays sharp on a phone; the day covers are smaller
 const HERO = "wuhua";
-const imgUrl = key => { const path = IMAGES[key], w = key === HERO ? 1280 : 960; return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${path.split("/").pop()}`; };
+const thumbUrl = (path, w = 960) => `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${path.split("/").pop()}`;
+const imgUrl = key => thumbUrl(IMAGES[key], key === HERO ? 1280 : 960);
 
 const FLIGHTS = [
   { airline:"Thai Airways", no:"TG618", date:"2026-11-07", dur:"2h 55m", depart:"10:05", arrive:"14:00",
@@ -420,7 +455,7 @@ const DAYS = [
     hotelEv("~15:10", "kuanzhai"),
     { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", detail:"About 1 km from the hotel, a 10–15 min walk" },
   ]},
-  { date:"2026-11-12", alt:500, cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", guide:true, alt:500, cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
@@ -428,7 +463,7 @@ const DAYS = [
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", alt:500, cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
+  { date:"2026-11-13", guide:true, alt:500, cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
     { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
     { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
@@ -441,6 +476,52 @@ const DAYS = [
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
 ];
+
+// Chengdu guide: sections in display order. A group holds items (places with a photo and a map pin) or phrases; a section without groups holds tips.
+// at = GCJ-02 [lng, lat] (null: the map searches by zh) · photo = Commons path as in IMAGES (null: no photo)
+const GUIDE = [
+  { id:"see", title:"Places", th:"ที่เที่ยว", groups:[
+    { title:"Old Chengdu", items:[
+      { id:"kuanzhai", name:"Kuanzhai Alley", zh:"宽窄巷子", th:"ควานไจ่เซี่ยงจึ", at:[104.053283, 30.66375],
+        photo:"f/fa/Jinli_Street_-_Chengdu%2C_China_-_DSC05404.jpg", photoCredit:"Daderot · CC0",
+        note:"Three parallel Qing-era lanes of courtyard houses, teahouses and snack stalls. Busiest in the evening; go before 10:00 for quiet photos.", tags:["Free", "1 km from the hotel", "Evening"] },
+      { id:"wenshu", name:"Wenshu Monastery", zh:"文殊院", th:"วัดเหวินซู", at:[104.072722, 30.675494],
+        photo:"d/d5/Hall_-_Wenshu_Monastery_-_Chengdu%2C_China_-_DSC05252.jpg", photoCredit:"Daderot · CC0",
+        note:"Working Buddhist temple with a vegetarian restaurant and a teahouse in the garden. Cover shoulders and knees.", tags:["Free", "08:00–17:30"] },
+    ]},
+  ]},
+  { id:"eat", title:"Food", th:"ของกิน", groups:[
+    { title:"Sichuan classics", items:[
+      { id:"chen-mapo", name:"Chen Mapo Tofu", zh:"陈麻婆豆腐(青华路)", th:"เฉินหมาผัวโต้วฝุ", at:[104.034175, 30.662714],
+        photo:"8/88/Chen_Mapo_Tofu.jpg", photoCredit:"ZhengZhou · CC BY-SA 4.0",
+        note:"The restaurant that gave mapo tofu its name. Ask for less chili (少辣) if spice is a worry.", tags:["¥60–90 each", "Spicy"] },
+      { id:"shudaxia", name:"Shu Daxia Hotpot", zh:"蜀大侠火锅", th:"สู่ต้าเซีย", at:null, photo:null, photoCredit:"",
+        note:"Popular hotpot chain with many branches; the map searches for the nearest one. Order a split pot (鸳鸯锅) for a mild side.", tags:["Hotpot", "Queue at 19:00"] },
+    ]},
+  ]},
+  { id:"shop", title:"Shopping", th:"ช้อปปิ้ง", groups:[
+    { title:"Malls and streets", items:[
+      { id:"chunxi", name:"Chunxi Road", zh:"春熙路", th:"ถนนชุนซี", at:[104.077822, 30.656778],
+        photo:"7/73/Chunxi_Road_seen_from_viaduct%2C_Chengdu.jpg", photoCredit:"Gong Chen, Mlogic · CC BY-SA 4.0",
+        note:"Pedestrian shopping street joined to IFS and Taikoo Li. Metro lines 2 and 3.", tags:["Fashion", "Metro"] },
+      { id:"taikooli", name:"Sino-Ocean Taikoo Li", zh:"成都远洋太古里", th:"ไท่กู่หลี่", at:[104.083496, 30.653415], photo:null, photoCredit:"",
+        note:"Open-air low-rise mall around Daci Temple, with brand flagships and cafes.", tags:["Brands", "Cafes"] },
+    ]},
+  ]},
+  { id:"say", title:"Phrases", th:"ประโยคจีน", groups:[
+    { title:"At a restaurant", phrases:[
+      { thai:"ไม่เผ็ด", zh:"不要辣", reading:"ปู๋เย่าล่า" },
+      { thai:"เช็กบิลด้วย", zh:"买单", reading:"หม่ายตัน" },
+    ]},
+  ]},
+  { id:"tips", title:"Tips", th:"เคล็ดลับ", tips:[
+    { title:"Pay by phone", text:"Most shops take only Alipay or WeChat Pay. Link a card before the trip and keep some cash for small stalls." },
+    { title:"Metro security", text:"Every metro station scans bags like an airport. Allow a few extra minutes at rush hour." },
+  ]},
+];
+const guideItems = () => GUIDE.flatMap(s => s.groups ?? []).flatMap(g => g.items ?? []);
+// every photo the page shows, saved for offline use in this order
+const PHOTO_URLS = [...new Set([...Object.keys(IMAGES).map(imgUrl), ...guideItems().filter(i => i.photo).map(i => thumbUrl(i.photo))])];
 
 const MAX_ALT = 4860;
 const WEEKDAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -467,13 +548,10 @@ const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const withReadings = s => esc(s).replace(/\(([฀-๿][^)]*)\)/g, '<span class="th">($1)</span>');
-// a known point opens as a pin with its Thai name; anything else falls back to Amap's search, which may ask for a login
-const amapUrl = q => {
-  const p = PLACES[q];
-  return p
-    ? `https://uri.amap.com/marker?position=${p.at.join(",")}&name=${encodeURIComponent(p.th)}&src=chengdu-trip&coordinate=gaode&callnative=1`
-    : `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
-};
+// a known point ({ at, th }) opens as a pin with its Thai name; anything else falls back to Amap's search, which may ask for a login
+const amapUrl = (q, place) => place
+  ? `https://uri.amap.com/marker?position=${place.at.join(",")}&name=${encodeURIComponent(place.th)}&src=chengdu-trip&coordinate=gaode&callnative=1`
+  : `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
 const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
 // morning hotel → every stop → that night's hotel
 // phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
@@ -501,7 +579,7 @@ const dayRouteUrl = (date, events) => {
 };
 const dateOf = iso => new Date(iso + "T00:00:00");
 const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
-const photo = (key, cls) => { const i = el("img", cls); i.src = imgUrl(key); i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
+const photo = (src, cls) => { const i = el("img", cls); i.src = src; i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
   i.onerror = () => i.remove(); return i; };
 
 async function copyText(text) {
@@ -515,8 +593,8 @@ async function copyText(text) {
   return ok;
 }
 
-function showBig(text) {
-  const o = el("div", "overlay", `<div class="big">${esc(text)}</div><small>Show this to your driver</small><button type="button">Close</button>`);
+function showBig(text, caption = "Show this to your driver") {
+  const o = el("div", "overlay", `<div class="big">${esc(text)}</div><small>${esc(caption)}</small><button type="button">Close</button>`);
   o.setAttribute("role", "dialog");
   o.setAttribute("aria-modal", "true");
   o.setAttribute("aria-label", text);
@@ -554,6 +632,8 @@ const ICONS = {
   fail: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
   plane: svg('<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>'),
   hotel: svg('<path d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle cx="7" cy="12" r="1.8"/>'),
+  back: svg('<path d="M15 5l-7 7 7 7"/>'),
+  book: svg('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'),
   pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
 };
 const iconButton = (tag, icon, label, text = "") => {
@@ -577,9 +657,9 @@ function copyButton(label, text, caption) {
   return b;
 }
 
-function mapLink(query) {
+function mapLink(query, place) {
   const a = iconButton("a", ICONS.pin, "Open in map");
-  Object.assign(a, { href: amapUrl(query), target: "_blank", rel: "noopener" });
+  Object.assign(a, { href: amapUrl(query, place), target: "_blank", rel: "noopener" });
   return a;
 }
 
@@ -589,24 +669,26 @@ function copyRow(content, label, text) {
   return row;
 }
 
+function zhRow(zh, caption) {
+  const b = el("button", "zh", esc(zh));
+  b.type = "button";
+  b.setAttribute("aria-label", `Show ${zh} large`);
+  b.onclick = () => showBig(zh, caption);
+  return copyRow(b, "Copy Chinese name", zh);
+}
+
 function eventBody(ev) {
   const head = el("div", "ev-head", `<span class="time">${esc(ev.time)}</span>`);
   if (ev.map) {
     const tools = el("div", "ev-tools");
-    tools.append(mapLink(ev.map));
+    tools.append(mapLink(ev.map, PLACES[ev.map]));
     head.append(tools);
   }
   const txt = el("div", "txt");
   txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${withReadings(ev.text)}`));
   if (ev.detail) txt.append(el("div", "detail", esc(ev.detail)));
   if (ev.ref) txt.append(copyRow(el("span", "ref", `Booking no. <b>${esc(ev.ref)}</b>`), "Copy booking number", ev.ref));
-  if (ev.zh) {
-    const zh = el("button", "zh", esc(ev.zh));
-    zh.type = "button";
-    zh.setAttribute("aria-label", `Show ${ev.zh} large`);
-    zh.onclick = () => showBig(ev.zh);
-    txt.append(copyRow(zh, "Copy Chinese name", ev.zh));
-  }
+  if (ev.zh) txt.append(zhRow(ev.zh));
   return txt;
 }
 
@@ -648,17 +730,23 @@ function renderDays() {
     const sec = el("article", `day${d.date === today ? " today" : ""}`);
     sec.id = id;
     const cover = el("div", "cover");
-    cover.append(photo(d.cover, ""));
+    cover.append(photo(imgUrl(d.cover), ""));
     cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2><p class="th-line">${esc(d.th)}</p>`));
     const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
     const sub = el("div", "dsub");
-    sub.append(el("span", "", dayNote(d)));
+    const tools = el("div", "dsub-tools");
+    if (d.guide) {
+      const g = iconButton("a", ICONS.book, "Open the Chengdu guide", "Guide");
+      g.href = "#guide";
+      tools.append(g);
+    }
     const url = dayRouteUrl(d.date, events);
     if (url) {
       const a = iconButton("a", ICONS.pin, "Open this day's route in Amap", "Route");
       Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
-      sub.append(a);
+      tools.append(a);
     }
+    sub.append(el("span", "", dayNote(d)), tools);
     const ul = el("ul", "tl");
     ul.append(...events.map(renderEvent));
     sec.append(cover, sub, ul);
@@ -855,6 +943,110 @@ function openSettings() {
   done.focus();
 }
 
+function guideItem(item) {
+  const card = el("article", "card g-item");
+  card.dataset.id = item.id;
+  if (item.photo) card.append(photo(thumbUrl(item.photo), "g-photo"), el("p", "g-credit", esc(item.photoCredit)));
+  const head = el("div", "g-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
+  head.append(mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
+  const body = el("div", "g-body");
+  body.append(head);
+  if (item.tags.length) body.append(el("div", "g-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
+  body.append(el("p", "g-note", esc(item.note)), zhRow(item.zh));
+  card.append(body);
+  return card;
+}
+
+function phraseCard(phrases) {
+  const card = el("div", "card");
+  card.append(...phrases.map(ph => {
+    const row = el("div", "g-phrase", `<b>${esc(ph.thai)}</b><span>${esc(ph.reading)}</span>`);
+    row.append(zhRow(ph.zh, "Show this screen"));
+    return row;
+  }));
+  return card;
+}
+
+function guideSection(sec) {
+  const box = el("section", "g-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
+  box.id = `g-${sec.id}`;
+  for (const g of sec.groups ?? []) {
+    box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
+    if (g.phrases) box.append(phraseCard(g.phrases));
+  }
+  box.append(...(sec.tips ?? []).map(t => el("div", "card g-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
+  return box;
+}
+
+// the guide lives at #guide so the phone's back gesture closes it; section pills replace the entry instead of stacking more
+let guide = null;
+function openGuide() {
+  const sheet = el("div", "sheet");
+  sheet.setAttribute("role", "dialog");
+  sheet.setAttribute("aria-modal", "true");
+  sheet.setAttribute("aria-label", "Chengdu guide");
+  const back = iconButton("button", ICONS.back, "Back to the plan", "Plan");
+  back.type = "button";
+  back.onclick = () => history.back();
+  const bar = el("div", "sheet-bar guide-bar");
+  const pills = el("div", "g-pills");
+  pills.setAttribute("role", "navigation");
+  pills.setAttribute("aria-label", "Guide sections");
+  pills.append(...GUIDE.map(sec => {
+    const a = el("a", "", esc(sec.title));
+    a.href = `#guide-${sec.id}`;
+    a.dataset.id = sec.id;
+    a.onclick = e => { e.preventDefault(); history.replaceState(null, "", a.href); showGuideSection(sec.id, "smooth"); };
+    return a;
+  }));
+  bar.append(back, el("h2", "", "Chengdu guide"), pills);
+  sheet.append(bar, ...GUIDE.map(guideSection));
+  const markPill = () => {
+    const top = bar.getBoundingClientRect().bottom + 24, secs = [...sheet.querySelectorAll(".g-sec")];
+    // the last section is too short to reach the bar, so the bottom of the page counts as reaching it
+    const atEnd = sheet.scrollTop + sheet.clientHeight >= sheet.scrollHeight - 2;
+    const current = atEnd ? secs.at(-1) : secs.filter(s => s.getBoundingClientRect().top <= top).pop() ?? secs[0];
+    for (const a of pills.querySelectorAll("a")) {
+      const on = `g-${a.dataset.id}` === current.id;
+      if (on && !a.hasAttribute("aria-current")) pills.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" });
+      a.toggleAttribute("aria-current", on);
+    }
+  };
+  sheet.addEventListener("scroll", markPill, { passive: true });
+  // showBig's overlay handles its own Escape
+  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay")) history.back(); };
+  addEventListener("keydown", onKey);
+  guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill };
+  document.body.style.overflow = "hidden";
+  document.body.append(sheet);
+  markPill();
+  back.focus();
+}
+
+function showGuideSection(id, behavior = "instant") {
+  const sec = guide.sheet.querySelector(`#g-${CSS.escape(id)}`);
+  if (!sec) return;
+  sec.scrollIntoView({ behavior, block: "start" });
+  guide.markPill();
+}
+
+function closeGuide() {
+  const { sheet, scrollY0, opener, onKey } = guide;
+  guide = null;
+  sheet.remove();
+  document.body.style.overflow = "";
+  removeEventListener("keydown", onKey);
+  scrollTo({ top: scrollY0, behavior: "instant" });
+  opener?.focus();
+}
+
+function route() {
+  const m = /^#guide(?:-([\w-]+))?$/.exec(location.hash);
+  if (!m) { if (guide) closeGuide(); return; }
+  if (!guide) openGuide();
+  if (m[1]) showGuideSection(m[1]);
+}
+
 function renderCountdown() {
   const start = dateOf(DAYS[0].date), end = dateOf(DAYS[DAYS.length - 1].date);
   const now = currentTime(); now.setHours(0, 0, 0, 0);
@@ -888,8 +1080,8 @@ function trackActiveDay() {
 // ดึงรูปทั้งหมดมาเก็บในแคชตอนมีเน็ต เพื่อให้เปิดออฟไลน์ได้ (service worker ดักคำขอเหล่านี้)
 function precacheImages() {
   const status = document.getElementById("offline-status");
-  const total = Object.keys(IMAGES).length;
-  const wanted = new Set(Object.keys(IMAGES).map(imgUrl));
+  const total = PHOTO_URLS.length;
+  const wanted = new Set(PHOTO_URLS);
   const cachedCount = async () => (await (await caches.open("chengdu-trip-images")).keys()).filter(r => wanted.has(r.url)).length;
   const show = async () => {
     const n = await cachedCount();
@@ -899,7 +1091,7 @@ function precacheImages() {
   // ทีละรูป: เพื่อให้ service worker เขียนแคชทีละรายการ
   const warm = async () => {
     await navigator.serviceWorker.ready;
-    for (const k of Object.keys(IMAGES)) { await fetch(imgUrl(k), { mode: "cors" }).catch(() => {}); await show(); }
+    for (const url of PHOTO_URLS) { await fetch(url, { mode: "cors" }).catch(() => {}); await show(); }
     if (!(await show())) status.textContent = `Saved ${await cachedCount()}/${total} photos · reopen this page while online`;
   };
   show();
@@ -926,6 +1118,14 @@ document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("plan-btn").onclick = showPlan;
 playRidgeIntro();
 (document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
+// opened straight at #guide: put the plan underneath in history so Back lands on it instead of leaving the page
+if (location.hash.startsWith("#guide")) {
+  const target = location.hash;
+  history.replaceState(null, "", location.pathname + location.search);
+  history.pushState(null, "", target);
+}
+addEventListener("hashchange", route);
+route();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
     document.getElementById("offline-status").textContent = "Offline mode is not available here";
