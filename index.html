@@ -237,17 +237,66 @@
   .tips { margin:0; padding-left:18px; font-size:.88rem; line-height:1.55; }
   .tips li { margin:10px 0; padding-left:4px; }
   .tips li::marker { color:var(--larch); }
-  footer { max-width:760px; margin:40px auto 0; padding:24px 20px calc(44px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.76rem; line-height:1.6; border-top:1px solid var(--line); }
+  footer { max-width:760px; margin:40px auto 0; padding:24px 20px calc(100px + env(safe-area-inset-bottom)); text-align:center; color:var(--mute); font-size:.76rem; line-height:1.6; border-top:1px solid var(--line); }
   footer a { display:inline-block; padding:10px 2px; margin:-10px 0; color:inherit; }
   #offline-status { margin:0 0 6px; font-weight:600; color:var(--ink); }
-  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px; padding:24px; background:#fff; color:var(--chili); text-align:center; }
-  .overlay .big { font-family:var(--zh); font-size:clamp(2rem,10vw,3.4rem); line-height:1.3; font-weight:600; word-break:break-all; }
-  .overlay { animation:fade-in .16s ease-out both; }
-  .overlay .big { animation:grow-in .26s cubic-bezier(.2,.9,.3,1) both; }
+  /* show card: Chinese sized to fill the width, for a driver or a waiter to read at arm's length */
+  .overlay { position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; padding:calc(20px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left)); background:#fff; color:var(--chili); text-align:center; animation:fade-in .16s ease-out both; }
+  .show-body { flex:1; min-height:0; overflow:hidden auto; display:flex; flex-direction:column; gap:22px; }
+  /* auto margins centre the stack but, unlike justify-content, never push a tall one off the top */
+  .show-body > :first-child { margin-top:auto; } .show-body > :last-child { margin-bottom:auto; }
+  .show-driver { display:flex; flex-direction:column; align-items:center; gap:2px; padding-bottom:16px; border-bottom:1px solid var(--chili-line); }
+  .show-driver span { font-family:var(--zh); font-size:1.6rem; font-weight:600; line-height:1.3; }
+  .show-driver small, .show-place { color:var(--mute); font-size:.9rem; }
+  .show-entry { position:relative; display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .show-entry + .show-entry { padding-top:22px; border-top:1px solid var(--chili-line); }
+  .overlay .big { width:100%; font-family:var(--zh); font-size:3rem; line-height:1.2; font-weight:600; text-wrap:balance; animation:grow-in .26s cubic-bezier(.2,.9,.3,1) both; }
+  .show-addr { margin-top:6px; color:var(--ink); font-family:var(--zh); font-size:1.25rem; line-height:1.4; }
+  .show-th { color:var(--ink); font-size:1.3rem; font-weight:600; line-height:1.35; }
+  .show-rd { color:#2b4245; font-size:1.1rem; line-height:1.4; }
+  .show-entry .drop { position:absolute; right:0; bottom:-6px; }
+  .show-entry:has(.drop) :is(.show-th, .show-rd) { padding:0 44px; }
+  .show-bar { flex:none; display:flex; justify-content:center; gap:10px; padding-top:14px; }
+  .show-bar button { min-height:48px; padding:0 26px; border:1px solid var(--ink); border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  .show-bar .add { background:transparent; color:var(--ink); }
+  .show-cap { color:var(--mute); font-size:.9rem; }
   @keyframes fade-in { from { opacity:0; } }
   @keyframes grow-in { from { opacity:0; transform:scale(.88); } }
-  .overlay small { color:var(--mute); font-size:.9rem; }
-  .overlay button { min-height:48px; padding:0 30px; border:0; border-radius:var(--r-pill); background:var(--ink); color:#fff; font:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+  @media (orientation:landscape) and (max-height:500px) { .show-body { gap:10px; } .show-driver { padding-bottom:8px; } .show-entry + .show-entry { padding-top:10px; } }
+
+  /* 说: the phrase sheet from anywhere, bottom right */
+  .say-fab { position:fixed; z-index:92; right:calc(16px + env(safe-area-inset-right)); bottom:calc(16px + env(safe-area-inset-bottom)); width:58px; height:58px; display:grid; place-items:center; padding:0 0 3px; border:0; border-radius:var(--r-field); background:var(--lake-deep); color:#fff; box-shadow:inset 0 -3px 0 var(--larch), 0 10px 24px -8px rgb(14 44 48 / 55%); font-family:var(--zh); font-size:1.65rem; font-weight:600; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:transform .12s; }
+  .say-fab:active { transform:scale(.94); }
+  body:has(.edit-sheet) .say-fab { display:none; }
+  .ps-scrim { position:fixed; inset:0; z-index:95; background:rgb(14 44 48 / 40%); animation:fade-in .16s ease-out both; }
+  .ps { position:fixed; z-index:96; left:0; right:0; bottom:0; max-width:760px; max-height:min(88svh,900px); margin:0 auto; display:flex; flex-direction:column; background:var(--snow); border-radius:var(--r-card) var(--r-card) 0 0; box-shadow:0 -12px 40px -20px rgb(14 44 48 / 50%); animation:sheet-up .24s cubic-bezier(.2,.9,.3,1) both; }
+  @keyframes sheet-up { from { transform:translateY(40%); opacity:0; } }
+  .ps-head { flex:none; display:flex; align-items:center; gap:8px; padding:12px 8px 0 16px; border-bottom:1px solid var(--line); }
+  .ps-head::before { content:""; position:absolute; left:50%; top:6px; width:36px; height:4px; margin-left:-18px; border-radius:2px; background:var(--line); }
+  .ps-tabs { flex:1; display:flex; gap:18px; }
+  .ps-tabs button { min-height:48px; padding:6px 2px 0; border:0; background:none; color:var(--mute); font:inherit; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; box-shadow:inset 0 -1.5px 0 transparent; }
+  .ps-tabs button[aria-selected="true"] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
+  .ps-body { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:14px 16px calc(24px + env(safe-area-inset-bottom)); }
+  .ps-adding { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 12px; padding:8px 4px 8px 12px; border:1px solid var(--chili-line); border-radius:var(--r-field); background:var(--paper); color:var(--chili); font-size:.88rem; font-weight:600; }
+  .ps-adding span { font-family:var(--zh); }
+  .ps-h { margin:20px 0 8px; font-family:var(--serif); font-size:1.08rem; font-weight:500; }
+  .ps-h:first-child { margin-top:0; }
+  .ph-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  .ph-cell { position:relative; display:flex; }
+  .ph-tile { flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-height:92px; padding:11px 12px 10px; text-align:left; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); color:var(--ink); font:inherit; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .ph-tile:active { background:var(--lake-tint); }
+  .ph-tile b { font-size:.95rem; font-weight:600; line-height:1.3; }
+  .ph-zh { color:var(--chili); font-family:var(--zh); font-size:1.3rem; font-weight:500; line-height:1.25; }
+  .ph-rd { color:#2b4245; font-size:.9rem; line-height:1.35; }
+  .ph-recent { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px 2px; }
+  .ph-recent::-webkit-scrollbar { display:none; }
+  .ph-recent .ph-tile { flex:0 0 auto; min-height:0; max-width:62%; padding:8px 12px; }
+  .ph-recent .ph-zh { font-size:1.15rem; }
+  .hotel-tile { width:100%; display:grid; grid-template-columns:auto 1fr; align-items:center; gap:2px 12px; padding:12px 14px; text-align:left; border:0; border-radius:var(--r-field); background:var(--lake-deep); color:#fff; font:inherit; cursor:pointer; box-shadow:inset 0 -3px 0 var(--larch); -webkit-tap-highlight-color:transparent; }
+  .hotel-tile svg { grid-row:1 / span 3; width:24px; height:24px; color:#e2c48a; stroke-width:1.6; }
+  .hotel-tile b { font-family:var(--serif); font-size:1.15rem; font-weight:500; }
+  .hotel-tile small { color:rgb(255 255 255 / 72%); font-size:.8rem; }
+  .hotel-tile span { color:#e2c48a; font-family:var(--zh); font-size:1.05rem; }
   .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
   .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
@@ -286,6 +335,7 @@
   .field input, .field textarea { display:block; width:100%; padding:10px 12px; font:inherit; font-size:16px; line-height:1.35; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .field textarea { min-height:44px; resize:vertical; field-sizing:content; }
   /* guide: a .sheet with two-row bar (back + title, then section pills) */
+  .guide { padding-bottom:calc(100px + env(safe-area-inset-bottom)); }
   .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
   .guide-bar h2 { flex:1; }
   .gd-pills { flex:0 0 100%; display:flex; justify-content:space-between; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
@@ -307,9 +357,6 @@
   .gd-tags .chip { background:var(--lake-tint); color:var(--lake); }
   .gd-note { margin:10px 0 0; font-size:.92rem; }
   .gd-ask { margin:12px 0 -4px; color:var(--mute); font-size:.85rem; }
-  .gd-phrase + .gd-phrase { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
-  .gd-phrase b { display:block; font-size:1.15rem; font-weight:600; line-height:1.35; }
-  .gd-phrase span { display:block; color:var(--mute); font-size:.88rem; }
   .gd-tip h3 { margin:0; font-size:1.15rem; }
   .gd-tip p { margin:6px 0 0; font-size:.92rem; }
   .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
@@ -400,6 +447,7 @@
   Photos from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licensed by each photographer)<br>
   Open this page once online to save photos for offline use
 </footer>
+<button class="say-fab" id="say-fab" type="button" lang="zh-CN" aria-label="Chinese phrases and the hotel address">说</button>
 
 <script>
 /* zh = ชื่อภาษาจีนสำหรับคัดลอกให้คนขับ · map = คำค้นแผนที่ */
@@ -434,6 +482,10 @@ const HOTELS = {
   jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", short:"Rezen Retreat, Jiuzhaigou", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
   kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", short:"Chuanxing Yinli, Kuanzhai Alley", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
+const nightHotel = date => Object.values(HOTELS).find(h => h.checkIn <= date && date < h.checkOut);
+const morningHotel = date => Object.values(HOTELS).find(h => h.checkIn < date && date <= h.checkOut);
+// the hotel to ride back to: tonight's, else the one left that morning, else before the trip the first one
+const hotelToReturnTo = date => nightHotel(date) ?? morningHotel(date) ?? (date < DAYS[0].date ? Object.values(HOTELS)[0] : null);
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
@@ -688,10 +740,7 @@ const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
 // phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
 // ditu.amap.com to phones keeps only the first via, and m.amap.com on a desktop drops them all
 const dayRouteUrl = (date, events) => {
-  const hotels = Object.values(HOTELS);
-  const morning = hotels.find(h => h.checkIn < date && date <= h.checkOut);
-  const night = hotels.find(h => h.checkIn <= date && date < h.checkOut);
-  const pins = [morning?.zh, ...events.map(ev => ev.map), night?.zh]
+  const pins = [morningHotel(date)?.zh, ...events.map(ev => ev.map), nightHotel(date)?.zh]
     .map(q => PLACES[q]).filter(Boolean)
     .filter((p, i, all) => p !== all[i - 1]);
   if (pins.length < 2) return null;
@@ -724,18 +773,79 @@ async function copyText(text) {
   return ok;
 }
 
-function showBig(text, caption = "Show this to your driver") {
-  const o = el("div", "overlay", `<div class="big">${esc(text)}</div><small>${esc(caption)}</small><button type="button">Close</button>`);
+// a show card is a stack of entries { zh, thai?, reading?, addr? } held up to someone who reads Chinese
+// driver: a place, under 师傅，麻烦去这里 · addable: phrases, with + to stack another one from the phrase sheet
+const placeCard = ({ zh, thai, addr }) => ({ driver: true, entries: [{ zh, thai, addr }] });
+let shown = null;
+function showCard(card) {
+  const opener = shown ? shown.opener : document.activeElement;
+  shown?.close(false);
+  const o = el("div", "overlay");
   o.setAttribute("role", "dialog");
   o.setAttribute("aria-modal", "true");
-  o.setAttribute("aria-label", text);
-  const opener = document.activeElement;
-  const close = () => { o.remove(); removeEventListener("keydown", onKey); opener?.focus(); };
+  o.setAttribute("aria-label", card.entries.map(e => e.zh).join(", "));
+  const body = el("div", "show-body");
+  if (card.driver) body.append(el("div", "show-driver", `<span lang="zh-CN">师傅，麻烦去这里</span><small>คุณคนขับ ช่วยพาไปที่นี่</small>`));
+  card.entries.forEach((e, i) => {
+    const box = el("div", "show-entry", `<div class="big" lang="zh-CN">${esc(e.zh)}</div>`);
+    if (e.addr) box.append(el("div", "show-addr", esc(e.addr)));
+    if (e.thai) box.append(el("div", card.driver ? "show-place" : "show-th", esc(e.thai)));
+    if (e.reading) box.append(el("div", "show-rd", esc(e.reading)));
+    if (card.entries.length > 1) {
+      const drop = iconButton("button", ICONS.fail, `Remove ${e.zh}`);
+      drop.classList.add("drop");
+      drop.onclick = () => showCard({ ...card, entries: card.entries.filter((_, j) => j !== i) });
+      box.append(drop);
+    }
+    body.append(box);
+  });
+  if (card.caption) body.append(el("small", "show-cap", esc(card.caption)));
+  const bar = el("div", "show-bar");
+  if (card.addable) {
+    const add = el("button", "add", "+ Add phrase");
+    add.onclick = () => { close(false); PhraseSheet.open({ adding: card.entries }); };
+    bar.append(add);
+  }
+  const done = el("button", "", "Close");
+  bar.append(done);
+  for (const b of bar.children) b.type = "button";
+  o.append(body, bar);
+  const fit = () => fitShowCard(o);
+  const close = (refocus = true) => {
+    o.remove(); shown = null;
+    removeEventListener("keydown", onKey); removeEventListener("resize", fit);
+    if (refocus) opener?.focus();
+  };
   const onKey = e => { if (e.key === "Escape") close(); };
-  o.onclick = close;
+  // a tap anywhere but a button puts the card away, as before
+  o.onclick = e => { if (!e.target.closest("button") || e.target === done) close(); };
   addEventListener("keydown", onKey);
+  addEventListener("resize", fit);
   document.body.append(o);
-  o.querySelector("button").focus();
+  shown = { close, opener };
+  fit();
+  done.focus();
+}
+
+// each Chinese line grows until it fills the width on its own number of lines (7 characters a line at most),
+// then the whole stack shrinks together if it is taller than the screen
+function fitShowCard(o) {
+  const bigs = [...o.querySelectorAll(".big")], body = o.querySelector(".show-body");
+  const cap = Math.min(260, innerHeight * .6);
+  const sizes = bigs.map(b => {
+    const lines = Math.ceil([...b.textContent].length / 7);
+    let lo = 16, hi = cap;
+    for (let k = 0; k < 12; k++) {
+      const s = (lo + hi) / 2;
+      b.style.fontSize = `${s}px`;
+      if (b.scrollWidth <= b.clientWidth + 1 && b.offsetHeight <= lines * s * 1.2 + 2) lo = s; else hi = s;
+    }
+    return lo;
+  });
+  let k = 1;
+  const apply = () => bigs.forEach((b, i) => { b.style.fontSize = `${Math.floor(sizes[i] * k)}px`; });
+  apply();
+  while (body.scrollHeight > body.clientHeight + 1 && k > .3) { k *= .92; apply(); }
 }
 
 function showPlan() {
@@ -800,11 +910,12 @@ function copyRow(content, label, text) {
   return row;
 }
 
-function zhRow(zh, caption) {
+function zhRow(zh, card = placeCard({ zh })) {
   const b = el("button", "zh", esc(zh));
   b.type = "button";
+  b.lang = "zh-CN";
   b.setAttribute("aria-label", `Show ${zh} large`);
-  b.onclick = () => showBig(zh, caption);
+  b.onclick = () => showCard(card);
   return copyRow(b, "Copy Chinese name", zh);
 }
 
@@ -1128,11 +1239,11 @@ function renderOverview() {
 
 function renderTonight() {
   const today = todayIso(), root = document.getElementById("tonight");
-  const key = Object.keys(HOTELS).find(k => HOTELS[k].checkIn <= today && today < HOTELS[k].checkOut);
+  const night = nightHotel(today);
   root.replaceChildren();
-  if (!key) return;
+  if (!night) return;
   DAYS.forEach((d, i) => d.events.forEach((base, j) => {
-    if (base.hotel !== key) return;
+    if (HOTELS[base.hotel] !== night) return;
     const card = el("section", "card tonight", `<h2 class="tonight-h">Tonight · ${dateLabel(today)}</h2>`);
     card.setAttribute("aria-label", "Tonight's hotel");
     card.append(eventBody(resolveEvent(`d${i}e${j}`, base)));
@@ -1209,7 +1320,7 @@ function dayEditor(day, i) {
 }
 
 function openSettings() {
-  const sheet = el("div", "sheet");
+  const sheet = el("div", "sheet edit-sheet");
   sheet.setAttribute("role", "dialog");
   sheet.setAttribute("aria-modal", "true");
   sheet.setAttribute("aria-label", "Edit trip");
@@ -1263,38 +1374,125 @@ function guideItem(item) {
   const body = el("div", "gd-body");
   body.append(head);
   if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
-  body.append(el("p", "gd-note", esc(item.note)), zhRow(item.zh));
+  body.append(el("p", "gd-note", esc(item.note)), zhRow(item.zh, placeCard({ zh: item.zh, thai: item.th })));
   // a souvenir names its shop in zh and the product to ask for in ask
-  if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, "Show this in the shop"));
+  if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
   card.append(body);
   return card;
 }
 
-function phraseCard(phrases) {
-  const card = el("div", "card");
-  card.append(...phrases.map(ph => {
-    const row = el("div", "gd-phrase", `<b>${esc(ph.thai)}</b><span>${esc(ph.reading)}</span>`);
-    row.append(zhRow(ph.zh, "Show this screen"));
-    return row;
-  }));
-  return card;
-}
 
 function guideSection(sec) {
   const box = el("section", "gd-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
   box.id = `g-${sec.id}`;
   for (const g of sec.groups ?? []) {
     box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
-    if (g.phrases) box.append(phraseCard(g.phrases));
+    if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph])));
   }
   box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
   return box;
 }
 
+const PHRASE_GROUPS = GUIDE.find(s => s.id === "say").groups;
+const PHRASES = new Map(PHRASE_GROUPS.flatMap(g => g.phrases).map(ph => [ph.zh, ph]));
+const local = {
+  get(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (_) { return fallback; } },
+  set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* โหมดส่วนตัว: จำไม่ได้ */ } },
+};
+// the last phrases shown, newest first, by their Chinese
+const RECENT_KEY = "chengdu-trip-recent", RECENT_MAX = 6;
+const recentPhrases = () => local.get(RECENT_KEY, []).map(zh => PHRASES.get(zh)).filter(Boolean);
+function showPhrases(entries) {
+  local.set(RECENT_KEY, [...new Set([...entries.map(e => e.zh).reverse(), ...local.get(RECENT_KEY, [])])].slice(0, RECENT_MAX));
+  showCard({ entries, addable: true });
+}
+
+function phraseTile(ph, onPick) {
+  const b = el("button", "ph-tile", `<b>${esc(ph.thai)}</b><span class="ph-zh" lang="zh-CN">${esc(ph.zh)}</span><span class="ph-rd">${esc(ph.reading)}</span>`);
+  b.type = "button";
+  b.onclick = () => onPick(ph);
+  return b;
+}
+
+function phraseGrid(phrases, onPick) {
+  const grid = el("div", "ph-grid");
+  grid.append(...phrases.map(ph => { const cell = el("div", "ph-cell"); cell.append(phraseTile(ph, onPick)); return cell; }));
+  return grid;
+}
+
+// the bottom sheet behind 说: back to the hotel, recent phrases, then every phrase group as tiles
+// adding: the entries of an open show card waiting for one more phrase
+const PhraseSheet = (() => {
+  let node = null, adding = null, opener = null, overflow0 = "";
+  const pick = ph => { const entries = [...(adding ?? []), ph]; adding = null; showPhrases(entries); render(); };
+  function phrasesTab() {
+    const box = el("div");
+    if (adding) {
+      const bar = el("div", "ps-adding", `<div>Add to <span lang="zh-CN">${esc(adding.map(e => e.zh).join(" · "))}</span></div>`);
+      const cancel = iconButton("button", ICONS.fail, "Stop adding");
+      cancel.onclick = () => { adding = null; render(); };
+      bar.append(cancel);
+      box.append(bar);
+    }
+    const hotel = hotelToReturnTo(todayIso());
+    if (hotel && !adding) {
+      const t = el("button", "hotel-tile", `${ICONS.hotel}<b>Back to hotel</b><small>กลับโรงแรม · ${esc(hotel.short)}</small><span lang="zh-CN">${esc(hotel.zh)}</span>`);
+      t.type = "button";
+      t.onclick = () => showCard(placeCard({ zh: hotel.zh, thai: PLACES[hotel.zh]?.th, addr: hotel.addr }));
+      box.append(t);
+    }
+    const recent = recentPhrases();
+    if (recent.length) {
+      const row = el("div", "ph-recent");
+      row.append(...recent.map(ph => phraseTile(ph, pick)));
+      box.append(el("h3", "ps-h", "Recent"), row);
+    }
+    for (const g of PHRASE_GROUPS) box.append(el("h3", "ps-h", esc(g.title)), phraseGrid(g.phrases, pick));
+    return box;
+  }
+  function render() {
+    if (!node) return;
+    node.querySelector(".ps-body").replaceChildren(phrasesTab());
+  }
+  function open(opts = {}) {
+    adding = opts.adding ?? null;
+    if (node) return render();
+    opener = document.activeElement;
+    const scrim = el("div", "ps-scrim");
+    const sheet = el("div", "ps");
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-label", "Chinese phrases");
+    const head = el("div", "ps-head", `<div class="ps-tabs"><button type="button" aria-selected="true">Phrases</button></div>`);
+    const x = iconButton("button", ICONS.fail, "Close phrases");
+    x.onclick = close;
+    head.append(x);
+    sheet.append(head, el("div", "ps-body"));
+    scrim.onclick = close;
+    node = sheet;
+    node.scrim = scrim;
+    overflow0 = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.body.append(scrim, sheet);
+    addEventListener("keydown", onKey);
+    render();
+    x.focus();
+  }
+  function close() {
+    if (!node) return;
+    node.scrim.remove(); node.remove(); node = null; adding = null;
+    document.body.style.overflow = overflow0;
+    removeEventListener("keydown", onKey);
+    opener?.focus();
+  }
+  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay")) close(); };
+  return { open, close };
+})();
+
 // the guide lives at #guide so the phone's back gesture closes it; section pills replace the entry instead of stacking more
 let guide = null;
 function openGuide() {
-  const sheet = el("div", "sheet");
+  const sheet = el("div", "sheet guide");
   sheet.setAttribute("role", "dialog");
   sheet.setAttribute("aria-modal", "true");
   sheet.setAttribute("aria-label", "Chengdu guide");
@@ -1333,8 +1531,8 @@ function openGuide() {
   };
   sheet.addEventListener("scroll", markPill, { passive: true });
   for (const type of ["touchstart", "wheel", "keydown"]) sheet.addEventListener(type, () => { if (guide) guide.picked = null; }, { passive: true });
-  // showBig's overlay handles its own Escape
-  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay")) history.back(); };
+  // the show card and the phrase sheet handle their own Escape
+  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay, .ps")) history.back(); };
   addEventListener("keydown", onKey);
   guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill };
   document.body.style.overflow = "hidden";
@@ -1437,6 +1635,7 @@ renderTrip();
 setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
 document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("plan-btn").onclick = showPlan;
+document.getElementById("say-fab").onclick = () => PhraseSheet.open();
 playRidgeIntro();
 (document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
 // opened straight at #guide: put the plan underneath in history so Back lands on it instead of leaving the page
