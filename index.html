@@ -190,22 +190,18 @@
   .wx-list::-webkit-scrollbar { display:none; }
   .wx { flex:0 0 min(82%, 330px); margin:0; padding:16px 18px; scroll-snap-align:start; display:flex; flex-direction:column; }
   @media (min-width:640px) { .wx-list { margin:0; padding:4px 0 14px; scroll-padding:0; } }
-  .wx header { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
-  .wx h3 { margin:0; font-size:1.3rem; line-height:1.2; }
-  .wx h3 .th { margin-left:4px; font-size:.68em; color:var(--mute); }
-  .wx .chip { flex:none; background:var(--lake-tint); color:var(--lake); }
-  .wx-temp { display:grid; grid-template-columns:3.6ch 1fr 3.6ch; align-items:center; gap:10px; margin-top:12px; }
-  .wx-temp b { font-family:var(--serif); font-size:1.5rem; font-weight:500; line-height:1; font-variant-numeric:lining-nums; }
-  .wx-temp b:last-child { text-align:right; }
-  .wx-bar { position:relative; height:8px; border-radius:4px; background:var(--line-soft); }
-  .wx-bar i { position:absolute; top:0; bottom:0; border-radius:4px; background:linear-gradient(90deg,#6f9fb3,#e2c48a 70%,#c9893a); }
-  .wx-bar em { position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--mute); opacity:.5; }
-  .wx-facts { display:flex; flex-direction:column; gap:7px; margin-top:12px; font-size:.85rem; color:var(--mute); }
-  .wx-facts > span { display:flex; align-items:flex-start; gap:7px; }
-  .wx-facts > span > svg { flex:none; margin-top:2px; }
-  .wx-facts svg { width:16px; height:16px; stroke-width:1.5; color:var(--lake); }
-  .wx-facts b { color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
-  .wx-facts .wx-high, .wx-facts .wx-high svg { color:var(--warn); }
+  .wx header { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .wx h3 { margin:0; font-size:1.35rem; line-height:1.15; }
+  .wx header .th { display:block; margin-top:2px; font-size:.85rem; color:var(--mute); }
+  .wx .chip { flex:none; margin-top:3px; background:var(--lake-tint); color:var(--lake); }
+  .wx dl { margin:12px 0 0; }
+  .wx-row { display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:7px 0; border-top:1px solid var(--line-soft); }
+  .wx-row dt { color:var(--mute); font-size:.82rem; }
+  .wx-row dd { margin:0; font-size:.9rem; text-align:right; font-variant-numeric:tabular-nums; }
+  .wx-row dd b { font-weight:600; }
+  .wx-row.wx-high dd { color:var(--warn); }
+  .wx-note { margin:8px 0 0; padding:7px 10px; border-radius:var(--r-field); background:var(--warnbg); color:var(--warn); font-size:.85rem; line-height:1.4; }
+  .wx-note + .wx-note { margin-top:6px; }
   table { width:100%; font-variant-numeric:tabular-nums; border-collapse:collapse; font-size:.88rem; }
   td:first-child { font-weight:600; }
   td:not(:first-child) { white-space:nowrap; }
@@ -1240,21 +1236,26 @@ const WX_STOPS = [
   { en:"Chengdu", when:"7 · 11–14 Nov" }, { en:"Bipenggou", when:"8 Nov" }, { en:"Heishui", when:"8 Nov night" },
   { en:"Dagu Glacier", when:"9 Nov" }, { en:"Jiuzhaigou", when:"9–11 Nov" },
 ];
-const WX_MIN = -12, WX_MAX = 18;
 const degrees = t => (t.match(/[−-]?\d+/g) ?? []).map(n => Number(n.replace("−", "-")));
+const deg = t => `${t < 0 ? "−" : ""}${Math.abs(t)}°`;
+// what to wear, from the coldest it gets
+const dressFor = low => low <= 0 ? "หนาวจัด ติดลบ: เสื้อดาวน์ ถุงมือ หมวก" : low <= 5 ? "หนาว: เสื้อกันหนาวหนา" : "เย็น: เสื้อแจ็กเก็ตบาง";
 function renderTables() {
-  const pct = t => ((t - WX_MIN) / (WX_MAX - WX_MIN) * 100).toFixed(1);
+  const row = (label, value, cls = "") => `<div class="wx-row ${cls}"><dt>${label}</dt><dd>${value}</dd></div>`;
   document.getElementById("places-wx").innerHTML = WX_STOPS.map(stop => {
     const w = WEATHER.find(x => x.en === stop.en), park = PARKS.find(x => x.en === stop.en), info = w ?? park;
     const [lo, hi] = w ? degrees(w.temp) : [];
-    const deg = t => `${t < 0 ? "−" : ""}${Math.abs(t)}°`;
-    const temp = w ? `<div class="wx-temp"><b>${deg(lo)}</b><span class="wx-bar"><i style="left:${pct(lo)}%; right:${100 - pct(hi)}%"></i><em style="left:${pct(0)}%" title="0°"></em></span><b>${deg(hi)}</b></div>` : "";
-    const facts = [
-      w && w.rise !== "–" ? `<span>${ICONS.sun}<span><b>${w.rise}</b> – <b>${w.set}</b></span></span>` : "",
-      park ? `<span>${ICONS.clock}<span>Open <b>${park.open}</b>${park.last ? ` · entry until <b>${park.last}</b>` : ""}</span></span>` : "",
-      park ? `<span class="${park.alt[1] > SICK ? "wx-high" : ""}">${ICONS.mountain}<span><b>${park.alt.map(num).join("–")} m</b>${park.alt[1] > SICK ? " · high altitude" : ""}</span></span>` : "",
-    ].filter(Boolean).join("");
-    return `<article class="card wx"><header><h3>${esc(stop.en)} <span class="th">${esc(info.th)}</span></h3><span class="chip">${esc(stop.when)}</span></header>${temp}<div class="wx-facts">${facts}</div></article>`;
+    const high = park && park.alt[1] > SICK;
+    const rows = [
+      w ? row("Night / Day", `<b>${deg(lo)}</b> / <b>${deg(hi)}</b>`) : "",
+      w && w.rise !== "–" ? row("Sunrise · Sunset", `<b>${w.rise}</b> · <b>${w.set}</b>`) : "",
+      park ? row("Park open", `<b>${park.open}</b>`) : "",
+      park?.last ? row("Last entry", `<b>${park.last}</b>`) : "",
+      park ? row("Altitude", `<b>${park.alt.map(num).join("–")} m</b>`, high ? "wx-high" : "") : "",
+    ].join("");
+    const notes = [w ? dressFor(lo) : "", high ? "สูงเกิน 3,000 ม. เดินช้าๆ ระวังแพ้ความสูง" : ""].filter(Boolean);
+    return `<article class="card wx"><header><div><h3>${esc(stop.en)}</h3><span class="th">${esc(info.th)}</span></div><span class="chip">${esc(stop.when)}</span></header>
+      <dl>${rows}</dl>${notes.map(n => `<p class="wx-note">${esc(n)}</p>`).join("")}</article>`;
   }).join("");
 }
 
