@@ -451,7 +451,13 @@ const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${
 const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base.flight === undefined ? ev : { ...ev, ...flightSummary(flightAt(base.flight)) }; };
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const amapUrl = q => `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
+// a known point opens as a pin with its Thai name; anything else falls back to Amap's search, which may ask for a login
+const amapUrl = q => {
+  const p = PLACES[q];
+  return p
+    ? `https://uri.amap.com/marker?position=${p.at.join(",")}&name=${encodeURIComponent(p.th)}&src=chengdu-trip&coordinate=gaode&callnative=1`
+    : `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
+};
 const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
 // morning hotel → every stop → that night's hotel
 // phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
