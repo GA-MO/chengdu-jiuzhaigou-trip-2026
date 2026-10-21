@@ -367,23 +367,29 @@
   .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 4px; color:var(--mute); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; box-shadow:inset 0 -1.5px 0 transparent; -webkit-tap-highlight-color:transparent; }
   .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
   .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
-  .gd-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
+  .gd-sec > h2 { margin:32px 0 4px; font-size:2rem; line-height:1.05; }
   .gd-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
-  .gd-sec .sub { margin-top:22px; }
+  .gd-sec .sub { margin:20px 0 6px; }
+  .gd-sec .ph-tile { min-height:0; padding:9px 11px 8px; }
   .gd-item { padding:0; overflow:hidden; }
   .gd-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
   .gd-credit { margin:0; padding:6px 20px 0; color:var(--mute); font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .gd-body { padding:12px 20px 18px; }
-  .gd-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-  .gd-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
-  .gd-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
+  .gd-item { margin:8px 0; }
+  .gd-item .gd-row { padding-right:4px; }
+  .gd-item .gd-tools { flex-direction:column; }
+  .gd-item .gd-tools .icon-btn { padding:0; }
+  .gd-item:not(.open) :is(.gd-photo, .gd-credit, .gd-more) { display:none; }
+  .gd-item.open .gd-row :is(.gd-thumb, .gd-mini) { display:none; }
+  .gd-item.open .gd-toggle { padding:12px 4px 4px 20px; }
+  .gd-item.open .gd-name b { font-size:1.4rem; line-height:1.15; }
+  .gd-more { padding:0 20px 18px; }
   .gd-tools { flex:none; display:flex; }
   .heart { color:var(--mute); }
   .heart[aria-pressed="true"] { color:var(--chili); }
   .heart[aria-pressed="true"] svg { fill:currentColor; animation:pop .28s cubic-bezier(.3,1.6,.5,1) both; }
   .ph-cell .heart { position:absolute; top:0; right:0; }
   .ph-cell:has(.heart) .ph-tile b { padding-right:30px; }
-  .gd-saved-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:40px 0 4px; }
+  .gd-saved-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:24px 0 4px; }
   .gd-saved-head h2 { margin:0; font-size:2rem; line-height:1.05; }
   .gd-saved-head h2 .th { font-size:.5em; vertical-align:.35em; }
   .gd-saved-head .icon-btn { flex:none; min-height:44px; padding:0 12px 0 10px; color:var(--ink); border-color:var(--ink); }
@@ -396,16 +402,22 @@
   .gd-name { min-width:0; display:flex; flex-direction:column; gap:1px; }
   .gd-name b { font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.25; }
   .gd-th { color:var(--mute); font-size:.85rem; line-height:1.35; }
-  .gd-mini { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
-  .gd-mini .chip { background:var(--lake-tint); color:var(--lake); font-size:.7rem; }
+  /* one line of tags: a tag that does not fit whole wraps onto a hidden second line */
+  .gd-mini { display:flex; flex-wrap:wrap; gap:4px; max-height:calc(.7rem * 1.6); margin-top:4px; overflow:hidden; }
+  .gd-mini .chip { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; background:var(--lake-tint); color:var(--lake); font-size:.7rem; }
   .zh-show { flex:none; color:var(--chili) !important; border-color:var(--chili-line) !important; }
   .gd-item { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
   .gd-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .gd-tags .chip { background:var(--lake-tint); color:var(--lake); }
   .gd-note { margin:10px 0 0; font-size:.92rem; }
   .gd-ask { margin:12px 0 -4px; color:var(--mute); font-size:.85rem; }
-  .gd-tip h3 { margin:0; font-size:1.15rem; }
-  .gd-tip p { margin:6px 0 0; font-size:.92rem; }
+  .gd-tip { margin:8px 0; padding:0; }
+  .gd-tip summary { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:10px 18px 10px 20px; cursor:pointer; list-style:none; }
+  .gd-tip summary::-webkit-details-marker { display:none; }
+  .gd-tip summary::after { content:""; flex:none; width:8px; height:8px; margin-top:-4px; border:solid var(--mute); border-width:0 1.5px 1.5px 0; transform:rotate(45deg); transition:transform .2s; }
+  .gd-tip[open] summary::after { transform:rotate(-135deg); margin-top:4px; }
+  .gd-tip h3 { margin:0; font-size:1.1rem; line-height:1.3; }
+  .gd-tip p { margin:0; padding:0 20px 18px; font-size:.92rem; }
   .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
@@ -1503,22 +1515,53 @@ function heartButton(key, name) {
   return b;
 }
 
+// the one-line summary of an item: thumbnail, name, Thai and its first tags; a button, because tapping it opens the item
+function itemToggle(item, tags) {
+  const b = el("button", "gd-toggle");
+  b.type = "button";
+  const chips = item.tags.slice(0, tags).map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("");
+  b.append(item.photo ? photo(thumbUrl(item.photo), "gd-thumb") : el("span", "gd-thumb"),
+    el("span", "gd-name", `<b>${esc(item.name)}</b><span class="gd-th">${esc(item.th)}</span>${chips ? `<span class="gd-mini">${chips}</span>` : ""}`));
+  return b;
+}
+
+// a guide item starts as one row; opening it adds the photo, every tag, the note and the Chinese rows (built on first open)
 function guideItem(item, secId) {
   const card = el("article", "card gd-item");
   card.dataset.key = `${secId}:${item.id}`;
-  if (item.photo) card.append(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
-  const head = el("div", "gd-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
+  const row = el("div", "gd-row");
+  const toggle = itemToggle(item, 2);
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.onclick = () => toggleItem(card);
   const tools = el("div", "gd-tools");
   tools.append(heartButton(card.dataset.key, item.name), mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
-  head.append(tools);
-  const body = el("div", "gd-body");
-  body.append(head);
-  if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("")));
-  body.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, itemCard(item)));
-  // a souvenir names its shop in zh and the product to ask for in ask
-  if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
-  card.append(body);
+  row.append(toggle, tools);
+  card.append(row);
   return card;
+}
+
+function itemDetails(card, item) {
+  if (item.photo) card.prepend(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
+  const more = el("div", "gd-more");
+  if (item.tags.length) more.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("")));
+  more.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, itemCard(item)));
+  // a souvenir names its shop in zh and the product to ask for in ask
+  if (item.ask) more.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
+  card.append(more);
+}
+
+function setItemOpen(card, open) {
+  if (open && !card.querySelector(".gd-more")) itemDetails(card, SAVABLE.get(card.dataset.key).item);
+  card.classList.toggle("open", open);
+  card.querySelector(".gd-toggle").setAttribute("aria-expanded", open);
+}
+
+// one item open at a time, so the guide stays a short list to scan; the tapped card keeps its place on screen
+function toggleItem(card, open = !card.classList.contains("open")) {
+  const top = card.getBoundingClientRect().top;
+  for (const c of guide.sheet.querySelectorAll(".gd-item.open")) if (c !== card) setItemOpen(c, false);
+  setItemOpen(card, open);
+  guide.sheet.scrollTop += card.getBoundingClientRect().top - top;
 }
 
 
@@ -1529,7 +1572,7 @@ function guideSection(sec) {
     box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(item => guideItem(item, sec.id)));
     if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph]), { hearts: true }));
   }
-  box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${Rate.annotate(esc(t.text))}</p>`)));
+  box.append(...(sec.tips ?? []).map(t => el("details", "card gd-tip", `<summary><h3>${esc(t.title)}</h3></summary><p>${Rate.annotate(esc(t.text))}</p>`)));
   return box;
 }
 
@@ -1712,10 +1755,7 @@ const PhraseSheet = (() => {
 const SAVED_GROUPS = [["see", "Places"], ["eat", "Food"], ["shop", "Shop"], ["say", "Phrases"]];
 function savedRow(key, item) {
   const row = el("div", "gd-row");
-  const open = el("button", "gd-toggle");
-  open.type = "button";
-  open.append(item.photo ? photo(thumbUrl(item.photo), "gd-thumb") : el("span", "gd-thumb"),
-    el("span", "gd-name", `<b>${esc(item.name)}</b><span class="gd-th">${esc(item.th)}</span>${item.tags[0] ? `<span class="gd-mini"><span class="chip">${Rate.annotate(esc(item.tags[0]))}</span></span>` : ""}`));
+  const open = itemToggle(item, 1);
   open.onclick = () => revealItem(key);
   const show = iconButton("button", "", `Show ${item.zh} to the driver`, "Show");
   show.classList.add("zh-show");
@@ -1748,7 +1788,9 @@ function fillSaved(box) {
 
 function revealItem(key) {
   const card = guide?.sheet.querySelector(`.gd-sec:not(#g-saved) [data-key="${CSS.escape(key)}"]`);
-  card?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!card) return;
+  toggleItem(card, true);
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // the guide lives at #guide so the phone's back gesture closes it; section pills replace the entry instead of stacking more
