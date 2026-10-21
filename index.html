@@ -12,6 +12,9 @@
 <style>
   /* West Sichuan in November: glacier stone, night lake water, larch gold for "now", chili red only for text shown to a driver */
   @font-face { font-family:"Bodoni Moda"; src:url(fonts/bodoni-moda.woff2) format("woff2"); font-weight:400 900; font-display:swap; }
+  /* Thai only (unicode-range): loopless sans beside the system Latin, a contrast serif under the Bodoni day titles */
+  @font-face { font-family:"Thai Sans"; src:url(fonts/noto-sans-thai.woff2) format("woff2"); font-weight:100 900; font-display:swap; unicode-range:U+0E00-0E7F; }
+  @font-face { font-family:"Thai Serif"; src:url(fonts/trirong.woff2) format("woff2"); font-weight:400; font-display:swap; unicode-range:U+0E00-0E7F; }
   :root {
     --snow:#eef1ef; --paper:#fff; --ink:#0e2c30; --mute:#66777a; --line:#d7dddb; --line-soft:#e6eae8;
     --lake:#0f4c52; --lake-deep:#0e2c30; --lake-tint:#e3ebea; --larch:#b4862f; --larch-soft:rgb(180 134 47 / 16%);
@@ -20,7 +23,7 @@
     --r-card:18px; --r-field:12px; --r-pill:999px;
     --shadow:0 1px 0 rgb(14 44 48 / 4%), 0 18px 40px -28px rgb(14 44 48 / 28%);
     --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
-    --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    --sans:"Thai Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
     --zh:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   }
   * { box-sizing:border-box; }
@@ -109,10 +112,10 @@
   .cover > div { position:relative; z-index:1; padding:20px; }
   .dlabel { font-size:.8rem; font-weight:500; letter-spacing:.02em; color:rgb(255 255 255 / 84%); }
   .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 3px rgb(180 134 47 / 35%); }
+  .th-line { margin:8px 0 0; font-family:"Thai Serif",var(--sans); font-size:1.05rem; letter-spacing:.01em; color:rgb(255 255 255 / 82%); }
   .cover h2 { margin:6px 0 0; font-size:2rem; font-weight:450; line-height:1.04; letter-spacing:-.015em; text-wrap:balance; }
   /* Thai reading in brackets after a place name: smaller and quieter than the name */
   .th { font-family:var(--sans); font-weight:450; letter-spacing:0; opacity:.78; white-space:nowrap; }
-  .cover h2 .th { font-size:.5em; }
   .t .th { font-size:.94em; }
   .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
   .dsub .icon-btn { flex:none; }
@@ -371,14 +374,14 @@ const OPEN_ITEMS = [
 
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m
 const DAYS = [
-  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu (เฉิงตู)", sub:"Fly in, check in, then stroll near the hotel", events:[
-    { flight:0, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
+  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", events:[
+    { flight:0, map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
-    { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", zh:"成都太古里", map:"成都太古里" },
-    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", zh:"成都国际金融中心(IFS)", map:"成都国金中心" },
+    { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", map:"成都太古里" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", map:"成都国金中心" },
     { time:"Night", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu (เฉิงตู) → Bipenggou (ปี้เผิงโกว) → Heishui (เฮยสุ่ย)", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
+  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
     { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
     { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
     { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟景区", map:"毕棚沟景区" },
@@ -387,7 +390,7 @@ const DAYS = [
     hotelEv("~18:15", "heishui"),
     { time:"19:00", text:"Yak meat hotpot" },
   ]},
-  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui (เฮยสุ่ย) → Dagu Glacier (ต๋ากู่) → Jiuzhaigou (จิ่วจ้ายโกว)", sub:"~387 km, about 7 h 40 min of driving", needs:"car-west", events:[
+  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", needs:"car-west", events:[
     { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
     { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
     { time:"~09:10", text:"Summit, 30–45 min", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
@@ -396,8 +399,8 @@ const DAYS = [
     { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城(松州古城)", map:"松潘古城" },
     hotelEv("~19:20", "jiuzhai"),
   ]},
-  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou (จิ่วจ้ายโกว)", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
-    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", zh:"九寨沟景区游客中心", map:"九寨沟景区" },
+  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou", th:"เที่ยวจิ่วจ้ายโกวทั้งวัน", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
+    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", map:"九寨沟景区" },
     { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
     { time:"~09:15", text:"Five Color Pond (อู่ไฉ่ฉือ)", detail:"Walk 1.2 km down the boardwalk from Long Lake", map:"九寨沟五彩池" },
     { time:"10:30", text:"Nuorilang (นั่วรื่อหล่าง) Waterfall", detail:"Park bus about 25 min from Five Color Pond", map:"诺日朗瀑布" },
@@ -407,13 +410,13 @@ const DAYS = [
     { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
     { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
-  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou (จิ่วจ้ายโกว) → train → Chengdu (เฉิงตู)", sub:"Bus, then first-class train back to Chengdu", events:[
+  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", events:[
     { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"92 km, about 2 h by road · ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
-    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min", ref:"", zh:"成都东站", map:"成都东站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min", ref:"", map:"成都东站" },
     hotelEv("After 14:15", "kuanzhai"),
     { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ), a walk from the hotel" },
   ]},
-  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu (เฉิงตู)", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
@@ -421,15 +424,15 @@ const DAYS = [
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu (เฉิงตู)", sub:"Old town walk and shopping", events:[
+  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
     { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
-    { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", zh:"武侯祠", map:"武侯祠" },
+    { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
     { time:"14:30", text:"Shopping / cafes on Chunxi Road (ชุนซีลู่)", zh:"春熙路", map:"春熙路" },
     { time:"18:00", text:"Dinner" },
     { time:"19:30", text:"Stroll / relax" },
   ]},
-  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu (เฉิงตู) → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
+  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
@@ -642,7 +645,7 @@ function renderDays() {
     sec.id = id;
     const cover = el("div", "cover");
     cover.append(photo(d.cover, ""));
-    cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${withReadings(d.title)}</h2>`));
+    cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2><p class="th-line">${esc(d.th)}</p>`));
     const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
     const sub = el("div", "dsub");
     sub.append(el("span", "", dayNote(d)));
