@@ -1,0 +1,304 @@
+{
+  "groups": [
+    {
+      "title": "Hotpot and chuanchuan",
+      "items": [
+        {
+          "id": "longsenyuan",
+          "name": "Long Sen Yuan Hotpot",
+          "zh": "龙森园火锅(琴台路店)",
+          "th": "หลงเซินหยวน",
+          "at": [
+            104.045477,
+            30.658766
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/5233731.html (Michelin pin converts to within 1 m)",
+          "photo": "2/2c/Chengdu_double_hotpot.jpg",
+          "photoCredit": "Jpatokal · CC BY-SA 4.0 (hotpot, not this restaurant)",
+          "note": "Old-style Chengdu hotpot a short walk south of the hotel on Qintai Road. Michelin picks the Emei eel-shred pot (峨眉鳝丝锅), spicy rabbit belly and brown-sugar ciba; it is busy, so expect to wait at peak times.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "~¥131 per person",
+            "Queue at peak times"
+          ]
+        },
+        {
+          "id": "maojiao",
+          "name": "Mao Jiao Huo La skewers",
+          "zh": "冒椒火辣(奎星楼街店)",
+          "th": "เม่าเจียวหั่วล่า",
+          "at": [
+            104.053651,
+            30.668282
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/11641134.html",
+          "photo": "0/0a/%E5%86%B7%E9%94%85_%E4%B8%B2_Cold-pot_Skewers_Y1_per_skewer_%281495465364%29.jpg",
+          "photoCredit": "Alpha from Melbourne · CC BY-SA 2.0 (cold-pot skewers, not this shop)",
+          "note": "Cold-pot skewer (冷锅串串) institution on Kuixinglou Street, near Kuanzhai Alley. Order the Huanhou rabbit kidneys (桓侯兔腰), braised quail eggs and rabbit head; open 11:00–22:00, and there is usually a queue.",
+          "tags": [
+            "Dianping Must-Eat 8+ years in a row",
+            "~¥65 per person",
+            "11:00–22:00",
+            "Queue"
+          ]
+        },
+        {
+          "id": "houtang",
+          "name": "Houtang Hotpot",
+          "zh": "吼堂老火锅(太古里总店)",
+          "th": "โหว่ถังเหล่าหั่วกัว",
+          "at": [
+            104.081589,
+            30.650558
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/25031797.html",
+          "photo": "4/4e/Chengdu_Hot_Pot_Yuanyangguo_style_2019.jpg",
+          "photoCredit": "Breaknet2025 · CC BY 4.0 (split-pot hotpot, not this restaurant)",
+          "note": "Three floors dressed as old Chengdu, five minutes from Chunxi Road metro, open until 2 am. Get a split pot and the fresh tripe, crab-roe shrimp paste and crispy pork (酥肉); queues are long at lunch and dinner, so go late.",
+          "tags": [
+            "Trip.com Global 100 Must-visit 2026",
+            "~¥112 per person",
+            "11:00–02:00",
+            "Queue"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sichuan restaurants",
+      "items": [
+        {
+          "id": "yuzhilan",
+          "name": "Yu Zhi Lan",
+          "zh": "玉芝兰(长发街店)",
+          "th": "ยวี่จือหลาน",
+          "at": [
+            104.058661,
+            30.666769
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/5238621.html (Michelin pin converts to within 1 m)",
+          "photo": "1/18/Dumplings_in_Red_Chili_Oil.jpg",
+          "photoCredit": "ZhengZhou · CC BY-SA 4.0 (red-oil dumplings, a dish on its menu; not taken here)",
+          "note": "Chef Lan Guijun's low-key two-star tasting room behind a plain door on Changfa Street. Set menus only, built around his hair-thin gold-thread noodles (金丝面); book well ahead, and a Ctrip reviewer says half is paid as a deposit.",
+          "tags": [
+            "Michelin 2 stars 2027",
+            "~¥1,900 per person",
+            "Booking required"
+          ]
+        },
+        {
+          "id": "chenmapo",
+          "name": "Chen Mapo Tofu (Qinghua Road)",
+          "zh": "陈麻婆豆腐(青华路店)",
+          "th": "เฉินหมาผัวโต้วฟู",
+          "at": [
+            104.032821,
+            30.662939
+          ],
+          "atSource": "Michelin pin converted from WGS-84, https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/chen-mapo-tofu-qinghua-road; Ctrip's gaodeCoord (https://you.ctrip.com/food/chengdu104/5233638.html) is 130 m off, inside a college campus, so not used",
+          "photo": "8/86/Mapo_doufu_by_Chen_Mapo_Restaurant_in_Chengdu_Sichuan%EF%BC%88%E9%99%B3%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%E5%BA%97%E3%81%AE%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90%EF%BC%89.JPG",
+          "photoCredit": "Kos88 · CC BY-SA 4.0 (mapo tofu at Chen Mapo)",
+          "note": "The flagship of the shop that claims to have invented mapo tofu, near Du Fu Cottage. Order the stone-pot mapo tofu with rice, Zhong dumplings and lotus-leaf steamed pork; it is often full at mealtimes.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "~¥70 per person",
+            "Near Du Fu Cottage"
+          ]
+        },
+        {
+          "id": "woos",
+          "name": "The Woo's",
+          "zh": "吴氏荟(锦江)",
+          "th": "อู๋ซื่อฮุ่ย",
+          "at": [
+            104.094559,
+            30.643248
+          ],
+          "atSource": "Michelin pin converted from WGS-84, https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/the-woo-s (Michelin pins match Ctrip GCJ to 2 m elsewhere)",
+          "photo": "4/42/Brown_sugar_ciba.pic.jpg",
+          "photoCredit": "Kaisery · CC BY-SA 4.0 (brown-sugar ciba, not taken here)",
+          "note": "Modernised Sichuan cooking in a restored three-storey old villa, about 1.5 km south-east of Taikoo Li. Michelin recommends the chilli-smothered yellow croaker (炝锅舟山海捕黄鱼) and molten ciba for dessert.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "Mid-range (Michelin ¥¥)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Snacks and old shops",
+      "items": [
+        {
+          "id": "longchaoshou",
+          "name": "Long Chao Shou (Chunxi Road flagship)",
+          "zh": "龙抄手(春熙路总店)",
+          "th": "หลงเชาโส่ว",
+          "at": [
+            104.077597,
+            30.654539
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/4926065.html (OSM node for 龙抄手 on 联升巷 is 40 m away)",
+          "photo": "e/eb/Open_Kitchen_-_%E9%BE%99%E6%8A%84%E6%89%8B%E9%A4%90%E5%8E%85_Long_Chao_Shou_Canting_%281483881148%29.jpg",
+          "photoCredit": "Alpha from Melbourne · CC BY-SA 2.0 (Long Chao Shou open kitchen)",
+          "note": "Wonton house founded in 1941, a block from Chunxi Road. Order the sour-spicy chaoshou (酸辣龙抄手) or a small bowl in clear broth; the ground floor is noisy and upstairs sells set menus per head.",
+          "tags": [
+            "Since 1941",
+            "~¥31 per person",
+            "09:00–21:30"
+          ]
+        },
+        {
+          "id": "zhanglaoer",
+          "name": "Dongzikou Zhang Lao Er Liangfen",
+          "zh": "洞子口张老二凉粉(文殊院店)",
+          "th": "ต้งจึโข่วจางเหล่าเอ้อร์เหลียงเฝิ่น",
+          "at": [
+            104.07261,
+            30.674198
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/5233829.html (OSM node at 文殊院街39号 converts to within 2 m)",
+          "photo": "0/0e/201908_Liang_Fen_sold_on_5634.jpg",
+          "photoCredit": "MNXANL · CC BY-SA 4.0 (liangfen in Sichuan dressing, not taken here)",
+          "note": "Old snack shop across from Wenshu Monastery. Order the sweet water noodles (甜水面), yellow or white liangfen and brown-sugar ice jelly (冰粉); queue to pay at the counter first, then share tables.",
+          "tags": [
+            "~¥16 per person",
+            "08:30–18:30",
+            "Opposite Wenshu Monastery"
+          ]
+        },
+        {
+          "id": "no37",
+          "name": "No. 37 Lao Yuanba Chaoshou",
+          "zh": "37号老院坝抄手",
+          "th": "ซานสือชีเฮ่าเหล่าย่วนป้าเชาโส่ว",
+          "at": [
+            104.076855,
+            30.667228
+          ],
+          "atSource": "Michelin pin converted from WGS-84, https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/no-37-lao-yuan-ba-chao-shou (no Ctrip page found)",
+          "photo": "e/e8/Red_Oil_Wontons_%28%E7%BA%A2%E6%B2%B9%E6%8A%84%E6%89%8B%29_%282%29.jpg",
+          "photoCredit": "NeoBatfreak · CC BY-SA 4.0 (red-oil chaoshou, not taken here)",
+          "note": "Husband-and-wife shop on Mawangmiao Street, about 1 km south of Wenshu Monastery. Order the dry-tossed chaoshou (干拌抄手) and the house sweet water noodles, choosing your spice level.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "Budget (Michelin ¥)"
+          ]
+        },
+        {
+          "id": "ganji",
+          "name": "Gan Ji Feichang Fen",
+          "zh": "甘记肥肠粉(马鞍北路店)",
+          "th": "กานจี้เฝยฉางเฝิ่น",
+          "at": [
+            104.086883,
+            30.676947
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/4926191.html (Michelin pin converts to within 2 m)",
+          "photo": "8/88/Hot_and_sour_noodles_with_pork_intestines.jpg",
+          "photoCredit": "Jpatokal · CC BY-SA 4.0 (sweet-potato noodles with pork intestine, not taken here)",
+          "note": "Breakfast-to-dinner noodle shop with a blue sign, about 1.4 km east of Wenshu Monastery. Order the spicy pork-intestine noodles (红味肥肠粉) with an extra 冒节子 and a pork guokui flatbread; there is often a long line.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "~¥19 per person",
+            "07:30–20:00",
+            "Queue"
+          ]
+        },
+        {
+          "id": "wansan",
+          "name": "Wan San Noodles",
+          "zh": "万三面馆(青龙正街店)",
+          "th": "ว่านซานเมี่ยนกว่าน",
+          "at": [
+            104.089445,
+            30.645224
+          ],
+          "atSource": "Michelin pin converted from WGS-84, https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/wan-san-mian-guan-jinjiang (no Ctrip page found)",
+          "photo": "f/f3/Ranmian_at_Beijing_Yibin_Hostel_%2820210401111937%29.jpg",
+          "photoCredit": "N509FZ · CC BY-SA 4.0 (Yibin ranmian, not taken here)",
+          "note": "Yibin-style noodle shop about 1 km south of Taikoo Li. Order the ranmian (燃面) with ginger duck or fresh-chilli beef topping; most of the cured meats only come out after 18:00, so come in the evening.",
+          "tags": [
+            "Michelin Bib Gourmand 2027",
+            "Budget (Michelin ¥)",
+            "Best after 18:00"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tea and sweets",
+      "items": [
+        {
+          "id": "heming",
+          "name": "Heming Teahouse, People's Park",
+          "zh": "鹤鸣茶社",
+          "th": "เฮ่อหมิงฉาเซ่อ",
+          "at": [
+            104.0586,
+            30.65688
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/5233721.html (OSM cafe node converts to within 30 m)",
+          "photo": "d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg",
+          "photoCredit": "Daderot · CC0 (teahouse in People's Park)",
+          "note": "Lakeside teahouse in People's Park, open since 1923, a 20-minute walk from the hotel. Order a gaiwan of jasmine tea (花毛峰) or Mengding; reviewers put a cup at ¥13–30, and the shady seats fill early in the morning.",
+          "tags": [
+            "Since 1923",
+            "Tea ~¥13–30 a cup",
+            "Go in the morning"
+          ]
+        },
+        {
+          "id": "laitangyuan",
+          "name": "Lai Tangyuan",
+          "zh": "赖汤圆(总店)",
+          "th": "ไล่ทางหยวน",
+          "at": [
+            104.078168,
+            30.658526
+          ],
+          "atSource": "Ctrip gaodeCoord, https://you.ctrip.com/food/chengdu104/347038.html",
+          "photo": "8/82/Lai_Tang_Yuan.jpg",
+          "photoCredit": "ZhengZhou · CC BY-SA 4.0 (Lai tangyuan)",
+          "note": "Century-old sweet dumpling shop on Zongfu Road at the north end of Chunxi Road. Order the mixed tangyuan with the dipping sauce served alongside; it also sells Zhong dumplings and other snacks, open 08:00–23:00.",
+          "tags": [
+            "~¥28 per person",
+            "08:00–23:00",
+            "Chunxi Road"
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://www.wineonline.cn/30903.html",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/restaurants/bib-gourmand",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/yu-zhi-lan-1196150",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/chen-mapo-tofu-qinghua-road",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/the-woo-s",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/long-sen-yuan",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/gan-ji-fei-chang-fen",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/no-37-lao-yuan-ba-chao-shou",
+    "https://guide.michelin.com/sg/zh_CN/chengdu-municipality/chengdu/restaurant/wan-san-mian-guan-jinjiang",
+    "https://you.ctrip.com/food/chengdu104/5233731.html",
+    "https://you.ctrip.com/food/chengdu104/11641134.html",
+    "https://you.ctrip.com/food/chengdu104/25031797.html",
+    "https://you.ctrip.com/food/chengdu104/5238621.html",
+    "https://you.ctrip.com/food/chengdu104/5233638.html",
+    "https://you.ctrip.com/food/chengdu104/4926065.html",
+    "https://you.ctrip.com/food/chengdu104/5233829.html",
+    "https://you.ctrip.com/food/chengdu104/4926191.html",
+    "https://you.ctrip.com/food/chengdu104/5233721.html",
+    "https://you.ctrip.com/food/chengdu104/347038.html",
+    "https://gs.ctrip.com/html5/you/foods/104/5238621.html",
+    "https://gs.ctrip.com/html5/you/foods/chengdu104/4926065.html",
+    "https://gs.ctrip.com/html5/you/comment/104/5233721-food.html",
+    "https://gs.ctrip.com/html5/you/foods/fooddetail/104/5233829.html.html",
+    "https://gs.ctrip.com/html5/you/foods/Chengdu104/4926191.html",
+    "https://gs.ctrip.com/html5/you/foods/Chengdu104/347038.html",
+    "https://gs.ctrip.com/html5/you/foods/Chengdu104/11641134.html",
+    "https://au.trip.com/restaurant/china/chengdu/detail/HOUTANG%20HOT%20POT-79473810",
+    "https://cbgc.scol.com.cn/news/7703693",
+    "https://nominatim.openstreetmap.org/",
+    "https://commons.wikimedia.org/"
+  ]
+}

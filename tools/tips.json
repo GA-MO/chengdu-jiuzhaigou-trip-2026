@@ -1,0 +1,54 @@
+{
+  "tips": [
+    {
+      "title": "Pay with Alipay or WeChat Pay",
+      "text": "Link your Visa or Mastercard in Alipay and WeChat Pay before you fly, because bank verification texts are harder to get once you are in China. Alipay charges no fee on a payment of ¥200 or less and 3% above that, and your own bank may add its own foreign-transaction fee. Carry some yuan in cash too: street taxis and the odd shop take cash only."
+    },
+    {
+      "title": "Get a taxi through Alipay",
+      "text": "In Alipay, tap Transport, then Ride-hailing or Taxi: it books DiDi and other fleets with your linked card and shows prices side by side. Drivers rarely speak English, so keep the hotel name in Chinese on screen: 川行隐里酒店(成都宽窄巷子店), 十二桥路19号. Surge pricing is common around 7–9 am and 5–8 pm."
+    },
+    {
+      "title": "Ride the metro with a QR code",
+      "text": "In Alipay, open Transport, choose Chengdu, then Metro, and scan the QR code at the gates going in and out; fares are ¥2–8 and trains run about 6:00–23:00. The hotel's station is 通惠门 on Line 2 (exit E, about 450 m), and Line 2 runs straight to 春熙路 for IFS and Taikoo Li. Screenshot your route first, because there is often no signal underground."
+    },
+    {
+      "title": "Order hotpot the local way",
+      "text": "Ask for a 鸳鸯锅 (split pot) with one spicy half and one clear half, and say 微辣 for mild: many places default to medium, which is still hot for beginners. Use the communal chopsticks for raw food and never put food back in the pot once it has touched your plate. Expect about ¥80–150 per person."
+    },
+    {
+      "title": "Set up your apps before you fly",
+      "text": "Google services (Maps, Gmail), WhatsApp, Instagram and YouTube are blocked in China, and LINE does not work on Chinese Wi-Fi or local SIMs; a roaming plan or a travel eSIM that routes outside China usually keeps LINE working. Install Alipay, WeChat, Amap and Baidu Translate (works without a VPN) at home, because many apps cannot be downloaded inside China."
+    },
+    {
+      "title": "Pack layers for mid-November",
+      "text": "Days are mild at about 15–20°C, but mornings and evenings drop to around 9–14°C and the air is damp, about 79% humidity. Expect grey skies and light rain or drizzle on roughly a quarter of the days. Bring a sweater, a windproof jacket and a small umbrella."
+    },
+    {
+      "title": "Claim your tax refund",
+      "text": "Overseas visitors can get a VAT refund at participating stores such as Chengdu IFS when they spend at least ¥200 in one store on the same day and leave China within 90 days."
+    },
+    {
+      "title": "Emergency numbers",
+      "text": "Call 110 for police, 120 for an ambulance, 119 for fire and 122 for a traffic accident; calls are free, and say clearly where you are. The Royal Thai Consulate-General in Chengdu is on +86 28 6689 7861, with an emergency line for Thai nationals on +86 157 0842 8656."
+    }
+  ],
+  "sources": [
+    "https://www.trip.com/guide/payments/how-to-add-card-to-alipay.html",
+    "https://www.travelofchina.com/how-to-avoid-international-card-fees-on-alipay/",
+    "https://www.ecns.cn/business/2023-07-24/detail-ihcrptqc6763506.shtml",
+    "https://in.trip.com/guide/info/china-taxi-app.html",
+    "https://www.trip.com/guide/transport/chengdu-metro.html",
+    "https://www.wanderinchina.com/destinations/chengdu/transport/metro/",
+    "https://www.chinaxiantour.com/chengdu-travel-guide/how-to-eat-hot-pot.html",
+    "https://www.chinavigators.com/apps-for-china-travel/",
+    "https://esim.holafly.com/ja/guides-travel/china-line/",
+    "https://esim.holafly.com/travel-tips/china-travel-apps/",
+    "https://www.travelchinaguide.com/cityguides/sichuan/weather-in-november.htm",
+    "https://www.holiday-weather.com/chedu_cn/averages/november/",
+    "https://ph.trip.com/guide/shopping/chengdu-shopping.html",
+    "https://www.chinaxiantour.com/travel-guide/china-useful-phone-numbers",
+    "https://www.gz.gov.cn/guangzhouinternational/residents/safety/index.html",
+    "https://chengdu.thaiembassy.org/th/content-category/faqs-ชาวต่างชาติ"
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "groups": [
+    {
+      "title": "Where to shop",
+      "items": [
+        {
+          "id": "chunxi-road",
+          "name": "Chunxi Road",
+          "zh": "春熙路",
+          "th": "ชุนซีลู่",
+          "at": [
+            104.077822,
+            30.656778
+          ],
+          "atSource": "OSM way 243328355 (WGS-84 → GCJ-02)",
+          "photo": "6/6f/Chunxi_Road_2025_2.jpg",
+          "photoCredit": "Wimwamble · CC BY-SA 4.0",
+          "note": "Chengdu's best-known shopping street since 1924: about 1.1 km and more than 700 shops, from department stores to snack stalls. Go after dark for the lights; IFS and Taikoo Li sit at its east end.",
+          "tags": [
+            "Free",
+            "Metro Line 2 from 通惠门, no change",
+            "Best in the evening"
+          ]
+        },
+        {
+          "id": "ifs",
+          "name": "Chengdu IFS",
+          "zh": "成都国际金融中心",
+          "th": "เฉิงตูกั๋วจี้จินหรงจงซิน",
+          "at": [
+            104.081598,
+            30.655321
+          ],
+          "atSource": "OSM node 14232210743 (WGS-84 → GCJ-02)",
+          "photo": "4/4d/The_panda_at_IFS_Chengdu.jpg",
+          "photoCredit": "David Xuang · CC BY-SA 4.0 (statue by Lawrence Argent)",
+          "note": "High-end mall with international brands, cosmetics and restaurants, and the giant panda statue \"I Am Here\" climbing the outside wall. It offers on-the-spot tax refunds for overseas visitors.",
+          "tags": [
+            "Free",
+            "Metro Chunxi Road exit C or D",
+            "Tax refund from ¥200 per store per day"
+          ]
+        },
+        {
+          "id": "taikoo-li",
+          "name": "Taikoo Li",
+          "zh": "成都太古里",
+          "th": "เฉิงตูไท่กู่หลี่",
+          "at": [
+            104.083496,
+            30.653415
+          ],
+          "atSource": "OSM way 430133363 (WGS-84 → GCJ-02)",
+          "photo": "b/b3/Sino-Ocean_Taikoo_Li_Chengdu_10.jpg",
+          "photoCredit": "EditQ · CC0",
+          "note": "Open-air streets of low Sichuan-style buildings beside Daci Temple, with more than 300 shops and restaurants: designer brands, cafés and lifestyle stores. Free to wander, and it joins IFS across the road.",
+          "tags": [
+            "Free",
+            "Metro Chunxi Road exit C",
+            "300+ shops"
+          ]
+        },
+        {
+          "id": "skp",
+          "name": "Chengdu SKP",
+          "zh": "成都SKP",
+          "th": "เฉิงตู เอสเคพี",
+          "at": [
+            104.070383,
+            30.568997
+          ],
+          "atSource": "OSM way 837554755 (WGS-84 → GCJ-02)",
+          "photo": "9/9c/Chengdu_SKP.jpg",
+          "photoCredit": "Mrsabuydee · CC BY 4.0",
+          "note": "Luxury mall on Tianfu Avenue for fashion, beauty and jewellery rather than souvenirs. It is about 11 km south of the hotel, so only go if luxury shopping is the plan.",
+          "tags": [
+            "Free",
+            "Metro Line 1 Jincheng Plaza",
+            "Stores about 10:00–22:00"
+          ]
+        },
+        {
+          "id": "kuanzhai-shops",
+          "name": "Kuanzhai Alley shops",
+          "zh": "宽窄巷子",
+          "th": "ควานไจ่เซี่ยงจึ",
+          "at": [
+            104.053283,
+            30.66375
+          ],
+          "atSource": "OSM way 588905842 (WGS-84 → GCJ-02)",
+          "photo": "8/8f/Shops_-_Kuanzhai_Alleys_-_Chengdu%2C_China_-_DSC05305.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "The souvenir stop closest to the hotel: tea, panda goods, handicrafts and Sichuan snacks, mostly ¥15–120. Prices inside the scenic area run higher than the streets around it; in 2023 a rabbit head cost ¥20 inside and ¥15–16 outside.",
+          "tags": [
+            "Free",
+            "Walk from the hotel",
+            "Quieter on weekdays"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "What to bring home",
+      "items": [
+        {
+          "id": "hotpot-base",
+          "name": "Hotpot base and Sichuan pepper",
+          "zh": "伊藤洋华堂(双楠店)",
+          "th": "อีเถิงหยางหัวถัง (ซวงหนานเตี้ยน)",
+          "ask": {
+            "zh": "火锅底料 · 花椒",
+            "th": "หั่วกัวตี่เลี่ยว · ฮวาเจียว"
+          },
+          "at": [
+            104.021321,
+            30.646209
+          ],
+          "atSource": "OSM way 336956609, 伊藤洋华堂双楠店 (WGS-84 → GCJ-02)",
+          "photo": "4/4e/Chengdu_Hot_Pot_Yuanyangguo_style_2019.jpg",
+          "photoCredit": "Breaknet2025 · CC BY 4.0 (photo of a Chengdu hotpot, not the packet)",
+          "note": "Ito Yokado is Chengdu's big Japanese-run supermarket chain, and Shuangnan has been its best-selling store. Supermarket hotpot base is about ¥20 a pack (beef-tallow, vegetable-oil, mushroom or tomato), and Sichuan pepper comes in small sealed packs of red or green.",
+          "tags": [
+            "About ¥20 per pack",
+            "¥30–80 in tourist shops",
+            "Keep oily packs sealed"
+          ]
+        },
+        {
+          "id": "doubanjiang",
+          "name": "Pixian chili bean paste",
+          "zh": "伊藤洋华堂(双楠店)",
+          "th": "อีเถิงหยางหัวถัง (ซวงหนานเตี้ยน)",
+          "ask": {
+            "zh": "郫县豆瓣",
+            "th": "ผีเซี่ยนโต้วป้าน"
+          },
+          "at": [
+            104.021321,
+            30.646209
+          ],
+          "atSource": "OSM way 336956609, 伊藤洋华堂双楠店 (WGS-84 → GCJ-02)",
+          "photo": "e/e9/Doubanjiang.jpg",
+          "photoCredit": "Badagnani · CC BY 3.0",
+          "note": "The fermented broad-bean chili paste behind mapo tofu, from Pixian in Chengdu's Pidu district. The 鹃城 red-oil 500 g tub sold for about ¥10–11 online in mid-2026; pick a factory-sealed pack with a printed expiry date.",
+          "tags": [
+            "About ¥10–11 per 500 g",
+            "Same supermarket as the hotpot base"
+          ]
+        },
+        {
+          "id": "tea",
+          "name": "Sichuan green tea",
+          "zh": "大西南茶城",
+          "th": "ต้าซีหนานฉาเฉิง",
+          "ask": {
+            "zh": "蒙顶甘露 · 竹叶青",
+            "th": "เหมิงติ่งกันลู่ · จู๋เย่ชิง"
+          },
+          "at": null,
+          "atSource": "No trustworthy point: not in OSM and no Ctrip page found. Sources place it at Wukuaishi (五块石), Jinniu district.",
+          "photo": "d/d2/Zhu-Ye-Qing-Tea-03.jpg",
+          "photoCredit": "CEphoto, Uwe Aranas · CC BY-SA 4.0",
+          "note": "Chengdu's big tea market, about 600 traders from China's tea regions; taste before you buy. Mengding tea runs about ¥80–300, while genuine Zhuyeqing costs far more and loose \"Zhuyeqing\" is often fake, so buy it boxed.",
+          "tags": [
+            "Mengding ¥80–300",
+            "Taste first"
+          ]
+        },
+        {
+          "id": "panda-goods",
+          "name": "Panda souvenirs",
+          "zh": "熊猫邮局",
+          "th": "สยงเมาโหยวจวี๋",
+          "ask": {
+            "zh": "熊猫公仔",
+            "th": "สยงเมากงจ่าย"
+          },
+          "at": [
+            104.137012,
+            30.743879
+          ],
+          "atSource": "OSM node 12574196373, 熊猫邮局 (China Post), 熊猫大道1375号 (WGS-84 → GCJ-02)",
+          "photo": "d/d7/Toy_Pandas_in_Gift_Shop_of_Shiraraso_Grandhotel_20100214.jpg",
+          "photoCredit": "玄史生 · CC BY-SA 3.0 (panda toys in a hotel gift shop, not in Chengdu)",
+          "note": "China Post's panda post office at the Panda Base address, and the Base's own souvenir shops sell licensed panda goods. Plush toys, keychains, magnets, mugs and postcards cost about ¥20–200; Kuanzhai Alley and Jinli sell the same kind of goods if you skip the Base.",
+          "tags": [
+            "About ¥20–200",
+            "At the Panda Base"
+          ]
+        },
+        {
+          "id": "shu-brocade",
+          "name": "Shu brocade",
+          "zh": "蜀锦织绣博物馆",
+          "th": "สู่จิ่นจือซิ่วป๋ออู้กว่าน",
+          "ask": {
+            "zh": "蜀锦",
+            "th": "สู่จิ่น"
+          },
+          "at": [
+            104.036937,
+            30.657279
+          ],
+          "atSource": "OSM node 4130339065 (WGS-84 → GCJ-02)",
+          "photo": "a/a6/Sichuan_%28Shu%29_Brocade_%289958396875%29.jpg",
+          "photoCredit": "Gary Todd · CC0",
+          "note": "Chengdu's silk brocade, sold as scarves, framed pieces, bags and fans; price depends on handmade or machine-made. The Shu Brocade and Embroidery Museum, about 1 km west of the hotel, is the safer place for genuine pieces.",
+          "tags": [
+            "About ¥100–500",
+            "Hours (OSM): 9:00–18:00, weekends to 17:30"
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://sg.trip.com/guide/info/what-to-buy-in-chengdu.html",
+    "https://ph.trip.com/guide/shopping/chengdu-shopping.html",
+    "https://www.eastchinatrip.com/sichuan-hot-pot-guide-chengdu/",
+    "https://cbgc.scol.com.cn/news/4197531",
+    "https://www.smzdm.com/p/177229871/",
+    "https://m.tech.china.com/redian/2026/0805/082026_1933982.html",
+    "https://www.nbd.com.cn/articles/2012-04-12/646845.html",
+    "https://www.sohu.com/a/488380488_250147",
+    "https://www.worldjournal.com/wj/story/121474/9130868",
+    "https://leica-camera.com/en-GB/leica-dealers/leica-store-chengdu-skp",
+    "https://www.nomadotravel.app/en/guides/chengdu-shopping-guide",
+    "https://www.openstreetmap.org/way/243328355",
+    "https://www.openstreetmap.org/node/14232210743",
+    "https://www.openstreetmap.org/way/430133363",
+    "https://www.openstreetmap.org/way/837554755",
+    "https://www.openstreetmap.org/way/588905842",
+    "https://www.openstreetmap.org/way/336956609",
+    "https://www.openstreetmap.org/node/12574196373",
+    "https://www.openstreetmap.org/node/4130339065"
+  ]
+}

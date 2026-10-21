@@ -1,0 +1,241 @@
+{
+  "groups": [
+    {
+      "title": "West side, near the hotel",
+      "items": [
+        {
+          "id": "kuanzhai",
+          "name": "Kuanzhai Alley",
+          "zh": "宽窄巷子",
+          "th": "ควานไจ่เซี่ยงจึ",
+          "at": [
+            104.053283,
+            30.66375
+          ],
+          "atSource": "OSM way/588905842, WGS-84 converted to GCJ-02",
+          "photo": "8/8a/Street_scene_-_Kuanzhai_Alleys_-_Chengdu%2C_China_-_DSC05311.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "Three restored Qing-era lanes of courtyard houses, teahouses and snack stalls. Come at dusk when the lanterns come on; after 10 pm it is calmest.",
+          "tags": [
+            "Free",
+            "Open 24h",
+            "Shops ~10:00–22:00",
+            "Walk from the hotel, about 750 m"
+          ]
+        },
+        {
+          "id": "peoples-park",
+          "name": "People's Park & Heming Teahouse",
+          "zh": "人民公园 · 鹤鸣茶社",
+          "th": "เหรินหมินกงหยวน · เฮ่อหมิงฉาเซ่อ",
+          "at": [
+            104.058334,
+            30.656921
+          ],
+          "atSource": "OSM node/2823785815 (鹤鸣茶社), WGS-84 converted to GCJ-02",
+          "photo": "d/d5/Teahouse_in_Peoples_Park_-_Chengdu%2C_China_-_DSC05348.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "Sit with a gaiwan of tea by the lake at Chengdu's oldest park teahouse and watch locals play cards. A price board at the door set a ¥16 minimum per person, ¥18 after 6 pm (April 2026 review).",
+          "tags": [
+            "Park free, open all day",
+            "Tea from ¥16 per person",
+            "Metro Line 2 People's Park, one stop from Tonghuimen"
+          ]
+        },
+        {
+          "id": "dufu",
+          "name": "Du Fu Thatched Cottage",
+          "zh": "杜甫草堂",
+          "th": "ตู้ฝู่เฉ่าถัง",
+          "at": [
+            104.028629,
+            30.660348
+          ],
+          "atSource": "OSM way/299409723, WGS-84 converted to GCJ-02",
+          "photo": "7/79/Traditional_housing_inside_Du_Fu_Thatched_Cottage.jpg",
+          "photoCredit": "Pauloleong2002 · CC BY-SA 4.0",
+          "note": "A quiet bamboo-and-pond garden museum built around the Tang poet Du Fu's rebuilt cottage. Allow two hours; buy tickets on the museum's WeChat account.",
+          "tags": [
+            "¥50",
+            "09:00–18:00, tickets until 17:00",
+            "Walk from the hotel, about 1.7 km"
+          ]
+        },
+        {
+          "id": "qingyang",
+          "name": "Qingyang Palace",
+          "zh": "青羊宫",
+          "th": "ชิงหยางกง",
+          "at": [
+            104.042482,
+            30.661233
+          ],
+          "atSource": "OSM relation/18440094, WGS-84 converted to GCJ-02",
+          "photo": "a/ac/Hall_-_Qingyang_Gong_-_Chengdu%2C_China_-_DSC04110.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "Chengdu's main Taoist temple, closest sight to the hotel. Rub the bronze goats for luck and have ¥10 gaiwan tea under the old trees; an hour is enough.",
+          "tags": [
+            "¥10, pay at the gate",
+            "08:00–17:20, last entry 17:00",
+            "Walk from the hotel, about 400 m"
+          ]
+        },
+        {
+          "id": "wuhou-jinli",
+          "name": "Wuhou Shrine & Jinli",
+          "zh": "武侯祠 · 锦里古街",
+          "th": "อู่โหวฉือ · จิ่นหลี่",
+          "at": [
+            104.049586,
+            30.644623
+          ],
+          "atSource": "OSM node/5402706721 (Wuhou Shrine ticket office), WGS-84 converted to GCJ-02",
+          "photo": "5/5a/Corridor_-_Wuhou_Shrine_-_Chengdu%2C_China_-_DSC05483.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "Three Kingdoms shrine with the famous red-wall bamboo lane; arrive at 9:00 for empty photos and bring your passport. Exit into Jinli next door, a free old-style street that lights its lanterns around 6:30 pm in winter.",
+          "tags": [
+            "Shrine ¥50",
+            "Shrine 09:00–18:00, last entry 17:00",
+            "Jinli free, 09:00–22:30",
+            "Metro Line 3/5 Gaoshengqiao, exit D, ~10 min walk",
+            "From the hotel, about 2.2 km"
+          ]
+        },
+        {
+          "id": "wenshu",
+          "name": "Wenshu Monastery",
+          "zh": "文殊院",
+          "th": "เหวินซูย่วน",
+          "at": [
+            104.072722,
+            30.675494
+          ],
+          "atSource": "OSM way/660894418, WGS-84 converted to GCJ-02",
+          "photo": "f/f7/Hall_-_Wenshu_Monastery_-_Chengdu%2C_China_-_DSC05213.jpg",
+          "photoCredit": "Daderot · CC0",
+          "note": "A working Buddhist monastery with incense halls, a gaiwan teahouse and a cheap vegetarian canteen. One to two hours; pair it with Taikoo Li the same day.",
+          "tags": [
+            "Free",
+            "08:00–17:00, last entry 16:30",
+            "Metro Line 1 Wenshu Monastery (文殊院站)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "City centre and east",
+      "items": [
+        {
+          "id": "panda-base",
+          "name": "Chengdu Panda Base",
+          "zh": "成都大熊猫繁育研究基地",
+          "th": "เฉิงตูต้าสงเมาฝานอวี้เหยียนจิวจีตี้",
+          "at": [
+            104.135457,
+            30.740846
+          ],
+          "atSource": "OSM way/941885688 (park area centroid, not the gate), WGS-84 converted to GCJ-02; ask the driver for 南门 (South Gate)",
+          "photo": "f/fe/Panda_in_Chengdu_Research_Base_of_Giant_Panda_Breeding_-_7708872342.jpg",
+          "photoCredit": "George Lu · CC BY 2.0",
+          "note": "Real-name online booking is required for every visitor (passport number; bring the same passport). In November the morning slot opens at 08:00: be at the South Gate for opening, because pandas are most active 8–11 am at feeding time. Allow 3.5–5 hours.",
+          "tags": [
+            "¥55",
+            "Book online, real name",
+            "Nov: 08:00–17:30, last entry 16:30",
+            "Morning slot 08:00–12:00",
+            "Metro Line 3 Panda Avenue (熊猫大道) exit A + bus D025",
+            "About 12 km from the hotel"
+          ]
+        },
+        {
+          "id": "taikoo-li",
+          "name": "Taikoo Li & Daci Temple",
+          "zh": "成都远洋太古里 · 大慈寺",
+          "th": "เฉิงตูหย่วนหยางไท่กู่หลี่ · ต้าฉือซื่อ",
+          "at": [
+            104.083685,
+            30.654078
+          ],
+          "atSource": "OSM way/288055435 (大慈寺, inside Taikoo Li), WGS-84 converted to GCJ-02",
+          "photo": "c/c5/Sino-Ocean_Taikoo_Li_Chengdu_7.jpg",
+          "photoCredit": "EditQ · CC0",
+          "note": "Open-air luxury shopping lanes built in old Sichuan style around the Tang-founded Daci Temple. See the temple in the morning quiet, the lanes in the evening lights.",
+          "tags": [
+            "Taikoo Li free, 10:00–22:00",
+            "Daci Temple 08:00–17:30",
+            "Daci entry: free per Ctrip, ¥30 per one guide",
+            "Metro Line 2/3 Chunxi Road"
+          ]
+        },
+        {
+          "id": "chunxi-ifs",
+          "name": "Chunxi Road & the IFS climbing panda",
+          "zh": "春熙路 · 成都国际金融中心(IFS)",
+          "th": "ชุนซีลู่ · กั๋วจี้จินหรงจงซิน",
+          "at": [
+            104.081598,
+            30.655321
+          ],
+          "atSource": "OSM node/14232210743 (成都国际金融中心 mall), WGS-84 converted to GCJ-02",
+          "photo": "f/fb/Chunxi_Road_20260512.jpg",
+          "photoCredit": "Suicasmo · CC0",
+          "note": "Chengdu's busiest shopping street. The giant panda sculpture \"I Am Here\" hangs off the IFS wall; go up to the 7th-floor rooftop garden to stand beside it, ideally around 10 am before the queues.",
+          "tags": [
+            "Free",
+            "IFS 10:00–22:00",
+            "Metro Line 2/3 Chunxi Road, exit A",
+            "Avoid 17:00–19:00 traffic"
+          ]
+        },
+        {
+          "id": "anshun-bridge",
+          "name": "Anshun Bridge & Jiuyan Bridge at night",
+          "zh": "安顺廊桥 · 九眼桥",
+          "th": "อันซุ่นหลางเฉียว · จิ่วเหยี่ยนเฉียว",
+          "at": [
+            104.085967,
+            30.641734
+          ],
+          "atSource": "OSM node/6349200760 (安顺廊桥), WGS-84 converted to GCJ-02",
+          "photo": "8/8c/%E5%AE%89%E9%A1%BA%E5%BB%8A%E6%A1%A5%E5%A4%9C%E6%99%AF.jpg",
+          "photoCredit": "Prcmise · CC BY-SA 4.0",
+          "note": "The lit covered bridge reflected in the Jin River, with Jiuyan Bridge's bar strip just downstream. Arrive around 7 pm as the lights come up; the metro stops around 11:30 pm.",
+          "tags": [
+            "Free",
+            "Open all day",
+            "Optional river boat from Dongmen Wharf ~¥80–118",
+            "Walk from Taikoo Li, about 1.4 km",
+            "About 4.6 km from the hotel"
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://cbgc.scol.com.cn/news/7233620",
+    "https://m.gmw.cn/2026-09/17/content_1304564601.htm",
+    "https://travelchinawith.me/attractions/sichuan/chengdu/chengdu-panda-breeding-and-research-base/",
+    "https://www.wanderinchina.com/zh/destinations/chengdu/chengdu-panda-base-guide/",
+    "https://wanderinchina.com/destinations/chengdu/chengdu-panda-base-guide/",
+    "https://you.ctrip.com/sight/chengdu104/4229.html",
+    "https://you.ctrip.com/sight/chengdu104/4226.html",
+    "https://m.thepaper.cn/newsDetail_forward_34136189",
+    "https://you.ctrip.com/sight/chengdu104/4227.html",
+    "https://wanderinchina.com/destinations/chengdu/wuhou-shrine-wuhouci/",
+    "https://wanderinchina.com/destinations/chengdu/jinli-ancient-street/",
+    "https://you.ctrip.com/sight/chengdu104/11700.html",
+    "https://you.ctrip.com/sight/chengdu104/11693.html",
+    "https://gs.ctrip.com/html5/you/comment/104/5233721-food.html",
+    "https://you.ctrip.com/sight/chengdu104/4341.html",
+    "https://travelchinawith.me/attractions/sichuan/chengdu/wenshu-monastery/",
+    "https://chinafortravelers.com/guides/kuanzhai-alley-chengdu/",
+    "https://wanderinchina.com/destinations/chengdu/taikoo-li/",
+    "https://you.ctrip.com/sight/chengdu104/4344.html",
+    "https://airial.travel/attractions/china/cheng-du-shi/chengdu-ifs-panda-sculpture-x4qu0gZ2",
+    "https://you.ctrip.com/sight/chengdu104/2040946.html",
+    "https://wanderinchina.com/destinations/chengdu/activity/nightlife/",
+    "https://travel.sina.cn/2026-07-10/detail-inihhenp8410368.d.html",
+    "https://nominatim.openstreetmap.org/",
+    "https://commons.wikimedia.org/"
+  ]
+}
