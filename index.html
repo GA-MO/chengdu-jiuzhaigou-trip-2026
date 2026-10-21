@@ -377,6 +377,29 @@
   .gd-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
   .gd-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
   .gd-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
+  .gd-tools { flex:none; display:flex; }
+  .heart { color:var(--mute); }
+  .heart[aria-pressed="true"] { color:var(--chili); }
+  .heart[aria-pressed="true"] svg { fill:currentColor; animation:pop .28s cubic-bezier(.3,1.6,.5,1) both; }
+  .ph-cell .heart { position:absolute; top:0; right:0; }
+  .ph-cell:has(.heart) .ph-tile b { padding-right:30px; }
+  .gd-saved-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:40px 0 4px; }
+  .gd-saved-head h2 { margin:0; font-size:2rem; line-height:1.05; }
+  .gd-saved-head h2 .th { font-size:.5em; vertical-align:.35em; }
+  .gd-saved-head .icon-btn { flex:none; min-height:44px; padding:0 12px 0 10px; color:var(--ink); border-color:var(--ink); }
+  .gd-empty { margin:8px 0 0; color:var(--mute); font-size:.9rem; }
+  .gd-list { padding:4px 0; }
+  .gd-row { display:flex; align-items:center; gap:4px; padding:0 8px 0 0; }
+  .gd-list .gd-row + .gd-row { border-top:1px solid var(--line-soft); }
+  .gd-toggle { flex:1; min-width:0; display:flex; align-items:center; gap:12px; padding:10px 4px 10px 12px; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .gd-thumb { flex:none; width:64px; height:64px; border-radius:var(--r-pill); object-fit:cover; background:var(--lake-tint); }
+  .gd-name { min-width:0; display:flex; flex-direction:column; gap:1px; }
+  .gd-name b { font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.25; }
+  .gd-th { color:var(--mute); font-size:.85rem; line-height:1.35; }
+  .gd-mini { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+  .gd-mini .chip { background:var(--lake-tint); color:var(--lake); font-size:.7rem; }
+  .zh-show { flex:none; color:var(--chili) !important; border-color:var(--chili-line) !important; }
+  .gd-item { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
   .gd-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .gd-tags .chip { background:var(--lake-tint); color:var(--lake); }
   .gd-note { margin:10px 0 0; font-size:.92rem; }
@@ -801,6 +824,18 @@ function setBooked(id, on) {
   if (Object.keys(next).length) edits.booked = next; else delete edits.booked;
   saveEdits();
 }
+// saved guide items and phrases, oldest first; kept in edits so the edit sheet's Reset clears them too
+// a key is "<section>:<item id>" (Taikoo Li sits in two sections) or "say:<Chinese>" for a phrase
+const Saved = {
+  keys: () => Array.isArray(edits.saved) ? edits.saved : [],
+  has: key => Saved.keys().includes(key),
+  toggle(key) {
+    const next = Saved.has(key) ? Saved.keys().filter(k => k !== key) : [...Saved.keys(), key];
+    if (next.length) edits.saved = next; else delete edits.saved;
+    saveEdits();
+    document.dispatchEvent(new Event("saved-change"));
+  },
+};
 const withEdits = (id, base) => ({ ...base, ...edits[id] });
 const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
 const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
@@ -813,13 +848,11 @@ const amapUrl = (q, place) => place
   ? `https://uri.amap.com/marker?position=${place.at.join(",")}&name=${encodeURIComponent(place.th)}&src=chengdu-trip&coordinate=gaode&callnative=1`
   : `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}`;
 const IS_PHONE = /iPhone|iPod|Android/.test(navigator.userAgent);
-// morning hotel → every stop → that night's hotel
+// an Amap driving route through pins ({ at, th }) in order, skipping a pin that repeats the one before it
 // phones get m.amap.com with viaaddr (its "open in app" button passes every via); Amap's own redirect from
 // ditu.amap.com to phones keeps only the first via, and m.amap.com on a desktop drops them all
-const dayRouteUrl = (date, events) => {
-  const pins = [morningHotel(date)?.zh, ...events.map(ev => ev.map), nightHotel(date)?.zh]
-    .map(q => PLACES[q]).filter(Boolean)
-    .filter((p, i, all) => p !== all[i - 1]);
+const routeUrl = stops => {
+  const pins = stops.filter((p, i, all) => String(p.at) !== String(all[i - 1]?.at));
   if (pins.length < 2) return null;
   const vias = pins.slice(1, -1);
   if (IS_PHONE) {
@@ -834,6 +867,22 @@ const dayRouteUrl = (date, events) => {
   vias.forEach((p, i) => put(`via[${i}]`, p));
   return `https://ditu.amap.com/dir?${q}`;
 };
+// morning hotel → every stop → that night's hotel
+const dayRouteUrl = (date, events) => routeUrl([morningHotel(date)?.zh, ...events.map(ev => ev.map), nightHotel(date)?.zh].map(q => PLACES[q]).filter(Boolean));
+// from today's Chengdu hotel (Kuanzhai, the guide's base, unless it is the Atour night), then always the nearest saved place not yet visited
+const ROUTE_MAX = 17;
+function savedRouteUrl(items) {
+  const h = nightHotel(todayIso()) ?? morningHotel(todayIso());
+  const pins = [PLACES[(h === HOTELS.atour ? h : HOTELS.kuanzhai).zh]];
+  const left = items.filter(i => i.at).map(i => ({ at: i.at, th: i.th }));
+  const dist = (a, b) => Math.hypot((a[0] - b[0]) * Math.cos(a[1] * Math.PI / 180), a[1] - b[1]);
+  while (left.length && pins.length < ROUTE_MAX) {
+    const from = pins.at(-1).at;
+    const i = left.reduce((best, p, j) => dist(from, p.at) < dist(from, left[best].at) ? j : best, 0);
+    pins.push(...left.splice(i, 1));
+  }
+  return routeUrl(pins);
+}
 const dateOf = iso => new Date(iso + "T00:00:00");
 const dateLabel = iso => { const d = dateOf(iso); return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTH}`; };
 const photo = (src, cls) => { const i = el("img", cls); i.src = src; i.alt = ""; i.loading = "lazy"; i.crossOrigin = "anonymous";
@@ -953,6 +1002,7 @@ const ICONS = {
   back: svg('<path d="M15 5l-7 7 7 7"/>'),
   book: svg('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'),
   pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
+  heart: svg('<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>'),
 };
 const iconButton = (tag, icon, label, text = "") => {
   const b = el(tag, "icon-btn", icon + (text ? `<span>${text}</span>` : ""));
@@ -1442,16 +1492,29 @@ function openSettings() {
   done.focus();
 }
 
-function guideItem(item) {
+const itemCard = item => placeCard({ zh: item.zh, thai: item.th, addr: item.addr });
+
+function heartButton(key, name) {
+  const b = iconButton("button", ICONS.heart, `Save ${name}`);
+  b.classList.add("heart");
+  b.dataset.saved = key;
+  b.setAttribute("aria-pressed", Saved.has(key));
+  b.onclick = () => Saved.toggle(key);
+  return b;
+}
+
+function guideItem(item, secId) {
   const card = el("article", "card gd-item");
-  card.dataset.id = item.id;
+  card.dataset.key = `${secId}:${item.id}`;
   if (item.photo) card.append(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
   const head = el("div", "gd-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
-  head.append(mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
+  const tools = el("div", "gd-tools");
+  tools.append(heartButton(card.dataset.key, item.name), mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
+  head.append(tools);
   const body = el("div", "gd-body");
   body.append(head);
   if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("")));
-  body.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, placeCard({ zh: item.zh, thai: item.th, addr: item.addr })));
+  body.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, itemCard(item)));
   // a souvenir names its shop in zh and the product to ask for in ask
   if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
   card.append(body);
@@ -1463,8 +1526,8 @@ function guideSection(sec) {
   const box = el("section", "gd-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
   box.id = `g-${sec.id}`;
   for (const g of sec.groups ?? []) {
-    box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
-    if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph])));
+    box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(item => guideItem(item, sec.id)));
+    if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph]), { hearts: true }));
   }
   box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${Rate.annotate(esc(t.text))}</p>`)));
   return box;
@@ -1472,6 +1535,11 @@ function guideSection(sec) {
 
 const PHRASE_GROUPS = GUIDE.find(s => s.id === "say").groups;
 const PHRASES = new Map(PHRASE_GROUPS.flatMap(g => g.phrases).map(ph => [ph.zh, ph]));
+// everything a heart can save, by its Saved key
+const SAVABLE = new Map([
+  ...GUIDE.flatMap(sec => (sec.groups ?? []).flatMap(g => (g.items ?? []).map(item => [`${sec.id}:${item.id}`, { sec: sec.id, item }]))),
+  ...[...PHRASES.values()].map(phrase => [`say:${phrase.zh}`, { sec: "say", phrase }]),
+]);
 // the last phrases shown, newest first, by their Chinese
 const RECENT_KEY = "chengdu-trip-recent", RECENT_MAX = 6;
 const recentPhrases = () => local.get(RECENT_KEY, []).map(zh => PHRASES.get(zh)).filter(Boolean);
@@ -1487,9 +1555,14 @@ function phraseTile(ph, onPick) {
   return b;
 }
 
-function phraseGrid(phrases, onPick) {
+function phraseGrid(phrases, onPick, { hearts = false } = {}) {
   const grid = el("div", "ph-grid");
-  grid.append(...phrases.map(ph => { const cell = el("div", "ph-cell"); cell.append(phraseTile(ph, onPick)); return cell; }));
+  grid.append(...phrases.map(ph => {
+    const cell = el("div", "ph-cell");
+    cell.append(phraseTile(ph, onPick));
+    if (hearts) cell.append(heartButton(`say:${ph.zh}`, ph.thai));
+    return cell;
+  }));
   return grid;
 }
 
@@ -1636,6 +1709,48 @@ const PhraseSheet = (() => {
   return { open, close };
 })();
 
+const SAVED_GROUPS = [["see", "Places"], ["eat", "Food"], ["shop", "Shop"], ["say", "Phrases"]];
+function savedRow(key, item) {
+  const row = el("div", "gd-row");
+  const open = el("button", "gd-toggle");
+  open.type = "button";
+  open.append(item.photo ? photo(thumbUrl(item.photo), "gd-thumb") : el("span", "gd-thumb"),
+    el("span", "gd-name", `<b>${esc(item.name)}</b><span class="gd-th">${esc(item.th)}</span>${item.tags[0] ? `<span class="gd-mini"><span class="chip">${Rate.annotate(esc(item.tags[0]))}</span></span>` : ""}`));
+  open.onclick = () => revealItem(key);
+  const show = iconButton("button", "", `Show ${item.zh} to the driver`, "Show");
+  show.classList.add("zh-show");
+  show.onclick = () => showCard(itemCard(item));
+  row.append(open, show);
+  return row;
+}
+
+function fillSaved(box) {
+  const entries = Saved.keys().map(key => ({ key, ...SAVABLE.get(key) })).filter(e => e.sec);
+  const head = el("div", "gd-saved-head", `<h2>Saved <span class="th">(ที่บันทึกไว้)</span></h2>`);
+  const url = savedRouteUrl(entries.filter(e => e.item).map(e => e.item));
+  if (url) {
+    const a = iconButton("a", ICONS.pin, "Open a route through the saved places in Amap", "Route");
+    Object.assign(a, { href: url, target: "_blank", rel: "noopener" });
+    head.append(a);
+  }
+  box.replaceChildren(head);
+  if (!entries.length) return box.append(el("p", "gd-empty", "Tap ♡ on a place, a dish, a shop or a phrase to keep it here."));
+  for (const [id, title] of SAVED_GROUPS) {
+    const group = entries.filter(e => e.sec === id);
+    if (!group.length) continue;
+    box.append(el("h3", "sub", title));
+    if (id === "say") { box.append(phraseGrid(group.map(e => e.phrase), ph => showPhrases([ph]), { hearts: true })); continue; }
+    const list = el("div", "card gd-list");
+    list.append(...group.map(e => savedRow(e.key, e.item)));
+    box.append(list);
+  }
+}
+
+function revealItem(key) {
+  const card = guide?.sheet.querySelector(`.gd-sec:not(#g-saved) [data-key="${CSS.escape(key)}"]`);
+  card?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 // the guide lives at #guide so the phone's back gesture closes it; section pills replace the entry instead of stacking more
 let guide = null;
 function openGuide() {
@@ -1650,7 +1765,7 @@ function openGuide() {
   const pills = el("div", "gd-pills");
   pills.setAttribute("role", "navigation");
   pills.setAttribute("aria-label", "Guide sections");
-  pills.append(...GUIDE.map(sec => {
+  pills.append(...[{ id: "saved", title: "Saved" }, ...GUIDE].map(sec => {
     const a = el("a", "", esc(sec.title));
     a.href = `#guide-${sec.id}`;
     a.dataset.id = sec.id;
@@ -1663,7 +1778,16 @@ function openGuide() {
   convert.type = "button";
   convert.onclick = () => PhraseSheet.open({ tab: "money" });
   rate.append(convert);
-  sheet.append(bar, rate, ...GUIDE.map(guideSection));
+  const saved = el("section", "gd-sec gd-saved");
+  saved.id = "g-saved";
+  sheet.append(bar, rate, saved, ...GUIDE.map(guideSection));
+  const syncSaved = () => {
+    fillSaved(saved);
+    pills.querySelector('[data-id="saved"]').textContent = `Saved (${Saved.keys().length})`;
+    for (const b of sheet.querySelectorAll("[data-saved]")) b.setAttribute("aria-pressed", Saved.has(b.dataset.saved));
+  };
+  syncSaved();
+  document.addEventListener("saved-change", syncSaved);
   const markPill = () => {
     // a tapped pill stays lit while its smooth scroll passes the sections before it; the reader's own scroll takes over again
     if (guide?.picked) return setPill(guide.picked);
@@ -1686,7 +1810,7 @@ function openGuide() {
   // the show card and the phrase sheet handle their own Escape
   const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay, .ps")) history.back(); };
   addEventListener("keydown", onKey);
-  guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill };
+  guide = { sheet, scrollY0: scrollY, opener: document.activeElement, onKey, markPill, syncSaved };
   document.body.style.overflow = "hidden";
   document.body.append(sheet);
   markPill();
@@ -1701,8 +1825,9 @@ function showGuideSection(id, behavior = "instant") {
 }
 
 function closeGuide() {
-  const { sheet, scrollY0, opener, onKey } = guide;
+  const { sheet, scrollY0, opener, onKey, syncSaved } = guide;
   guide = null;
+  document.removeEventListener("saved-change", syncSaved);
   sheet.remove();
   document.body.style.overflow = "";
   removeEventListener("keydown", onKey);
