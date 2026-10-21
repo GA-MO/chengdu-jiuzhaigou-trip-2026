@@ -88,68 +88,6 @@
   .f-line svg { flex:none; width:18px; height:18px; stroke-width:1.5; transform:rotate(45deg); }
   .flight-note { margin:4px 2px 0; color:var(--mute); font-size:.78rem; }
 
-  /* trip at a glance: route map on night-lake ground, then altitude, days and totals on paper */
-  .glance { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); overflow:hidden; margin:12px 0; padding-bottom:6px; }
-  .glance svg { display:block; width:100%; height:auto; overflow:visible; }
-  .g-mapsvg, .g-altsvg { max-width:min(480px, 100%); margin:0 auto; }
-  .g-mapsvg { max-width:min(480px, 100%, 48svh); }
-  .g-badge-hit { fill:transparent; }
-  .g-map { background:var(--lake-deep); color:#fff; padding:0 0 14px; }
-  .g-grid line { stroke:rgb(255 255 255 / 7%); stroke-width:1; }
-  .g-tick { fill:rgb(255 255 255 / 34%); font-size:9px; text-anchor:end; font-variant-numeric:tabular-nums; }
-  .g-scale path { fill:none; stroke:rgb(255 255 255 / 45%); stroke-width:1; }
-  .g-scale text { fill:rgb(255 255 255 / 55%); font-size:9.5px; }
-  .g-road, .g-train { fill:none; stroke:#e3ebea; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .g-train { stroke-dasharray:1 5; stroke-width:2.6; }
-  .g-flight { fill:none; stroke:#e2c48a; stroke-width:1.6; stroke-dasharray:5 4; }
-  .g-stop { fill:var(--lake-deep); stroke:#fff; stroke-width:2; }
-  .g-peak { fill:#fff; stroke:var(--lake-deep); stroke-width:2; stroke-linejoin:round; }
-  .g-hotel rect { fill:#fff; stroke:var(--lake-deep); stroke-width:2; }
-  .g-hotel path, .g-hotel circle { fill:none; stroke:var(--lake-deep); stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; }
-  .g-badge circle { fill:var(--lake-deep); stroke:#e2c48a; stroke-width:1.5; }
-  .g-badge text { fill:#fff; font-family:var(--serif); font-size:11px; font-weight:600; text-anchor:middle; }
-  .g-en { fill:#fff; font-family:var(--serif); font-size:14.5px; font-weight:500; }
-  .g-th { fill:rgb(255 255 255 / 70%); font-family:var(--sans); font-size:11px; }
-  .g-note { fill:#e2c48a; font-family:var(--serif); font-size:12px; font-weight:600; }
-  .g-key { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 16px; margin:4px 16px 0; padding:0; list-style:none; color:rgb(255 255 255 / 72%); font-size:.74rem; }
-  .g-key li { display:flex; align-items:center; gap:6px; }
-  .g-key svg { width:auto; height:14px; }
-  .g-key .g-badge circle { stroke-width:1.2; }
-  .g-h { margin:24px 20px 6px; font-size:1.15rem; }
-  .g-band { fill:var(--warnbg); }
-  .g-bandline { stroke:var(--warnline); stroke-width:1; }
-  .g-bandtxt { fill:var(--warn); font-size:10.5px; font-weight:600; text-anchor:end; }
-  .g-sick { display:flex; flex-wrap:wrap; gap:0 6px; margin:0 20px 4px; padding-left:22px; position:relative; color:var(--warn); font-size:.8rem; line-height:1.45; }
-  .g-sick::before { content:""; position:absolute; left:0; top:3px; width:14px; height:14px; border-radius:4px; background:var(--warnbg); border:1px solid var(--warnline); }
-  .g-base { stroke:var(--line); stroke-width:1; }
-  .g-area { fill:rgb(15 76 82 / 10%); }
-  .g-ridge { fill:none; stroke:var(--lake); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
-  .g-pt { fill:var(--lake); stroke:var(--paper); stroke-width:2; }
-  .g-pt.high { fill:var(--warn); }
-  .g-val { fill:var(--ink); font-family:var(--serif); font-size:13px; font-weight:600; font-variant-numeric:lining-nums; }
-  .g-place { fill:var(--mute); font-size:10.5px; }
-  .g-dnum { fill:var(--ink); font-family:var(--serif); font-size:13px; font-weight:600; text-anchor:middle; }
-  .g-ddate { fill:var(--mute); font-size:9.5px; text-anchor:middle; }
-  .g-days { margin:0; padding:0 8px; list-style:none; }
-  .g-days li + li { border-top:1px solid var(--line-soft); }
-  .g-days a { display:grid; grid-template-columns:52px minmax(0,1fr); gap:12px; padding:12px; border-radius:var(--r-field); color:inherit; text-decoration:none; -webkit-tap-highlight-color:transparent; }
-  .g-days a:active { background:var(--lake-tint); }
-  .g-when { color:var(--mute); font-size:.74rem; line-height:1.2; text-align:center; }
-  .g-when b { display:block; color:var(--ink); font-family:var(--serif); font-size:1.7rem; font-weight:500; line-height:1.05; font-variant-numeric:lining-nums; }
-  .g-what { display:flex; flex-direction:column; gap:1px; min-width:0; }
-  .g-title { font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.25; }
-  .g-thline { color:var(--mute); font-size:.86rem; line-height:1.45; }
-  .g-move, .g-stay { display:flex; align-items:center; gap:6px; font-size:.8rem; line-height:1.4; }
-  .g-move { flex-wrap:wrap; gap:0 5px; color:var(--lake); font-weight:600; margin-top:3px; }
-  .g-move span { white-space:nowrap; }
-  .g-move span + span::before { content:"· "; }
-  .g-stay { color:var(--mute); }
-  .g-stay svg { flex:none; width:14px; height:14px; color:var(--larch); }
-  .g-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0; padding:4px 16px 14px; }
-  .g-stats div { display:flex; flex-direction:column-reverse; justify-content:flex-end; padding:12px 14px; border:1px solid var(--line); border-radius:var(--r-field); }
-  .g-stats dd { margin:0; font-family:var(--serif); font-size:1.75rem; font-weight:500; line-height:1.1; font-variant-numeric:lining-nums; }
-  .g-stats dt { margin-top:4px; color:var(--mute); font-size:.76rem; line-height:1.4; }
-
   /* open items */
   .warn { background:var(--warnbg); border:1px solid var(--warnline); box-shadow:none; }
   .warn summary { display:flex; align-items:center; min-height:28px; color:var(--warn); font-weight:600; font-size:.9rem; cursor:pointer; }
@@ -252,11 +190,15 @@
   .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
   .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-field); overflow:hidden; background:var(--paper); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
-  .plan img { display:block; width:100%; height:auto; }
+  .plan img, .plan svg { display:block; width:100%; height:auto; }
+  .poster button { background:var(--snow); box-shadow:var(--shadow); border-radius:var(--r-card); }
   .plan figcaption { margin:10px 2px 0; color:var(--mute); font-size:.78rem; }
-  .viewer { position:fixed; inset:0; z-index:100; overflow:auto; background:var(--lake-deep); overscroll-behavior:contain; }
-  .viewer img { display:block; width:1024px; max-width:none; height:auto; }
-  .viewer button { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--paper); color:var(--ink); font:inherit; font-weight:650; cursor:pointer; box-shadow:0 2px 10px rgb(0 0 0 / 30%); }
+  .viewer { position:fixed; inset:0; z-index:100; overflow:auto; padding-top:calc(68px + env(safe-area-inset-top)); background:var(--lake-deep); overscroll-behavior:contain; }
+  .viewer-media { display:block; max-width:none; height:auto; margin:0 auto; cursor:zoom-in; }
+  .viewer.zoomed .viewer-media { cursor:zoom-out; }
+  .viewer-bar { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; display:flex; gap:8px; }
+  .viewer-bar button { min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--paper); color:var(--ink); font:inherit; font-weight:650; cursor:pointer; box-shadow:0 2px 10px rgb(0 0 0 / 30%); }
+  .viewer-bar button:disabled { color:var(--mute); cursor:progress; }
   :focus-visible { outline:2px solid var(--larch); outline-offset:3px; }
   @media (min-width:640px) { .card { padding:24px 28px; } .cover { margin:0; min-height:300px; border-radius:var(--r-card); } .cover h2 { font-size:2.5rem; } }
   @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { transition:none !important; animation:none !important; } }
@@ -294,7 +236,7 @@
   .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
   .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
   .gd-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
-  .gd-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
+  .gd-sec > h2 .th, h2.block .th { font-size:.5em; vertical-align:.35em; }
   .gd-sec .sub { margin-top:22px; }
   .gd-item { padding:0; overflow:hidden; }
   .gd-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
@@ -345,41 +287,31 @@
     <ul class="todo"></ul>
   </details>
 
-  <h2 class="block" id="glance-h">Trip at a glance</h2>
-  <section class="glance" id="overview" aria-labelledby="glance-h"></section>
-
   <h2 class="block">Daily plan</h2>
   <div id="days"></div>
 
 
-  <h2 class="block">Original plan</h2>
+  <h2 class="block">Infographic <span class="th">(แผนเที่ยวในภาพเดียว)</span></h2>
+  <figure class="plan poster">
+    <button type="button" id="poster-btn" aria-label="Open the infographic full screen"></button>
+    <figcaption>The whole trip on one page, in Thai, drawn from the plan above. Tap to open it full screen, zoom in, or save it as an image.</figcaption>
+  </figure>
   <details class="card plan-box">
-    <summary>Show the plan drawn before booking</summary>
+    <summary>Original plan (before booking)</summary>
     <figure class="plan">
       <button type="button" id="plan-btn" aria-label="Enlarge the original plan">
         <img src="plan.jpg" width="1024" height="1536" loading="lazy" alt="Infographic of the original 8-day plan: flights, hotels, car, day-by-day timeline, route map, altitude, weather, budget and tips. Text is in Thai and English.">
       </button>
-      <figcaption>Flight times and hotels in this picture are out of date; the plan above replaces them. Tap to enlarge.</figcaption>
+      <figcaption>Flight times and hotels in this picture are out of date; the infographic above replaces it. Tap to enlarge.</figcaption>
     </figure>
   </details>
 
   <h2 class="block">Parks and weather</h2>
   <div class="card">
-    <table>
-      <tr><th>Place</th><th>Open</th><th>Altitude</th></tr>
-      <tr><td>Bipenggou <span class="th">(ปี้เผิงโกว)</span></td><td>08:30–18:00</td><td>2,800–3,300 m</td></tr>
-      <tr><td>Dagu Glacier <span class="th">(ต๋ากู่)</span></td><td>08:00–17:30</td><td>3,000–4,860 m</td></tr>
-      <tr><td>Jiuzhaigou <span class="th">(จิ่วจ้ายโกว)</span></td><td>07:30–18:00</td><td>2,000–3,100 m</td></tr>
-    </table>
+    <table id="parks"></table>
     <div class="sub">November weather and sun times</div>
-    <p class="flight-note">Sun times are for a flat horizon; in a valley the sun goes behind the mountains earlier. Jiuzhaigou: entry 07:30–14:00.</p>
-    <table>
-      <tr><th>City</th><th>Temp</th><th>Rise</th><th>Set</th></tr>
-      <tr><td>Chengdu <span class="th">(เฉิงตู)</span></td><td>8–15°C</td><td>07:23</td><td>18:12</td></tr>
-      <tr><td>Heishui <span class="th">(เฮยสุ่ย)</span></td><td>2–10°C</td><td>07:30</td><td>18:14</td></tr>
-      <tr><td>Dagu Glacier <span class="th">(ต๋ากู่)</span></td><td>−10–0°C</td><td>–</td><td>–</td></tr>
-      <tr><td>Jiuzhaigou <span class="th">(จิ่วจ้ายโกว)</span></td><td>−1–10°C</td><td>07:30</td><td>18:07</td></tr>
-    </table>
+    <p class="flight-note">Sun times are for a flat horizon; in a valley the sun goes behind the mountains earlier.</p>
+    <table id="weather"></table>
   </div>
 
   <h2 class="block">Tips and emergency numbers</h2>
@@ -435,7 +367,7 @@ const HOTELS = {
   kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", short:"Chuanxing Yinli, Kuanzhai Alley", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
 const hotelEv = (time, key) => { const h = HOTELS[key];
-  return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
+  return { time, text:`Check in: ${h.name}`, th:"เช็กอินที่พัก", detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
 
 // map query → Thai stop name and GCJ-02 [lng, lat] for the day route; places without a known point are left off
 // hotel points are Ctrip's GD coordinates, except Kuanzhai which is Amap's own
@@ -468,61 +400,75 @@ const PLACES = {
   [HOTELS.kuanzhai.zh]:    { th:"โรงแรมชวนสิงอิ่นหลี่ ควานไจ่", at:[104.045375, 30.664015] },
 };
 
-// a day with needs:"<id>" says so in its subtitle until the item is ticked
+// a day with needs:"<id>" says so in its subtitle until the item is ticked; th is the to-do line on the infographic
 const OPEN_ITEMS = [
-  { id:"car-west", label:"car not booked", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
-  { id:"car-airport", label:"car not booked", text:"Car to Tianfu airport on 14 Nov." },
-  { id:"jiuzhai-tickets", label:"park tickets not booked", text:"Jiuzhaigou ticket + park bus for 10 Nov (¥190 + ¥90 each): real-name booking in the WeChat mini program 九寨沟旅游官方平台, 7–14 days ahead. No booking, no entry." },
-  { id:"checkin-times", text:"Check-in time at each hotel." },
+  { id:"car-west", label:"car not booked", thLabel:"ยังไม่จองรถ", th:"จองรถพร้อมคนขับ 8–9 พ.ย.", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
+  { id:"car-airport", label:"car not booked", thLabel:"ยังไม่จองรถ", th:"จองรถไปสนามบิน 14 พ.ย.", text:"Car to Tianfu airport on 14 Nov." },
+  { id:"jiuzhai-tickets", label:"park tickets not booked", thLabel:"ยังไม่จองตั๋ว", th:"จองตั๋วจิ่วจ้ายโกว + รถอุทยาน 10 พ.ย. (ล่วงหน้า 7–14 วัน)", text:"Jiuzhaigou ticket + park bus for 10 Nov (¥190 + ¥90 each): real-name booking in the WeChat mini program 九寨沟旅游官方平台, 7–14 days ahead. No booking, no entry." },
+  { id:"checkin-times", th:"ถามเวลาเช็กอินของแต่ละที่พัก", text:"Check-in time at each hotel." },
+];
+
+// shown in the Parks and weather tables and on the infographic; last = last entry
+const PARKS = [
+  { en:"Bipenggou", th:"ปี้เผิงโกว", open:"08:30–18:00", alt:[2800, 3300] },
+  { en:"Dagu Glacier", th:"ต๋ากู่", open:"08:00–17:30", alt:[3000, 4860] },
+  { en:"Jiuzhaigou", th:"จิ่วจ้ายโกว", open:"07:30–18:00", last:"14:00", alt:[2000, 3100] },
+];
+const WEATHER = [
+  { en:"Chengdu", th:"เฉิงตู", temp:"8–15°C", rise:"07:23", set:"18:12" },
+  { en:"Heishui", th:"เฮยสุ่ย", temp:"2–10°C", rise:"07:30", set:"18:14" },
+  { en:"Dagu Glacier", th:"ต๋ากู่", temp:"−10–0°C", rise:"–", set:"–" },
+  { en:"Jiuzhaigou", th:"จิ่วจ้ายโกว", temp:"−1–10°C", rise:"07:30", set:"18:07" },
 ];
 
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m; altAt names that point
-// road = the day's driving (km, minutes) as in sub; by:"train" on an event means the trip to its map point is by rail
+// road = the day's driving (km, minutes) as in sub; by:"train" or "bus" on an event is how the trip to its map point goes
+// th on an event = its short Thai label on the infographic; picks = GUIDE item ids shown there instead of times
 const DAYS = [
   { date:"2026-11-07", alt:500, altAt:"Chengdu", cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", road:{ km:63, min:60 }, events:[
     { flight:0, map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
-    { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", map:"成都太古里" },
-    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", map:"成都国金中心" },
-    { time:"Night", text:"Sichuan (ซื่อชวน) hotpot" },
+    { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", th:"เดินเล่นไท่กู่หลี่", map:"成都太古里" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", th:"แพนด้า IFS · ถนนชุนซี", map:"成都国金中心" },
+    { time:"Night", text:"Sichuan (ซื่อชวน) hotpot", th:"หม้อไฟเสฉวน" },
   ]},
   { date:"2026-11-08", alt:3300, altAt:"Bipenggou", cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", road:{ km:408, min:345 }, needs:"car-west", events:[
-    { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
-    { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
-    { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟景区", map:"毕棚沟景区" },
-    { time:"10:15", text:"Explore Bipenggou for about 5 h", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
-    { time:"15:15", text:"Leave the park → Heishui (เฮยสุ่ย)", detail:"199 km, about 2 h 50 min via G4217, the G0615 Dekang Expressway and G347. Leave by 16:00 at the latest to reach the hotel before 19:00." },
+    { time:"06:15", text:"Leave the hotel", th:"ออกจากโรงแรม", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
+    { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", th:"พักรถ เหมียนซือ", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
+    { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", th:"ถึงปี้เผิงโกว ซื้อตั๋ว", zh:"毕棚沟景区", map:"毕棚沟景区" },
+    { time:"10:15", text:"Explore Bipenggou for about 5 h", th:"เที่ยว ปี้เผิงโกว ~5 ชม.", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
+    { time:"15:15", text:"Leave the park → Heishui (เฮยสุ่ย)", th:"ออกเดินทาง ไปเฮยสุ่ย", detail:"199 km, about 2 h 50 min via G4217, the G0615 Dekang Expressway and G347. Leave by 16:00 at the latest to reach the hotel before 19:00." },
     hotelEv("~18:15", "heishui"),
-    { time:"19:00", text:"Yak meat hotpot" },
+    { time:"19:00", text:"Yak meat hotpot", th:"หม้อไฟ เนื้อจามรี" },
   ]},
   { date:"2026-11-09", alt:4860, altAt:"Dagu summit", cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", road:{ km:387, min:460 }, needs:"car-west", events:[
-    { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
-    { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
-    { time:"~09:10", text:"Summit, 30–45 min", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
-    { time:"~11:15", text:"Back at the visitor centre · take lunch to eat in the car" },
-    { time:"11:30", text:"Drive to Jiuzhaigou (จิ่วจ้ายโกว) via Songpan (ซงพาน) (382 km, about 7 h 30 min of driving)", detail:"Through the Zhahong (扎红) Tunnel on S446, then S313, the way Chinese tours go. Amap prefers the Hongyuan (หงหยวน) grassland road (422 km, about 20 min faster); add Songpan as a stop to keep it on this one. Sunset is about 18:07, so the last hour, including the Gonggangling (กงก้างหลิ่ง) pass (~3,700 m, can be icy in November), is after dark. Every extra 10 min at Dagu or on the road is 10 min later at the hotel." },
-    { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城(松州古城)", map:"松潘古城" },
+    { time:"07:40", text:"Leave the hotel", th:"ออกจากที่พัก", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
+    { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", th:"ซื้อตั๋ว ต๋ากู่ ขึ้นรถอุทยาน", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
+    { time:"~09:10", text:"Summit, 30–45 min", th:"ขึ้นยอด 4,860 ม.", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
+    { time:"~11:15", text:"Back at the visitor centre · take lunch to eat in the car", th:"ลงมา ห่อข้าวกินบนรถ" },
+    { time:"11:30", text:"Drive to Jiuzhaigou (จิ่วจ้ายโกว) via Songpan (ซงพาน) (382 km, about 7 h 30 min of driving)", th:"ขับไป จิ่วจ้ายโกว ~7½ ชม.", detail:"Through the Zhahong (扎红) Tunnel on S446, then S313, the way Chinese tours go. Amap prefers the Hongyuan (หงหยวน) grassland road (422 km, about 20 min faster); add Songpan as a stop to keep it on this one. Sunset is about 18:07, so the last hour, including the Gonggangling (กงก้างหลิ่ง) pass (~3,700 m, can be icy in November), is after dark. Every extra 10 min at Dagu or on the road is 10 min later at the hotel." },
+    { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", th:"แวะซงพาน ห้องน้ำ เติมน้ำมัน", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城(松州古城)", map:"松潘古城" },
     hotelEv("~19:20", "jiuzhai"),
   ]},
   { date:"2026-11-10", alt:3100, altAt:"Long Lake", cover:"longlake", title:"Full day in Jiuzhaigou", th:"เที่ยวจิ่วจ้ายโกวทั้งวัน", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
-    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", map:"九寨沟景区" },
-    { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
+    { time:"07:20", text:"Enter the park", th:"เข้าอุทยาน", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", map:"九寨沟景区" },
+    { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", th:"ทะเลสาบ ฉางไห่", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
     { time:"~09:15", text:"Five Color Pond (อู่ไฉ่ฉือ)", detail:"Walk 1.2 km down the boardwalk from Long Lake", map:"九寨沟五彩池" },
-    { time:"10:30", text:"Nuorilang (นั่วรื่อหล่าง) Waterfall", detail:"Park bus about 25 min from Five Color Pond", map:"诺日朗瀑布" },
-    { time:"11:30", text:"Lunch at Nuorilang (นั่วรื่อหล่าง)" },
-    { time:"12:30", text:"Five Flower Lake (อู่ฮัวไห่)", detail:"Park bus about 10 min from Nuorilang", map:"九寨沟五花海" },
+    { time:"10:30", text:"Nuorilang (นั่วรื่อหล่าง) Waterfall", th:"น้ำตก นั่วรื่อหล่าง", detail:"Park bus about 25 min from Five Color Pond", map:"诺日朗瀑布" },
+    { time:"11:30", text:"Lunch at Nuorilang (นั่วรื่อหล่าง)", th:"อาหารกลางวัน" },
+    { time:"12:30", text:"Five Flower Lake (อู่ฮัวไห่)", th:"ทะเลสาบ อู่ฮัวไห่", detail:"Park bus about 10 min from Nuorilang", map:"九寨沟五花海" },
     { time:"13:30", text:"Pearl Shoal (เจินจูทาน)", detail:"Walk 1.9 km down the boardwalk from Five Flower Lake", map:"珍珠滩瀑布" },
-    { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
-    { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
+    { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", th:"หุบเขา ซู่เจิ้ง", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
+    { time:"16:30", text:"Leave the park (closes 18:00)", th:"ออกจากอุทยาน", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
   { date:"2026-11-11", alt:3700, altAt:"Gonggangling pass", cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", road:{ km:93, min:110, by:"bus" }, events:[
-    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"93 km, about 1 h 50 min by road over the Gonggangling pass, so you reach the station around 10:30, well before the train. Check the pickup point in the booking. ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
-    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站", by:"train", min:121 },
-    { time:"~14:30", text:"Metro Line 2 to Tonghuimen (ทงฮุ่ยเหมิน), then walk to the hotel", detail:"From 成都东客站 towards 犀浦 (Xipu), 9 stops, about 21 min, ¥4; exit E, then 450 m on foot. About 36 min door to door. Taxi instead: about 40 min, 12 km." },
+    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", th:"รถบัสไป สถานี หวงหลงจิ่วจ้าย", by:"bus", detail:"93 km, about 1 h 50 min by road over the Gonggangling pass, so you reach the station around 10:30, well before the train. Check the pickup point in the booking. ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", th:"รถไฟ C5764 ถึงเฉิงตู 14:15", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站", by:"train", min:121 },
+    { time:"~14:30", text:"Metro Line 2 to Tonghuimen (ทงฮุ่ยเหมิน), then walk to the hotel", th:"รถไฟใต้ดินสาย 2 ไปที่พัก", detail:"From 成都东客站 towards 犀浦 (Xipu), 9 stops, about 21 min, ¥4; exit E, then 450 m on foot. About 36 min door to door. Taxi instead: about 40 min, 12 km." },
     hotelEv("~15:10", "kuanzhai"),
-    { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", detail:"About 1 km from the hotel, a 10–15 min walk" },
+    { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", th:"อาหารเย็น ที่ควานไจ่", detail:"About 1 km from the hotel, a 10–15 min walk" },
   ]},
-  { date:"2026-11-12", guide:true, alt:500, altAt:"Chengdu", cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", guide:true, alt:500, altAt:"Chengdu", cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", picks:["panda-base", "wenshu", "taikoo-li", "chunxi-ifs", "houtang", "longchaoshou", "woos", "laitangyuan"], events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
@@ -530,7 +476,7 @@ const DAYS = [
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", guide:true, alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
+  { date:"2026-11-13", guide:true, alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", picks:["wuhou-jinli", "kuanzhai", "peoples-park", "dufu", "chenmapo", "longsenyuan", "maojiao", "no37"], events:[
     { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
     { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
@@ -539,7 +485,7 @@ const DAYS = [
     { time:"19:30", text:"Stroll / relax" },
   ]},
   { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", road:{ km:65, min:55 }, needs:"car-airport", events:[
-    { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
+    { time:"Before flight", text:"Check out and leave for the airport", th:"เช็กเอาต์ ไปสนามบิน", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
 ];
@@ -676,6 +622,7 @@ const withEdits = (id, base) => ({ ...base, ...edits[id] });
 const flightAt = i => withEdits(`f${i}`, FLIGHTS[i]);
 const flightSummary = f => ({ time:f.depart, text:`${f.no} ${f.from.code} → ${f.to.code}`, detail:`Arrives ${f.arrive} · ${f.dur} flight` });
 const resolveEvent = (id, base) => { const ev = withEdits(id, base); return base.flight === undefined ? ev : { ...ev, ...flightSummary(flightAt(base.flight)) }; };
+const eventsOf = i => DAYS[i].events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const withReadings = s => esc(s).replace(/\(([฀-๿][^)]*)\)/g, '<span class="th">($1)</span>');
@@ -738,35 +685,104 @@ function showBig(text, caption = "Show this to your driver") {
   o.querySelector("button").focus();
 }
 
-function showPlan() {
-  const v = el("div", "viewer", `<img src="plan.jpg" alt="Original plan, full size">`);
+// full screen picture: fits the screen width, a tap zooms to at least its own pixel width around the tapped point, pinch zoom still works
+function showViewer(media, label, width, tools = []) {
+  const v = el("div", "viewer");
+  const bar = el("div", "viewer-bar");
   const close = el("button", "", "Close");
   close.type = "button";
-  v.append(close);
+  bar.append(...tools, close);
+  media.classList.add("viewer-media");
+  v.append(media, bar);
   v.setAttribute("role", "dialog");
   v.setAttribute("aria-modal", "true");
-  v.setAttribute("aria-label", "Original plan");
+  v.setAttribute("aria-label", label);
+  let zoomed = false;
+  const size = () => {
+    const fit = Math.min(width, v.clientWidth);
+    media.style.width = `${zoomed ? Math.max(width, fit * 2) : fit}px`;
+    v.classList.toggle("zoomed", zoomed);
+  };
+  media.onclick = e => {
+    const r = media.getBoundingClientRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+    zoomed = !zoomed;
+    size();
+    const z = media.getBoundingClientRect();
+    v.scrollBy(z.left + fx * z.width - e.clientX, z.top + fy * z.height - e.clientY);
+  };
   const opener = document.activeElement;
-  const hide = () => { v.remove(); document.body.style.overflow = ""; removeEventListener("keydown", onKey); opener?.focus(); };
+  const hide = () => { v.remove(); document.body.style.overflow = ""; removeEventListener("keydown", onKey); removeEventListener("resize", size); opener?.focus(); };
   const onKey = e => { if (e.key === "Escape") hide(); };
   close.onclick = hide;
   addEventListener("keydown", onKey);
+  addEventListener("resize", size);
   document.body.style.overflow = "hidden";
   document.body.append(v);
+  size();
   close.focus();
 }
 
-const svg = d => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-const ICONS = {
-  copy: svg('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>'),
-  check: svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
-  fail: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
-  plane: svg('<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>'),
-  hotel: svg('<path d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle cx="7" cy="12" r="1.8"/>'),
-  back: svg('<path d="M15 5l-7 7 7 7"/>'),
-  book: svg('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'),
-  pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
+const showPlan = () => showViewer(Object.assign(new Image(), { src:"plan.jpg", alt:"Original plan, full size" }), "Original plan", 1024);
+
+function showPoster() {
+  const save = el("button", "", "Preparing image…");
+  save.type = "button";
+  save.disabled = true;
+  // made as soon as the viewer opens, because iPhone only lets share() run right after a tap
+  const png = posterPng();
+  png.then(() => { save.textContent = "Save as image"; save.disabled = false; },
+    () => { save.textContent = "Can't make the image"; });
+  save.onclick = async () => sharePng(await png);
+  showViewer(posterNode(), "Infographic", PW, [save]);
+}
+
+async function sharePng(file) {
+  if (IS_PHONE && navigator.canShare?.({ files:[file] })) {
+    try { await navigator.share({ files:[file] }); return; } catch (e) { if (e.name === "AbortError") return; }
+  }
+  const a = Object.assign(document.createElement("a"), { href:URL.createObjectURL(file), download:file.name });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60_000);
+}
+
+// 24×24 stroke drawings, shared by the page's buttons and the infographic
+const ICON_PATHS = {
+  copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  fail: '<path d="M6 6l12 12M18 6L6 18"/>',
+  plane: '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
+  hotel: '<path d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle cx="7" cy="12" r="1.8"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+  car: '<path d="M5 17H3v-4l2.2-5.5h13.6L21 13v4h-2M9 17h6M3 13h18"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
+  bus: '<rect x="5" y="3" width="14" height="15" rx="2.5"/><path d="M5 11h14M8 21v-3M16 21v-3M9 14.5h.01M15 14.5h.01"/>',
+  train: '<rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14M9 21l1.5-4M15 21l-1.5-4M9 13.5h.01M15 13.5h.01"/>',
+  metro: '<circle cx="12" cy="12" r="9"/><path d="M8 16V8.5l4 5 4-5V16"/>',
+  mountain: '<path d="M2 20 9.5 7l4 7 2.5-4L22 20z"/><path d="m7.4 10.6 2.1 1.6 2.1-1.6"/>',
+  panda: '<circle cx="5.5" cy="6.5" r="2.6" fill="currentColor"/><circle cx="18.5" cy="6.5" r="2.6" fill="currentColor"/><circle cx="12" cy="13" r="8" fill="#fff"/><ellipse cx="8.8" cy="12.5" rx="1.7" ry="2.3" fill="currentColor"/><ellipse cx="15.2" cy="12.5" rx="1.7" ry="2.3" fill="currentColor"/><path d="M11 17h2"/>',
+  bowl: '<path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 7.5c0-1.4 1-1.8 1-3.2M12 7.5c0-1.4 1-1.8 1-3.2M16 7.5c0-1.4 1-1.8 1-3.2"/>',
+  bag: '<path d="M5 8h14l-1 13H6z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  walk: '<circle cx="13.5" cy="4" r="1.8"/><path d="M10 21l2.5-6 2.5 2.5V21M8 12l2-4.5h3.5l2.5 3.5 2.5 1M12.5 14.5l1-6"/>',
+  oxygen: '<rect x="7.5" y="7" width="9" height="14" rx="2"/><path d="M10 7V4.5h4V7M12 4.5V2.5h3M10 13h4"/>',
+  down: '<path d="M12 4v15M6 13l6 6 6-6"/>',
+  drop: '<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/>',
+  phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  card: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/>',
+  passport: '<rect x="5" y="2.5" width="14" height="19" rx="2"/><circle cx="12" cy="10" r="3.2"/><path d="M9 16.5h6"/>',
+  layers: '<path d="M12 3 2 8l10 5 10-5z"/><path d="m2 13 10 5 10-5"/>',
+  battery: '<rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2M6 10v4M10 10v4"/>',
+  apps: '<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+  alert: '<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+  list: '<path d="M10 6h11M10 12h11M10 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/>',
+  route: '<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H17a3.5 3.5 0 0 0 0-7H7a3.5 3.5 0 0 1 0-7h8.5"/>',
+  bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
 };
+const svg = d => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONS = Object.fromEntries(Object.entries(ICON_PATHS).map(([k, d]) => [k, svg(d)]));
 const iconButton = (tag, icon, label, text = "") => {
   const b = el(tag, "icon-btn", icon + (text ? `<span>${text}</span>` : ""));
   b.title = label; b.setAttribute("aria-label", label);
@@ -863,7 +879,7 @@ function renderDays() {
     const cover = el("div", "cover");
     cover.append(photo(imgUrl(d.cover), ""));
     cover.append(el("div", "", `<span class="dlabel">Day ${i + 1} · ${dateLabel(d.date)}</span><h2>${esc(d.title)}</h2><p class="th-line">${esc(d.th)}</p>`));
-    const events = d.events.map((base, j) => resolveEvent(`d${i}e${j}`, base));
+    const events = eventsOf(i);
     const sub = el("div", "dsub");
     const tools = el("div", "dsub-tools");
     if (d.guide) {
@@ -946,184 +962,455 @@ function renderFlights() {
   }));
 }
 
-// one picture of the trip: route map, altitude by day, a row per day, totals; all from FLIGHTS, HOTELS, PLACES and DAYS
-function renderOverview() {
-  const W = 353, f1 = n => +n.toFixed(1), num = n => n.toLocaleString("en");
-  const hrs = m => `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ""}`;
-  const hotels = Object.values(HOTELS);
-  const nightOf = date => hotels.find(h => h.checkIn <= date && date < h.checkOut);
-  const morningOf = date => hotels.find(h => h.checkIn < date && date <= h.checkOut);
-  const nights = h => Math.round((dateOf(h.checkOut) - dateOf(h.checkIn)) / 864e5);
-  const flightDay = i => DAYS.findIndex(d => d.events.some(e => e.flight === i)) + 1;
-  const hotelIcon = (x, y) => `<g class="g-hotel" transform="translate(${f1(x - 8)} ${f1(y - 8)})"><rect width="16" height="16" rx="4"/><path transform="translate(2 2) scale(.5)" d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle transform="translate(2 2) scale(.5)" cx="7" cy="12" r="1.8"/></g>`;
-  // a map badge is a link to its day, with a hit circle sized for a fingertip
-  const badge = (x, y, n, link = true) => { const g = `<g class="g-badge"><circle cx="${f1(x)}" cy="${f1(y)}" r="8.5"/><text x="${f1(x)}" y="${f1(y + 3.6)}">${n}</text></g>`;
-    return link ? `<a href="#day${n}" aria-label="Day ${n}"><circle class="g-badge-hit" cx="${f1(x)}" cy="${f1(y)}" r="16"/>${g}</a>` : g; };
+function renderTables() {
+  const place = p => `<td>${esc(p.en)} <span class="th">(${esc(p.th)})</span></td>`;
+  document.getElementById("parks").innerHTML = `<tr><th>Place</th><th>Open</th><th>Altitude</th></tr>`
+    + PARKS.map(p => `<tr>${place(p)}<td>${p.open}${p.last ? `<br><small>entry until ${p.last}</small>` : ""}</td><td>${p.alt.map(num).join("–")} m</td></tr>`).join("");
+  document.getElementById("weather").innerHTML = `<tr><th>City</th><th>Temp</th><th>Rise</th><th>Set</th></tr>`
+    + WEATHER.map(w => `<tr>${place(w)}<td>${w.temp}</td><td>${w.rise}</td><td>${w.set}</td></tr>`).join("");
+}
 
-  // map: equirectangular on the trip's own latitude, so distances read true in both directions
-  // label: [dx, dy, anchor] from the point, Thai under the name unless inline; mark: hotel, peak or dot
-  // nudge moves only the mark, never the route; townDays: where the badges of days spent in that town sit
-  const STOPS = [
-    { q:HOTELS.atour.zh, en:"Chengdu", th:"เฉิงตู", mark:"hotel", label:[13, -2, "start"], townDays:[-20, 18] },
-    { q:"成都天府国际机场", en:"Tianfu airport", th:"สนามบินเทียนฟู่", mark:"dot", label:[-16, 2, "end"] },
-    { q:"毕棚沟景区", en:"Bipenggou", th:"ปี้เผิงโกว", mark:"dot", label:[-10, 4, "end"] },
-    { q:HOTELS.heishui.zh, en:"Heishui", th:"เฮยสุ่ย", mark:"hotel", label:[-14, 18, "end"] },
-    { q:"达古冰川景区", en:"Dagu Glacier", th:"ธารน้ำแข็งต๋ากู่", note:"summit 4,860 m", mark:"peak", nudge:[0, -15], label:[-12, -47, "end"] },
-    { q:"松潘古城", en:"Songpan", th:"ซงพาน", inline:true, mark:"dot", label:[-9, 3, "end"] },
-    { q:"黄龙九寨站", en:"Huanglong Jiuzhai", th:"สถานีรถไฟหวงหลงจิ่วจ้าย", mark:"dot", label:[-9, -20, "end"] },
-    { q:HOTELS.jiuzhai.zh, en:"Jiuzhaigou", th:"จิ่วจ้ายโกว", mark:"hotel", label:[13, 4, "start"] },
+// the infographic: one portrait SVG laid out like plan.jpg, rebuilt from the trip data on every render so edits and bookings show
+const PW = 1080, PM = 24, P_GAP = 16, SIDE_W = 248, SIDE_X = PW - PM - SIDE_W, MAIN_W = SIDE_X - P_GAP - PM;
+const SICK = 3000;
+const TH_MONTH = "พ.ย.";
+const TH_WEEKDAYS = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+const TH_TIME_WORDS = { "After landing":"หลังลงเครื่อง", Evening:"ช่วงเย็น", Night:"ค่ำ", "Before flight":"ก่อนบิน" };
+const TH_CITY = { BKK:"กรุงเทพฯ", CTU:"เฉิงตู" };
+const num = n => n.toLocaleString("en");
+const thDate = iso => `${dateOf(iso).getDate()} ${TH_MONTH}`;
+const thHours = min => { const h = Math.floor(min / 60), m = min % 60; return [h && `${h} ชม.`, m && `${m} นาที`].filter(Boolean).join(" "); };
+const thAlt = alt => `${alt.map(num).join("–")} ม.`;
+const nightsAt = h => Math.round((dateOf(h.checkOut) - dateOf(h.checkIn)) / 864e5);
+const hotelFor = date => Object.values(HOTELS).find(h => h.checkIn <= date && date < h.checkOut);
+
+// the route map's stops in travel order: km = road distance of the leg into the stop, as in that day's details
+// label = [dx, dy, anchor] from the point; kmAt = [dx, dy, anchor, how far along the leg, set along the line]
+// nudge moves a point off a neighbour it would cover; via = a stop on the way, drawn without a name
+const ROUTE = [
+  { q:HOTELS.atour.zh, th:"เฉิงตู", en:"Chengdu", alt:[500], label:[-10, 26, "end"] },
+  { q:"毕棚沟景区", th:"ปี้เผิงโกว", en:"Bipenggou", park:"Bipenggou", km:208, label:[12, -26, "start"], kmAt:[-4, 18, "end"] },
+  { q:HOTELS.heishui.zh, th:"เฮยสุ่ย", en:"Heishui", alt:[2300], km:199, label:[12, 6, "start"], kmAt:[9, 4, "start"] },
+  { q:"达古冰川景区", th:"ต๋ากู่", en:"Dagu Glacier", park:"Dagu Glacier", nudge:[0, -50], label:[12, 8, "start"] },
+  { q:"松潘古城", via:true },
+  { q:HOTELS.jiuzhai.zh, th:"จิ่วจ้ายโกว", en:"Jiuzhaigou", park:"Jiuzhaigou", km:382, label:[8, -38, "end"], kmAt:[6, 18, "start", .2] },
+  { q:"黄龙九寨站", th:"สถานี หวงหลงจิ่วจ้าย", en:"Huanglong Jiuzhai", by:"bus", km:93, label:[-12, -14, "end"], kmAt:[-9, 4, "end"] },
+  { q:"成都东站", by:"train", kmAt:[9, 0, "middle", .5, true] },
+];
+
+const POSTER_TIPS = [
+  ["card", "จ่ายด้วย Alipay / WeChat Pay ผูกบัตรก่อนบิน และพกเงินสดหยวนไว้บ้าง"],
+  ["apps", "ติดตั้ง Alipay, WeChat, Amap ก่อนบิน Google ใช้ไม่ได้ในจีน"],
+  ["passport", "พกพาสปอร์ตตัวจริง ใช้ซื้อตั๋วอุทยาน รถไฟ และแพนด้า"],
+  ["layers", "แต่งตัวหลายชั้น ที่ต๋ากู่ −10°C ต้องมีเสื้อหนาและถุงมือ"],
+  ["battery", "พาวเวอร์แบงก์ใส่กระเป๋าถือขึ้นเครื่องเท่านั้น"],
+  ["bowl", "สั่งหม้อไฟสองช่อง (鸳鸯锅) และบอกว่า 微辣 = เผ็ดน้อย"],
+  ["car", "เรียกแท็กซี่ใน Alipay (DiDi) และเปิดชื่อโรงแรมภาษาจีนให้คนขับดู"],
+  ["bag", "ขอคืนภาษีได้ เมื่อซื้อร้านละ ¥200 ขึ้นไปในวันเดียวกัน"],
+];
+const ALTITUDE_TIPS = [
+  ["walk", "สูงเกิน 3,000 ม. เดินช้าๆ ไม่ออกแรงมาก"],
+  ["drop", "ดื่มน้ำบ่อยๆ นอนให้พอ"],
+  ["oxygen", "พกยาและออกซิเจนกระป๋องขึ้นไปด้วย"],
+  ["down", "เวียนหัว หายใจไม่ทัน ให้ลงที่ต่ำทันที"],
+];
+
+let measureCtx;
+function posterSvg() {
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const C = { ink:css("--ink"), lake:css("--lake"), deep:css("--lake-deep"), mute:css("--mute"), line:css("--line"), soft:css("--line-soft"),
+    snow:css("--snow"), paper:css("--paper"), larch:css("--larch"), chili:css("--chili"), warn:css("--warn"),
+    warnbg:css("--warnbg"), warnline:css("--warnline"), gold:"#e2c48a" };
+  const SERIF = `"Bodoni Moda",Thai,Georgia,serif`, SANS = css("--sans");
+  const WHITE = a => `rgba(255,255,255,${a})`;
+  // name → [family, weight, size, fill]
+  const ST = {
+    title1:[SANS, 600, 58, "#fff"], title1n:[SERIF, 500, 74, "#fff"], title2:[SANS, 600, 38, "#fff"], hsub:[SANS, 400, 19, WHITE(.9)], hen:[SERIF, 500, 15, WHITE(.72)],
+    card:[SANS, 600, 17, C.ink], note:[SANS, 400, 11.5, C.mute], noteb:[SANS, 600, 11.5, C.larch], body:[SANS, 400, 12.5, C.ink], bold:[SANS, 600, 13, C.ink],
+    fltime:[SERIF, 500, 27, C.ink], code:[SANS, 700, 11.5, C.larch], idx:[SERIF, 600, 11.5, "#fff"], tnum:[SERIF, 600, 13, C.ink],
+    dnum:[SERIF, 500, 46, "#fff"], dsmall:[SANS, 500, 12, WHITE(.82)], ddate:[SANS, 600, 14, "#fff"],
+    dtitle:[SANS, 600, 21, C.ink], dten:[SERIF, 500, 13, C.mute], move:[SANS, 600, 12.5, C.lake], high:[SANS, 600, 12.5, C.larch], flag:[SANS, 600, 12.5, C.chili],
+    time:[SERIF, 600, 15.5, C.ink], timesm:[SERIF, 600, 13, C.ink], timew:[SANS, 600, 12, C.ink], ev:[SANS, 400, 12.5, C.ink],
+    nightk:[SANS, 400, 11, WHITE(.82)], night:[SANS, 600, 12.5, "#fff"], pick:[SANS, 600, 12.5, C.ink], picken:[SERIF, 500, 10.5, C.mute], zh:[css("--zh"), 400, 12, C.chili],
+    map:[SANS, 600, 13, C.ink], mapen:[SERIF, 500, 10.5, C.mute], alt:[SANS, 600, 11, C.larch], leg:[SANS, 600, 11, C.lake], legt:[SANS, 600, 11, C.larch],
+    statn:[SERIF, 500, 38, "#fff"], statl:[SANS, 600, 13, "#fff"], stats:[SANS, 400, 11.5, WHITE(.68)],
+    barv:[SERIF, 600, 9.5, C.warn], sos:[SERIF, 600, 26, C.chili], sosl:[SANS, 400, 12, C.ink], sosn:[SERIF, 600, 15, C.chili], warnt:[SANS, 600, 17, C.warn], foot:[SANS, 400, 11.5, C.mute],
+  };
+  const r1 = n => Math.round(n * 10) / 10;
+  measureCtx ??= document.createElement("canvas").getContext("2d");
+  const tw = (s, st) => { const [f, w, z] = ST[st]; measureCtx.font = `${w} ${z}px ${f}`; return measureCtx.measureText(s).width; };
+  const T = (x, y, s, st, anchor, attrs = "") => `<text x="${r1(x)}" y="${r1(y)}" class="p-${st}"${anchor && anchor !== "start" ? ` text-anchor="${anchor}"` : ""}${attrs}>${esc(s)}</text>`;
+  const fit = (s, st, w) => { if (tw(s, st) <= w) return s; let t = s; while (t && tw(`${t}…`, st) > w) t = t.slice(0, -1); return `${t.trimEnd()}…`; };
+  const segmenter = new Intl.Segmenter("th", { granularity:"word" });
+  // Thai labels break at their spaces first: the word segmenter splits transliterated names mid-syllable
+  const wrap = (s, st, w, max = 3) => {
+    const lines = [""];
+    const put = piece => {
+      if (!lines.at(-1).trim() || tw((lines.at(-1) + piece).trim(), st) <= w) lines[lines.length - 1] += piece;
+      else lines.push(piece.trimStart());
+    };
+    // a number keeps its unit on the same line
+    for (const word of s.replace(/ (?=(?:ชม|กม|ม)\.|นาที)/g, "\u00a0").split(/(?<= )/)) {
+      if (tw((lines.at(-1) + word).trim(), st) <= w || tw(word.trim(), st) <= w) put(word);
+      else for (const { segment } of segmenter.segment(word)) put(segment);
+    }
+    if (lines.length > max) lines.splice(max - 1, Infinity, lines.slice(max - 1).join(""));
+    return lines.map(l => fit(l.trim(), st, w));
+  };
+  const TL = (x, y, lines, st, lh, anchor) => lines.map((l, k) => T(x, y + k * lh, l, st, anchor)).join("");
+  const icon = (name, cx, cy, size, color, rot = 0) => `<g transform="translate(${r1(cx)} ${r1(cy)})${rot ? ` rotate(${rot})` : ""} scale(${r1(size / 24 * 100) / 100}) translate(-12 -12)" color="${color}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[name]}</g>`;
+  const box = (x, y, w, h, fill = C.paper, stroke = C.line) => `<rect x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" rx="14" fill="${fill}" stroke="${stroke}"/>`;
+  const head = (x, y, w, name, title, note, st = "card", color = C.lake) => icon(name, x + 26, y + 25, 20, color) + T(x + 44, y + 31, title, st) + (note ? T(x + w - 16, y + 31, note, "note", "end") : "");
+  const out = [], defs = [];
+
+  const hotels = Object.values(HOTELS);
+  const totalNights = hotels.reduce((a, h) => a + nightsAt(h), 0);
+  const top = DAYS.reduce((a, d) => d.alt > a.alt ? d : a);
+  const allEvents = DAYS.flatMap((d, i) => eventsOf(i).map(e => ({ ...e, day:i })));
+  const train = allEvents.find(e => e.by === "train"), bus = allEvents.find(e => e.by === "bus");
+  const trainNo = /\b[A-Z]\d{2,4}\b/.exec(train.text)?.[0] ?? "";
+  const clock = (t, add) => { const m = startMinutes(t) + add; return `${String(Math.floor(m / 60) % 24).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; };
+  const round5 = m => Math.round(m / 5) * 5;
+
+  // header: hero photo with the lake colour behind it for when the photo is not there
+  const HH = 250, first = dateOf(DAYS[0].date), last = dateOf(DAYS.at(-1).date);
+  defs.push(`<linearGradient id="p-shade" x2="1"><stop offset="0" stop-color="${C.deep}" stop-opacity=".94"/><stop offset=".5" stop-color="${C.deep}" stop-opacity=".62"/><stop offset="1" stop-color="${C.deep}" stop-opacity=".08"/></linearGradient>`,
+    `<linearGradient id="p-fade" x2="0" y2="1"><stop offset=".35" stop-color="${C.deep}" stop-opacity="0"/><stop offset="1" stop-color="${C.deep}" stop-opacity=".92"/></linearGradient>`);
+  out.push(`<rect width="${PW}" height="${HH}" fill="${C.deep}"/>`,
+    `<image href="${imgUrl(HERO)}" width="${PW}" height="${HH}" preserveAspectRatio="xMidYMid slice" crossorigin="anonymous"/>`,
+    `<rect width="${PW}" height="${HH}" fill="url(#p-shade)"/>`,
+    `<text x="40" y="96" class="p-title1"><tspan class="p-title1n">${DAYS.length}</tspan> วัน <tspan class="p-title1n">${totalNights}</tspan> คืน</text>`,
+    T(40, 150, "เฉิงตู · ปี้เผิงโกว · ต๋ากู่ · จิ่วจ้ายโกว", "title2"),
+    T(40, 190, `${first.getDate()}–${last.getDate()} พฤศจิกายน ${first.getFullYear()} · ขึ้นสูงสุด ${num(top.alt)} ม. · ขากลับนั่งรถไฟความเร็วสูง`, "hsub"),
+    T(40, 222, "Chengdu · Bipenggou · Dagu Glacier · Jiuzhaigou", "hen"));
+
+  // top cards: flights, hotels, getting around; each is a list of rows spread out to the tallest card's height
+  const CY = HH + 20, FW = 204, HW = 300;
+  const flightRows = FLIGHTS.map((_, i) => ({ h:82, draw:(x, w, y) => {
+    const f = flightAt(i), d = dateOf(f.date), dur = /^(\d+)h\s*(\d+)m$/.exec(f.dur);
+    const a = x + 16 + tw(f.depart, "fltime") + 8, b = x + w - 16 - tw(f.arrive, "fltime") - 8;
+    return [T(x + 16, y + 12, `${f.no} · ${TH_WEEKDAYS[d.getDay()]} ${thDate(f.date)}`, "bold"),
+      T(x + 16, y + 46, f.depart, "fltime"), T(x + w - 16, y + 46, f.arrive, "fltime", "end"),
+      `<path d="M${r1(a)},${y + 37}H${r1(b)}" stroke="${C.line}"/>`, `<rect x="${r1((a + b) / 2 - 10)}" y="${y + 27}" width="20" height="20" fill="${C.paper}"/>`, icon("plane", (a + b) / 2, y + 37, 15, C.larch, 45),
+      T(x + 16, y + 64, f.from.code, "code"), T(x + w - 16, y + 64, f.to.code, "code", "end"),
+      T(x + w / 2, y + 64, dur ? thHours(+dur[1] * 60 + +dur[2]) : f.dur, "note", "middle"),
+      T(x + 16, y + 80, f.from.city, "note"), T(x + w - 16, y + 80, f.to.city, "note", "end")];
+  } }));
+  flightRows.push({ h:14, foot:true, draw:(x, w, y) => [T(x + 16, y + 6, `${[...new Set(FLIGHTS.map((_, i) => flightAt(i).airline))].join(", ")} · เวลาท้องถิ่น`, "note")] });
+  const hotelRows = hotels.map((h, i) => ({ h:64, draw:(x, w, y) => {
+    const a = dateOf(h.checkIn), b = dateOf(h.checkOut);
+    return [`<circle cx="${x + 26}" cy="${y + 8}" r="10" fill="${C.lake}"/>`, T(x + 26, y + 12, i + 1, "idx", "middle"),
+      T(x + 44, y + 13, fit(PLACES[h.zh]?.th ?? h.short, "bold", w - 44 - 58), "bold"), T(x + w - 16, y + 13, `${nightsAt(h)} คืน`, "noteb", "end"),
+      T(x + 44, y + 31, fit(`${a.getDate()}–${b.getDate()} ${TH_MONTH} · ${h.short}`, "note", w - 60), "note"), T(x + 44, y + 49, fit(h.zh, "zh", w - 60), "zh")];
+  } }));
+  const carDays = DAYS.filter(d => d.needs === "car-west"), airportDay = DAYS.find(d => d.needs === "car-airport");
+  const drive = ROUTE.slice(0, ROUTE.findIndex(st => st.by)).filter(st => !st.via).map(st => st.th);
+  const TW = MAIN_W - FW - HW - P_GAP * 2;
+  const moveRows = [
+    ["car", `${dateOf(carDays[0].date).getDate()}–${thDate(carDays.at(-1).date)} รถพร้อมคนขับ`, drive.join(" → "), "car-west"],
+    ["bus", `${thDate(DAYS[bus.day].date)} ${bus.time} รถบัส`, `จิ่วจ้ายโกว → ${PLACES[bus.map].th}`],
+    ["train", `${train.time} รถไฟ ${trainNo} ชั้นหนึ่ง`, `ถึง${PLACES[train.map].th} ${clock(train.time, train.min)}`],
+    ["metro", "ในเมือง: รถไฟใต้ดิน", "สแกน QR ใน Alipay ค่าตั๋ว ¥2–8"],
+    ["car", `${thDate(airportDay.date)} รถไปสนามบิน`, `${airportDay.road.km} กม. ~${thHours(airportDay.road.min)}`, "car-airport"],
+  ].map(([name, a, b, need]) => {
+    const la = wrap(a, "bold", TW - 58, 2), lb = wrap(b, "note", TW - 58, 2);
+    const item = need && !isBooked(need) && OPEN_ITEMS.find(o => o.id === need);
+    const yb = 12 + la.length * 16;
+    return { h:yb + lb.length * 14 - 2 + (item ? 16 : 0), draw:(x, w, y) => [icon(name, x + 26, y + 7, 18, C.lake), TL(x + 44, y + 12, la, "bold", 16), TL(x + 44, y + yb, lb, "note", 14),
+      item ? T(x + 44, y + yb + lb.length * 14 + 2, item.thLabel, "flag") : ""] };
+  });
+  const cards = [
+    { x:PM, w:FW, icon:"plane", title:"เที่ยวบิน", rows:flightRows },
+    { x:PM + FW + P_GAP, w:HW, icon:"hotel", title:"ที่พัก", note:`${totalNights} คืน`, rows:hotelRows },
+    { x:PM + FW + HW + P_GAP * 2, w:TW, icon:"route", title:"การเดินทาง", rows:moveRows },
   ];
-  // the 9 Nov road and the 11 Nov bus share the Songpan–Jiuzhaigou road, so the bus runs in a lane beside it
-  // a badge sits at [fraction along the day's line, dx, dy]
-  const LANE = { 5: -4.5 }, BADGE_AT = { 2: [.62], 3: [.27], 4: [.5, 13, 2], 5: [.38] };
-  const pins = d => [morningOf(d.date)?.zh, ...d.events.map(e => e.map), nightOf(d.date)?.zh]
-    .map((q, i) => PLACES[q] && { at:PLACES[q].at, by:d.events[i - 1]?.by ?? "road" }).filter(Boolean);
-  const all = [...DAYS.flatMap(pins).map(p => p.at), ...STOPS.map(s => PLACES[s.q].at)];
-  const lngs = all.map(a => a[0]), lats = all.map(a => a[1]);
+  const ROW_GAP = 12, natural = c => 54 + c.rows.reduce((a, r) => a + r.h, 0) + (c.rows.length - 1) * ROW_GAP + 18;
+  const cardH = Math.max(...cards.map(natural));
+  for (const c of cards) {
+    const body = c.rows.filter(r => !r.foot), gap = ROW_GAP + Math.min(20, (cardH - natural(c)) / Math.max(1, body.length - 1));
+    out.push(box(c.x, CY, c.w, cardH), head(c.x, CY, c.w, c.icon, c.title, c.note));
+    let ry = CY + 54;
+    for (const r of body) { out.push(...r.draw(c.x, c.w, ry)); ry += r.h + gap; }
+    for (const r of c.rows.filter(r => r.foot)) out.push(...r.draw(c.x, c.w, CY + cardH - 18 - r.h));
+  }
+
+  // a row per day: badge, Thai title, how far, a timeline (or guide picks on a free day), and the day's photo with that night's bed
+  const DY = CY + cardH + 20, photoW = 150;
+  let y = DY;
+  DAYS.forEach((d, i) => {
+    const x = PM, w = MAIN_W, x0 = x + 98, px = x + w - 10 - photoW, cw = px - 18 - x0, high = d.alt > SICK, dt = dateOf(d.date);
+    const evs = eventsOf(i), p = [];
+    p.push(T(x0, y + 34, d.th, "dtitle"));
+    const thW = tw(d.th, "dtitle");
+    if (thW + 12 + tw(d.title, "dten") <= cw) p.push(T(x0 + thW + 12, y + 34, d.title, "dten"));
+    let mx = x0;
+    const move = (name, text, st = "move") => {
+      p.push(icon(name, mx + 9, y + 54, 17, { move:C.lake, high:C.larch, flag:C.chili }[st]), T(mx + 23, y + 58.5, text, st));
+      mx += 23 + tw(text, st) + 16;
+    };
+    if (d.road) move(d.road.by === "bus" ? "bus" : "car", `${num(d.road.km)} กม. · ~${thHours(d.road.min)}`);
+    const tr = evs.find(e => e.by === "train");
+    if (tr) move("train", `รถไฟ ~${thHours(round5(tr.min))}`);
+    const fl = evs.find(e => e.flight !== undefined);
+    if (fl) { const f = flightAt(fl.flight); move("plane", `${f.no} ${f.from.code} → ${f.to.code}`); }
+    if (high) move("mountain", `สูงสุด ${num(d.alt)} ม.`, "high");
+    if (d.picks) move("panda", "วันอิสระ · ไฮไลต์จากไกด์ในแอป");
+    const need = d.needs && !isBooked(d.needs) && OPEN_ITEMS.find(o => o.id === d.needs);
+    if (need) move("alert", need.thLabel, "flag");
+
+    let bottom;
+    if (d.picks) {
+      const items = d.picks.map(id => guideItems().find(it => it.id === id)).filter(Boolean);
+      const rows = GUIDE.filter(s => s.groups).map(s => ({ s, items:items.filter(it => s.groups.some(g => g.items?.includes(it))) })).filter(r => r.items.length);
+      const colX = x0 + 76, colW = (cw - 76) / Math.max(...rows.map(r => r.items.length));
+      let ry = y + 90;
+      for (const { s, items: its } of rows) {
+        const names = its.map(it => wrap(it.th, "pick", colW - 12, 2)), lines = Math.max(...names.map(n => n.length));
+        p.push(icon({ see:"pin", eat:"bowl", shop:"bag" }[s.id] ?? "pin", x0 + 9, ry - 4.5, 17, C.larch), T(x0 + 23, ry, s.th, "noteb"));
+        its.forEach((it, k) => p.push(TL(colX + colW * k, ry, names[k], "pick", 15.5), T(colX + colW * k, ry + names[k].length * 15.5 - 1, fit(it.name.split(/ & | \(|, /)[0], "picken", colW - 12), "picken")));
+        ry += lines * 15.5 + 30;
+      }
+      bottom = ry - 14;
+    } else {
+      const n = evs.length, slot = cw / n, railY = y + 96;
+      const labels = evs.map((e, j) => {
+        const f = e.flight !== undefined && flightAt(e.flight);
+        const text = edits[`d${i}e${j}`]?.text ? e.text : f ? `บิน ${f.no} ถึง${TH_CITY[f.to.code] ?? f.to.code} ${f.arrive}` : e.th ?? PLACES[e.map]?.th ?? e.text;
+        return wrap(text, "ev", slot - 8, 3);
+      });
+      p.push(`<path d="M${r1(x0 + slot / 2)},${railY}H${r1(x0 + cw - slot / 2)}" stroke="${C.line}" stroke-width="2"/>`);
+      evs.forEach((e, j) => {
+        const cx = x0 + slot * (j + .5), t = TH_TIME_WORDS[e.time] ?? e.time, st = !/\d/.test(t) ? "timew" : tw(t, "time") <= slot - 6 ? "time" : "timesm";
+        p.push(T(cx, railY - 12, fit(t, st, slot - 4), st, "middle"),
+          `<circle cx="${r1(cx)}" cy="${railY}" r="5" fill="${e.hotel ? C.lake : C.paper}" stroke="${C.lake}" stroke-width="2"/>`,
+          TL(cx, railY + 23, labels[j], "ev", 15.5, "middle"));
+      });
+      bottom = railY + 23 + (Math.max(...labels.map(l => l.length)) - 1) * 15.5 + 16;
+    }
+    const h = Math.max(150, bottom - y);
+    const night = hotelFor(d.date), nightLines = night ? wrap(PLACES[night.zh]?.th ?? night.short, "night", photoW - 24, 2) : ["บินกลับบ้าน"];
+    defs.push(`<clipPath id="p-ph${i}"><rect x="${px}" y="${y + 8}" width="${photoW}" height="${h - 16}" rx="10"/></clipPath>`);
+    out.push(box(x, y, w, h), `<rect x="${x + 8}" y="${y + 8}" width="74" height="${h - 16}" rx="10" fill="${high ? C.larch : C.deep}"/>`,
+      T(x + 45, y + 34, "วันที่", "dsmall", "middle"), T(x + 45, y + 78, i + 1, "dnum", "middle"), T(x + 45, y + 102, thDate(d.date), "ddate", "middle"), T(x + 45, y + 120, TH_WEEKDAYS[dt.getDay()], "dsmall", "middle"),
+      `<g clip-path="url(#p-ph${i})"><rect x="${px}" y="${y + 8}" width="${photoW}" height="${h - 16}" fill="${C.lake}"/><image href="${imgUrl(d.cover)}" x="${px}" y="${y + 8}" width="${photoW}" height="${h - 16}" preserveAspectRatio="xMidYMid slice" crossorigin="anonymous"/><rect x="${px}" y="${y + 8}" width="${photoW}" height="${h - 16}" fill="url(#p-fade)"/></g>`,
+      T(px + 12, y + h - 20 - nightLines.length * 15.5, night ? "คืนนี้พักที่" : "", "nightk"), TL(px + 12, y + h - 18 - (nightLines.length - 1) * 15.5, nightLines, "night", 15.5),
+      ...p);
+    y += h + 12;
+  });
+  const daysEnd = y - 12;
+
+  // side column beside the cards and days: weather, route map, parks, altitude
+  const weatherFoot = wrap("เวลาคิดจากขอบฟ้าราบ ในหุบเขาแดดหมดเร็วกว่านี้", "note", SIDE_W - 32, 2);
+  const weatherH = 84 + WEATHER.length * 28 - 8 + weatherFoot.length * 14 + 8;
+  {
+    const x = SIDE_X, w = SIDE_W, cols = [[x + 16, "เมือง", "start"], [x + 146, "°C", "end"], [x + 190, "ขึ้น", "end"], [x + w - 16, "ตก", "end"]];
+    out.push(box(x, CY, w, weatherH), head(x, CY, w, "sun", "อากาศ พ.ย."), ...cols.map(([cx, t, a]) => T(cx, CY + 58, t, "note", a)));
+    let wy = CY + 84;
+    for (const c of WEATHER) {
+      out.push(`<path d="M${x + 16},${wy - 18}H${x + w - 16}" stroke="${C.soft}"/>`, T(x + 16, wy, c.th, "bold"), T(cols[1][0], wy, c.temp.replace("°C", "°"), "body", "end"), T(cols[2][0], wy, c.rise, "tnum", "end"), T(cols[3][0], wy, c.set, "tnum", "end"));
+      wy += 28;
+    }
+    out.push(TL(x + 16, wy - 4, weatherFoot, "note", 14));
+  }
+  const MY = CY + weatherH + 12;
+  const parkRows = PARKS.map(pk => [pk, wrap(`${thAlt(pk.alt)}${pk.last ? ` · เข้าได้ถึง ${pk.last}` : ""}`, "alt", SIDE_W - 32, 2)]);
+  const parksH = 52 + parkRows.reduce((a, [, l]) => a + 22 + l.length * 14 + 10, 0) + 4;
+  const altTips = ALTITUDE_TIPS.map(([name, text]) => [name, wrap(text, "body", SIDE_W - 60, 2)]);
+  const altNote = wrap("แท่งสีทอง = วันที่ขึ้นสูงเกิน 3,000 ม.", "note", SIDE_W - 32, 2);
+  const mapPts = ROUTE.map(st => PLACES[st.q].at), lngs = mapPts.map(a => a[0]), lats = mapPts.map(a => a[1]);
   const [lng0, lng1, lat0, lat1] = [Math.min(...lngs), Math.max(...lngs), Math.min(...lats), Math.max(...lats)];
   const kx = Math.cos((lat0 + lat1) / 2 * Math.PI / 180);
-  const padL = 112, padR = 74, padT = 58, padB = 132;
-  const s = (W - padL - padR) / ((lng1 - lng0) * kx);
-  const H = Math.round(padT + (lat1 - lat0) * s + padB);
-  const xy = ([lng, lat]) => [padL + (lng - lng0) * kx * s, padT + (lat1 - lat) * s];
-  const pathD = pts => "M" + pts.map(p => `${f1(p[0])},${f1(p[1])}`).join("L");
-  // shift a polyline sideways by d px, mitring each corner
-  const lane = (pts, d) => !d ? pts : pts.map((p, i) => {
-    const a = pts[Math.max(i - 1, 0)], b = pts[Math.min(i + 1, pts.length - 1)];
-    const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-    return [p[0] - (b[1] - a[1]) / len * d, p[1] + (b[0] - a[0]) / len * d];
-  });
-  const along = (pts, t) => {
-    const segs = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]));
-    let left = segs.reduce((a, b) => a + b, 0) * t;
-    for (let i = 0; i < segs.length; i++) {
-      if (left <= segs[i]) { const k = left / segs[i]; return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k]; }
-      left -= segs[i];
-    }
-    return pts.at(-1);
-  };
-  const legs = DAYS.map((d, i) => {
-    const raw = pins(d), pts = lane(raw.map(p => xy(p.at)), LANE[i + 1]);
-    const runs = [];
-    pts.slice(1).forEach((p, j) => {
-      const by = raw[j + 1].by === "train" ? "train" : "road";
-      if (runs.at(-1)?.by === by) runs.at(-1).pts.push(p); else runs.push({ by, pts:[pts[j], p] });
+  // true shape: one scale both ways, as wide as the labels allow
+  const ms = (SIDE_W - 48) / ((lng1 - lng0) * kx), mapNeed = Math.round(60 + 44 + (lat1 - lat0) * ms + 110);
+  const altBase = 52 + 42 + altTips.reduce((a, [, l]) => a + l.length * 16 + 10, 0) + altNote.length * 14 + 12;
+  const slack = Math.max(0, daysEnd - MY - parksH - altBase - 104 - mapNeed - 24);
+  const barsH = 104 + Math.min(slack, 200), altH = altBase + barsH, mapH = mapNeed + slack - (barsH - 104);
+  {
+    const x = SIDE_X, w = SIDE_W, y0 = MY;
+    out.push(box(x, y0, w, mapH), head(x, y0, w, "route", "เส้นทาง"));
+    const leg = { road:`stroke="${C.lake}"`, bus:`stroke="${C.lake}" stroke-dasharray=".5 5"`, train:`stroke="${C.larch}" stroke-dasharray="7 5"` };
+    const s = ms, top = y0 + 60 + 44 + (mapH - mapNeed) / 2, left = x + 24;
+    const P = ROUTE.map((st, k) => [left + (mapPts[k][0] - lng0) * kx * s + (st.nudge?.[0] ?? 0), top + (lat1 - mapPts[k][1]) * s + (st.nudge?.[1] ?? 0)]);
+    const along = (path, t) => {
+      const segs = path.slice(1).map((q, k) => Math.hypot(q[0] - path[k][0], q[1] - path[k][1]));
+      let rest = segs.reduce((a, b) => a + b, 0) * t;
+      for (let k = 0; k < segs.length; k++) {
+        if (rest <= segs[k]) return [path[k][0] + (path[k + 1][0] - path[k][0]) * rest / segs[k], path[k][1] + (path[k + 1][1] - path[k][1]) * rest / segs[k]];
+        rest -= segs[k];
+      }
+      return path.at(-1);
+    };
+    ROUTE.forEach((st, k) => {
+      if (!k) return;
+      out.push(`<path d="M${P[k - 1].map(r1)}L${P[k].map(r1)}" fill="none" stroke-width="2.6" stroke-linecap="round" ${leg[st.by ?? "road"]}/>`);
+      if (!st.kmAt) return;
+      let from = k - 1;
+      while (ROUTE[from].via) from--;
+      const [dx, dy, anchor, t = .5, onLine] = st.kmAt, [mx, my] = along(P.slice(from, k + 1), t);
+      const text = st.by === "train" ? `รถไฟ ~${thHours(round5(train.min))}` : `${st.by === "bus" ? "รถบัส " : ""}${num(st.km)} กม.`;
+      const cls = st.by === "train" ? "legt" : "leg";
+      if (!onLine) { out.push(T(mx + dx, my + dy, text, cls, anchor)); return; }
+      // turned to run beside the line, dx px off it on the right
+      const [a, b] = [P[k - 1], P[k]], deg = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI, up = deg > 90 || deg < -90 ? deg - 180 : deg;
+      out.push(`<g transform="translate(${r1(mx)} ${r1(my)}) rotate(${r1(up)})">${T(0, -dx, text, cls, anchor)}</g>`);
     });
-    const reach = Math.max(...pts.map(p => Math.hypot(p[0] - pts[0][0], p[1] - pts[0][1])));
-    return { day:i + 1, pts, runs, reach };
-  });
-  // a flight day is badged on its arrow and a day spent in one town beside that town, so only real legs carry a number on the line
-  const flightDays = FLIGHTS.map((_, i) => flightDay(i));
-  const townDays = legs.filter(l => l.reach < 20 && !flightDays.includes(l.day)).map(l => l.day);
+    ROUTE.forEach((st, k) => {
+      const [px, py] = P[k];
+      if (st.park === "Dagu Glacier") out.push(`<path d="M${r1(px - 8)},${r1(py + 6)}L${r1(px)},${r1(py - 8)}L${r1(px + 8)},${r1(py + 6)}Z" fill="${C.larch}" stroke="${C.paper}" stroke-width="2" stroke-linejoin="round"/>`);
+      else if (st.label || st.via) out.push(`<circle cx="${r1(px)}" cy="${r1(py)}" r="${st.via ? 3.5 : 5.5}" fill="${hotels.some(h => h.zh === st.q) ? C.lake : C.paper}" stroke="${C.lake}" stroke-width="2.4"/>`);
+      if (!st.label) return;
+      const [dx, dy, anchor] = st.label, lx = px + dx, ly = py + dy;
+      const alt = st.alt ?? PARKS.find(pk => pk.en === st.park)?.alt;
+      const names = wrap(st.th, "map", 96, 2);
+      out.push(TL(lx, ly, names, "map", 15, anchor), T(lx, ly + names.length * 15 - 2, st.en, "mapen", anchor));
+      if (alt) out.push(T(lx, ly + names.length * 15 + 12, thAlt(alt), "alt", anchor));
+    });
+    const ky = y0 + mapH - 24, km50 = 50 / 111.32 * s;
+    out.push(`<path d="M${x + 16},${ky - 48}v4h${r1(km50)}v-4" fill="none" stroke="${C.mute}"/>`, T(x + 22 + km50, ky - 44, "50 กม.", "note"));
+    [["road", "ถนน"], ["bus", "รถบัส"], ["train", "รถไฟ"]].forEach(([k, t], j) => {
+      const kx2 = x + 16 + j * 74;
+      out.push(`<path d="M${kx2},${ky - 4}h24" stroke-width="2.6" stroke-linecap="round" ${leg[k]}/>`, T(kx2 + 30, ky, t, "note"));
+    });
+    out.push(T(x + 16, ky - 22, "ตำแหน่งตามแผนที่จริง · จุดทึบ = คืนที่พัก", "note"));
+  }
+  {
+    const x = SIDE_X, w = SIDE_W, y0 = MY + mapH + 12;
+    out.push(box(x, y0, w, parksH), head(x, y0, w, "mountain", "อุทยาน: เวลาเปิด"));
+    let yy = y0 + 66;
+    for (const [pk, lines] of parkRows) {
+      out.push(T(x + 16, yy, pk.th, "bold"), T(x + w - 16, yy, pk.open, "tnum", "end"), TL(x + 16, yy + 18, lines, "alt", 14));
+      yy += 22 + lines.length * 14 + 10;
+    }
+  }
+  {
+    const x = SIDE_X, w = SIDE_W, y0 = MY + mapH + parksH + 24;
+    out.push(box(x, y0, w, altH, C.warnbg, C.warnline), head(x, y0, w, "alert", "ระวังแพ้ความสูง", "", "warnt", C.warn));
+    const bx = x + 16, bw = w - 32, base = y0 + 52 + barsH, scale = (barsH - 18) / MAX_ALT, slot = bw / DAYS.length;
+    const lineY = base - SICK * scale;
+    out.push(`<path d="M${bx},${r1(lineY)}H${bx + bw}" stroke="${C.warn}" stroke-dasharray="3 3"/>`, T(bx + bw, lineY - 5, `${num(SICK)} ม.`, "noteb", "end", ` style="fill:${C.warn}"`));
+    DAYS.forEach((d, k) => {
+      const hgt = d.alt * scale, cx = bx + slot * (k + .5);
+      out.push(`<rect x="${r1(cx - 8)}" y="${r1(base - hgt)}" width="16" height="${r1(hgt)}" rx="3" fill="${d.alt > SICK ? C.larch : C.deep}"/>`, T(cx, base + 14, k + 1, "tnum", "middle"));
+      if (d.alt > SICK) out.push(T(cx, base - hgt - 5, num(d.alt), "barv", "middle"));
+    });
+    let yy = base + 42;
+    for (const [name, lines] of altTips) {
+      out.push(icon(name, x + 27, yy - 4, 18, C.warn), TL(x + 44, yy, lines, "body", 16));
+      yy += lines.length * 16 + 10;
+    }
+    out.push(TL(x + 16, yy + 4, altNote, "note", 14));
+  }
 
-  const grid = [];
-  for (let lat = Math.ceil(lat0); lat <= lat1; lat++) { const y = f1(xy([lng0, lat])[1]); grid.push(`<line x1="0" x2="${W}" y1="${y}" y2="${y}"/><text class="g-tick" x="${W - 6}" y="${y - 4}">${lat}°N</text>`); }
-  for (let lng = Math.ceil(lng0); lng <= lng1; lng++) { const x = f1(xy([lng, lat0])[0]); grid.push(`<line x1="${x}" x2="${x}" y1="0" y2="${H}"/><text class="g-tick" x="${x + 4}" y="14" text-anchor="start">${lng}°E</text>`); }
-  const km50 = 50 / 111.32 * s;
-
-  const tianfu = xy(PLACES["成都天府国际机场"].at);
-  const bkk = xy([100.747, 13.69]);
-  const ux = (bkk[0] - tianfu[0]) / Math.hypot(bkk[0] - tianfu[0], bkk[1] - tianfu[1]), uy = (bkk[1] - tianfu[1]) / Math.hypot(bkk[0] - tianfu[0], bkk[1] - tianfu[1]);
-  const reach = (H - 26 - tianfu[1]) / uy;
-  const flights = FLIGHTS.map((_, i) => {
-    const f = flightAt(i), side = i ? 4.5 : -4.5, inbound = f.to.code === "CTU";
-    const a = [tianfu[0] + ux * 11 - uy * side, tianfu[1] + uy * 11 + ux * side], b = [tianfu[0] + ux * reach - uy * side, tianfu[1] + uy * reach + ux * side];
-    const [from, to] = inbound ? [b, a] : [a, b];
-    const mid = along([a, b], i ? .74 : .4);
-    return `<path class="g-flight" d="${pathD([from, to])}" marker-end="url(#g-arrow)"/>${badge(...mid, flightDay(i))}`;
-  });
-  const end = [tianfu[0] + ux * reach, tianfu[1] + uy * reach];
-
-  const stopMarks = STOPS.map(st => {
-    const [x, y] = xy(PLACES[st.q].at), [nx, ny] = st.nudge ?? [0, 0];
-    const mark = st.mark === "hotel" ? hotelIcon(x, y)
-      : st.mark === "peak" ? `<path class="g-peak" d="M${f1(x + nx - 7)},${f1(y + ny + 5)}L${f1(x + nx)},${f1(y + ny - 7)}L${f1(x + nx + 7)},${f1(y + ny + 5)}Z"/>`
-      : `<circle class="g-stop" cx="${f1(x)}" cy="${f1(y)}" r="4"/>`;
-    const [dx, dy, anchor] = st.label, lx = f1(x + dx), ly = f1(y + dy);
-    const town = st.townDays ? townDays.map((n, k) => badge(x + st.townDays[0] - (townDays.length - 1 - k) * 20, y + st.townDays[1], n)).join("") : "";
-    const th = st.inline ? `<tspan class="g-th" dx="5">${esc(st.th)}</tspan></text>` : `</text><text class="g-th" x="${lx}" y="${f1(ly + 14)}" text-anchor="${anchor}">${esc(st.th)}</text>`;
-    return { mark, text:`<text class="g-en" x="${lx}" y="${ly}" text-anchor="${anchor}">${esc(st.en)}${th}${st.note ? `<text class="g-note" x="${lx}" y="${f1(ly + 29)}" text-anchor="${anchor}">${esc(st.note)}</text>` : ""}${town}` };
-  });
-
-  const roadKm = DAYS.reduce((a, d) => a + (d.road?.km ?? 0), 0);
-  const mapLabel = `Route map. ${FLIGHTS.map(f => `${f.no} ${f.from.city} to ${f.to.city} on ${dateLabel(f.date)}`).join("; ")}. `
-    + DAYS.map((d, i) => `Day ${i + 1}: ${d.title}${d.road ? `, ${num(d.road.km)} km by ${d.road.by ?? "car"}` : ""}`).join(". ")
-    + `. Nights in Chengdu, Heishui and Jiuzhaigou. Highest point the 4,860 m summit at Dagu Glacier.`;
-  const map = `<svg class="g-mapsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(mapLabel)}">
-    <defs><marker id="g-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1L9,5L0,9Z" fill="#e2c48a"/></marker></defs>
-    <g class="g-grid">${grid.join("")}</g>
-    <g class="g-scale" transform="translate(16 34)"><path d="M0,-4V0H${f1(km50)}V-4"/><text x="${f1(km50 + 6)}" y="1">50 km</text></g>
-    ${legs.flatMap(l => l.runs.map(r => `<path class="g-${r.by}" d="${pathD(r.pts)}"/>`)).join("")}
-    ${flights.join("")}
-    <text class="g-en" x="${f1(end[0] - 14)}" y="${f1(end[1] - 6)}" text-anchor="end">Bangkok</text><text class="g-th" x="${f1(end[0] - 14)}" y="${f1(end[1] + 8)}" text-anchor="end">กรุงเทพฯ · ${FLIGHTS.map((_, i) => esc(flightAt(i).no)).join(" / ")}</text>
-    ${legs.filter(l => !townDays.includes(l.day) && !flightDays.includes(l.day)).map(l => { const [t, dx = 0, dy = 0] = BADGE_AT[l.day] ?? [.5], [x, y] = along(l.pts, t); return badge(x + dx, y + dy, l.day); }).join("")}
-    ${stopMarks.map(m => m.mark).join("")}${stopMarks.map(m => m.text).join("")}
-  </svg>
-  <ul class="g-key" aria-hidden="true">
-    <li><svg viewBox="0 0 24 8"><path class="g-road" d="M1,4H23"/></svg>Road</li>
-    <li><svg viewBox="0 0 24 8"><path class="g-train" d="M1,4H23"/></svg>Train</li>
-    <li><svg viewBox="0 0 24 8"><path class="g-flight" d="M1,4H17" marker-end="url(#g-arrow)"/></svg>Flight</li>
-    <li><svg viewBox="0 0 16 16">${hotelIcon(8, 8)}</svg>Night</li>
-    <li><svg viewBox="0 0 18 18">${badge(9, 9, 3, false)}</svg>Day</li>
-  </ul>`;
-
-  // altitude: each day's highest point on one ridge, with the band where altitude sickness starts
-  const AH = 214, aL = 14, aR = 14, aT = 46, aB = 40, TOP = 5000, SICK = 3000;
-  const slot = (W - aL - aR) / DAYS.length, ax = i => aL + (i + .5) * slot, ay = m => aT + (1 - m / TOP) * (AH - aT - aB);
-  const pts = DAYS.map((d, i) => [ax(i), ay(d.alt)]);
-  // which days carry a label, and which side keeps it off the ridge; day 1 shares Chengdu's label with day 6
-  // a valley between two peaks ("below") is labelled under its point so the label stays off both slopes
-  const ALT_LABEL = { 2:"end", 3:"middle", 4:"below", 5:"start", 6:"start" };
-  const peakLabels = DAYS.map((d, i) => {
-    const place = ALT_LABEL[i + 1];
-    if (!place) return "";
-    const [x, y] = pts[i], below = place === "below", anchor = below ? "middle" : place;
-    const dx = { end:-5, start:5, middle:0 }[anchor], vy = below ? y + 20 : y - 22, py = below ? y + 33 : y - 9;
-    return `<text class="g-val" x="${f1(x + dx)}" y="${f1(vy)}" text-anchor="${anchor}">${num(d.alt)} m</text><text class="g-place" x="${f1(x + dx)}" y="${f1(py)}" text-anchor="${anchor}">${esc(d.altAt)}</text>`;
-  });
-  const altLabel = `Highest point each day: ${DAYS.map((d, i) => `day ${i + 1} ${num(d.alt)} m${d.altAt ? ` at ${d.altAt}` : ""}`).join(", ")}. Above ${num(SICK)} m altitude sickness can start.`;
-  const alt = `<svg class="g-altsvg" viewBox="0 0 ${W} ${AH}" role="img" aria-label="${esc(altLabel)}">
-    <rect class="g-band" x="0" y="${f1(ay(TOP))}" width="${W}" height="${f1(ay(SICK) - ay(TOP))}"/>
-    <line class="g-bandline" x1="0" x2="${W}" y1="${f1(ay(SICK))}" y2="${f1(ay(SICK))}"/>
-    <text class="g-bandtxt" x="${W - 8}" y="${f1(ay(SICK) - 6)}">${num(SICK)} m</text>
-    <line class="g-base" x1="0" x2="${W}" y1="${f1(ay(0))}" y2="${f1(ay(0))}"/>
-    <path class="g-area" d="M${f1(aL)},${f1(ay(0))}L${pts.map(p => `${f1(p[0])},${f1(p[1])}`).join("L")}L${f1(W - aR)},${f1(ay(0))}Z"/>
-    <polyline class="g-ridge" points="${pts.map(p => `${f1(p[0])},${f1(p[1])}`).join(" ")}"/>
-    ${pts.map(([x, y], i) => `<circle class="g-pt${DAYS[i].alt > SICK ? " high" : ""}" cx="${f1(x)}" cy="${f1(y)}" r="4.5"><title>Day ${i + 1}: ${num(DAYS[i].alt)} m</title></circle>`).join("")}
-    ${peakLabels.join("")}
-    ${DAYS.map((d, i) => { const dt = dateOf(d.date); return `<text class="g-dnum" x="${f1(ax(i))}" y="${AH - 20}">${i + 1}</text><text class="g-ddate" x="${f1(ax(i))}" y="${AH - 6}">${WEEKDAYS[dt.getDay()]} ${dt.getDate()}</text>`; }).join("")}
-  </svg>`;
-
-  const rows = DAYS.map((d, i) => {
-    const dt = dateOf(d.date), night = nightOf(d.date);
-    const train = d.events.find(e => e.by === "train");
-    const out = d.events.find(e => e.flight !== undefined);
-    const move = [
-      d.road && `${num(d.road.km)} km by ${d.road.by ?? "car"} · ${hrs(d.road.min)}`,
-      train && `train ${hrs(train.min)}`,
-      out && `${flightAt(out.flight).no} ${flightAt(out.flight).from.code} → ${flightAt(out.flight).to.code}`,
-    ].filter(Boolean);
-    const stay = night ? `${ICONS.hotel}${esc(night.short)}` : `${ICONS.plane}Home tonight`;
-    return `<li><a href="#day${i + 1}"><span class="g-when"><b>${i + 1}</b>${WEEKDAYS[dt.getDay()]} ${dt.getDate()}</span>
-      <span class="g-what"><span class="g-title">${esc(d.title)}</span><span class="g-thline">${esc(d.th)}</span>${move.length ? `<span class="g-move">${move.map(m => `<span>${esc(m)}</span>`).join("")}</span>` : ""}<span class="g-stay">${stay}</span></span></a></li>`;
-  });
-
-  const towns = [["Chengdu", ["atour", "kuanzhai"]], ["Heishui", ["heishui"]], ["Jiuzhaigou", ["jiuzhai"]]].map(([t, ks]) => [t, ks.reduce((a, k) => a + nights(HOTELS[k]), 0)]);
-  const roadMin = DAYS.reduce((a, d) => a + (d.road?.min ?? 0), 0);
-  const top = DAYS.reduce((a, d, i) => d.alt > DAYS[a].alt ? i : a, 0);
-  const roadDays = DAYS.filter(d => d.road);
+  // bottom: the trip in numbers, tips, what is still to book, emergency numbers
+  y = Math.max(daysEnd, MY + mapH + parksH + altH + 24) + 20;
+  const roadKm = DAYS.reduce((a, d) => a + (d.road?.km ?? 0), 0), roadMin = DAYS.reduce((a, d) => a + (d.road?.min ?? 0), 0);
   const stats = [
-    [`${num(roadKm)} km`, `on the road, ${dateOf(roadDays[0].date).getDate()}–${dateOf(roadDays.at(-1).date).getDate()} ${MONTH} · about ${hrs(roadMin)}`],
-    [`${num(DAYS[top].alt)} m`, `highest point, ${DAYS[top].altAt} on day ${top + 1}`],
-    [`${towns.reduce((a, t) => a + t[1], 0)} nights`, towns.map(([t, n]) => `${t} ${n}`).join(" · ")],
-    [`${FLIGHTS.length} flights`, FLIGHTS.map((_, i) => `${flightAt(i).no} ${flightAt(i).dur}`).join(" · ")],
+    ["car", num(roadKm), "กม. บนถนน", `รถและรถบัส รวม ~${Math.round(roadMin / 60)} ชม.`],
+    ["train", String(Math.round(train.min / 60)), "ชม. บนรถไฟ", `${trainNo} ชั้นหนึ่ง`],
+    ["mountain", num(top.alt), "ม. จุดสูงสุด", `ยอดต๋ากู่ วันที่ ${DAYS.indexOf(top) + 1}`],
+    ["hotel", String(totalNights), "คืน", `${hotels.length} ที่พัก`],
+    ["plane", String(FLIGHTS.length), "เที่ยวบิน", FLIGHTS.map((_, i) => flightAt(i).no).join(" · ")],
   ];
+  out.push(`<rect x="${PM}" y="${y}" width="${PW - PM * 2}" height="112" rx="16" fill="${C.deep}"/>`);
+  const sw = (PW - PM * 2) / stats.length;
+  stats.forEach(([name, n, label, sub], k) => {
+    const sx = PM + sw * k;
+    if (k) out.push(`<path d="M${r1(sx)},${y + 22}V${y + 90}" stroke="${WHITE(.14)}"/>`);
+    out.push(icon(name, sx + 38, y + 56, 28, C.gold), T(sx + 66, y + 50, n, "statn"), T(sx + 66, y + 74, label, "statl"), T(sx + 66, y + 92, fit(sub, "stats", sw - 78), "stats"));
+  });
+  y += 112 + 16;
 
-  document.getElementById("overview").innerHTML = `
-    <div class="g-map">${map}</div>
-    <h3 class="g-h">Altitude by day</h3><p class="g-sick">Above ${num(SICK)} m, altitude sickness can start: walk slowly and drink water. <span>สูงกว่า 3,000 ม. ระวังแพ้ความสูง</span></p>${alt}
-    <h3 class="g-h">Day by day</h3><ol class="g-days">${rows.join("")}</ol>
-    <h3 class="g-h">In numbers</h3><dl class="g-stats">${stats.map(([v, k]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`;
+  const tipsW = 504, todoW = 252, sosX = PM + tipsW + todoW + P_GAP * 2, sosW = PW - PM - sosX;
+  const tipCols = 2, tipW = (tipsW - 32) / tipCols, tipLines = POSTER_TIPS.map(([, t]) => wrap(t, "body", tipW - 44, 3));
+  const tipRowH = [];
+  for (let k = 0; k < POSTER_TIPS.length; k += tipCols) tipRowH.push(Math.max(...tipLines.slice(k, k + tipCols).map(l => l.length)) * 16 + 14);
+  const todo = OPEN_ITEMS.map(o => [o, wrap(o.th, "body", todoW - 60, 3)]);
+  const sosNums = /\+86[\d ]+\d.*?(\+86[\d ]+\d)/.exec(GUIDE.find(s => s.id === "tips")?.tips.find(t => /emergency/i.test(t.title))?.text ?? "");
+  const consulate = sosNums && [/\+86[\d ]+\d/.exec(sosNums[0])[0], sosNums[1]];
+  const rowH = Math.max(56 + tipRowH.reduce((a, b) => a + b, 0), 56 + todo.reduce((a, [, l]) => a + l.length * 16 + 12, 0), consulate ? 262 : 186);
+  {
+    const x = PM;
+    out.push(box(x, y, tipsW, rowH), head(x, y, tipsW, "bulb", "เคล็ดลับ"));
+    let ty = y + 66;
+    POSTER_TIPS.forEach(([name], k) => {
+      const col = k % tipCols, tx = x + 16 + col * tipW;
+      out.push(icon(name, tx + 11, ty - 4, 18, C.larch), TL(tx + 30, ty, tipLines[k], "body", 16));
+      if (col === tipCols - 1) ty += tipRowH[Math.floor(k / tipCols)];
+    });
+  }
+  {
+    const x = PM + tipsW + P_GAP, left = OPEN_ITEMS.filter(o => !isBooked(o.id)).length;
+    out.push(box(x, y, todoW, rowH), head(x, y, todoW, "list", "ยังต้องทำ", left ? `เหลือ ${left}` : "ครบแล้ว"));
+    let ty = y + 66;
+    for (const [o, lines] of todo) {
+      const done = isBooked(o.id);
+      out.push(`<rect x="${x + 18}" y="${ty - 12}" width="16" height="16" rx="4" fill="${done ? C.lake : C.paper}" stroke="${done ? C.lake : C.chili}" stroke-width="1.6"/>`,
+        done ? icon("check", x + 26, ty - 4, 13, "#fff") : "",
+        TL(x + 44, ty, lines, "body", 16).replaceAll('class="p-body"', `class="p-body"${done ? ` style="fill:${C.mute}" text-decoration="line-through"` : ""}`));
+      ty += lines.length * 16 + 12;
+    }
+  }
+  {
+    const x = sosX, w = sosW;
+    out.push(box(x, y, w, rowH), head(x, y, w, "phone", "เบอร์ฉุกเฉินในจีน", "", "card", C.chili));
+    [["110", "ตำรวจ"], ["120", "รถพยาบาล"], ["119", "ดับเพลิง"], ["122", "อุบัติเหตุจราจร"]].forEach(([n, t], k) => {
+      const cx = x + 16 + (k % 2) * (w - 32) / 2, cy = y + 76 + Math.floor(k / 2) * 52;
+      out.push(T(cx, cy, n, "sos"), T(cx, cy + 18, t, "sosl"));
+    });
+    if (consulate) {
+      out.push(`<path d="M${x + 16},${y + 166}H${x + w - 16}" stroke="${C.soft}"/>`, T(x + 16, y + 188, "สถานกงสุลใหญ่ไทย เฉิงตู", "bold"),
+        T(x + 16, y + 210, consulate[0], "sosn"), T(x + 16, y + 232, "สายด่วนคนไทย", "note"), T(x + w - 16, y + 232, consulate[1], "sosn", "end"));
+    }
+  }
+  y += rowH + 22;
+  out.push(T(PM, y, "ภาพจาก Wikimedia Commons · ข้อมูลจากแผนในแอป อาจเปลี่ยนได้ ตรวจสอบอีกครั้งก่อนเดินทาง", "foot"),
+    T(PW - PM, y, `อัปเดต ${currentTime().toLocaleDateString("th-TH-u-ca-gregory", { day:"numeric", month:"short", year:"numeric" })}`, "foot", "end"));
+  const PH = Math.round(y + 24);
+
+  const style = Object.entries(ST).map(([k, [f, w, z, fill]]) => `.p-${k}{font:${w} ${z}px ${f};fill:${fill};font-variant-numeric:lining-nums}`).join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${PW} ${PH}" width="${PW}" height="${PH}" role="img" aria-label="Infographic of the whole trip in Thai: flights, hotels, getting around, weather, a row for each day, route map with altitudes, park hours, altitude tips, totals and emergency numbers."><style>${style}</style><defs>${defs.join("")}</defs><rect width="${PW}" height="${PH}" fill="${C.snow}"/>${out.join("")}</svg>`;
+}
+
+// a photo that cannot load (offline, not saved yet) is removed so the lake colour behind it shows instead of a broken-image mark
+const posterNode = () => {
+  const box = el("div", "", posterSvg());
+  box.querySelectorAll("image").forEach(i => i.addEventListener("error", () => i.remove()));
+  return box.firstElementChild;
+};
+
+function renderPoster() {
+  document.getElementById("poster-btn").replaceChildren(posterNode());
+}
+
+// an SVG drawn as an image loads nothing from outside it, so photos and fonts go in as data URLs first
+async function posterPng(scale = 2) {
+  const dataUrl = async url => {
+    const res = await fetch(url, { mode:"cors" });
+    if (!res.ok) throw new Error(`${res.status} ${url}`);
+    const blob = await res.blob();
+    return new Promise((ok, fail) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = fail; r.readAsDataURL(blob); });
+  };
+  const doc = new DOMParser().parseFromString(posterSvg(), "image/svg+xml");
+  for (const image of doc.querySelectorAll("image")) {
+    try { image.setAttribute("href", await dataUrl(image.getAttribute("href"))); } catch (_) { image.remove(); /* ออฟไลน์และยังไม่ได้เก็บรูปนี้: เหลือพื้นสีทะเลสาบ */ }
+  }
+  const faces = [...document.styleSheets].flatMap(s => [...s.cssRules]).filter(r => r instanceof CSSFontFaceRule);
+  const fontCss = await Promise.all(faces.map(async r => {
+    const m = /url\("?([^")]+)"?\)/.exec(r.cssText);
+    return r.cssText.replace(m[0], `url(${await dataUrl(new URL(m[1], location.href))})`);
+  }));
+  doc.querySelector("style").prepend(fontCss.join(""));
+  const src = new XMLSerializer().serializeToString(doc);
+  const img = new Image();
+  img.src = URL.createObjectURL(new Blob([src], { type:"image/svg+xml" }));
+  const canvas = document.createElement("canvas");
+  try {
+    await img.decode();
+    Object.assign(canvas, { width:img.naturalWidth * scale, height:img.naturalHeight * scale });
+    canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+  } finally { URL.revokeObjectURL(img.src); }
+  const blob = await new Promise((ok, fail) => canvas.toBlob(b => b ? ok(b) : fail(new Error("toBlob failed")), "image/png"));
+  return new File([blob], "chengdu-trip-infographic.png", { type:"image/png" });
 }
 
 function renderTonight() {
@@ -1152,7 +1439,7 @@ function buildOpenItems() {
     const li = el("li", "", `<label><input type="checkbox"><span>${esc(o.text)}</span></label>`);
     const box = li.querySelector("input");
     box.checked = isBooked(o.id);
-    box.onchange = () => { setBooked(o.id, box.checked); renderOpenItems(); renderDays(); refreshActiveDay(); refreshClock(); };
+    box.onchange = () => { setBooked(o.id, box.checked); renderOpenItems(); renderDays(); renderPoster(); refreshActiveDay(); refreshClock(); };
     return li;
   }));
   renderOpenItems();
@@ -1427,7 +1714,7 @@ function renderTrip() {
   renderedFor = todayIso();
   renderTonight();
   renderFlights();
-  renderOverview();
+  renderPoster();
   buildOpenItems();
   renderDays();
   refreshActiveDay();
@@ -1437,6 +1724,10 @@ renderTrip();
 setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
 document.getElementById("edit-btn").onclick = openSettings;
 document.getElementById("plan-btn").onclick = showPlan;
+document.getElementById("poster-btn").onclick = showPoster;
+renderTables();
+// the infographic measures its text to wrap it, so it is drawn again once its fonts have loaded
+Promise.all(["400 1em Thai", "500 1em Thai", "600 1em Thai", '500 1em "Bodoni Moda"'].map(f => document.fonts.load(f, "กA1"))).then(renderPoster, () => {});
 playRidgeIntro();
 (document.querySelector(".ev.next") ?? document.querySelector(".day.today"))?.scrollIntoView();
 // opened straight at #guide: put the plan underneath in history so Back lands on it instead of leaving the page
