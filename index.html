@@ -297,6 +297,30 @@
   .hotel-tile b { font-family:var(--serif); font-size:1.15rem; font-weight:500; }
   .hotel-tile small { color:rgb(255 255 255 / 72%); font-size:.8rem; }
   .hotel-tile span { color:#e2c48a; font-family:var(--zh); font-size:1.05rem; }
+  /* ¥ amounts carry their baht; the converter types one side and the other follows */
+  .thb { color:var(--lake); font-weight:500; white-space:nowrap; opacity:.85; }
+  .rate-label.stale { color:var(--warn); }
+  .rate-label.stale::after { content:" · may be out of date"; }
+  .cv { display:flex; flex-direction:column; gap:8px; }
+  .cv-line { display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:0 12px; padding:12px 16px; text-align:left; border:1px solid var(--line); border-radius:var(--r-field); background:var(--paper); color:var(--ink); font:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .cv-line.from { border-color:var(--ink); box-shadow:inset 3px 0 0 var(--larch); cursor:default; }
+  .cv-line b { min-width:0; overflow-wrap:anywhere; font-family:var(--serif); font-size:2.6rem; font-weight:500; line-height:1.1; font-variant-numeric:lining-nums; text-align:right; }
+  .cv-line.to b { font-size:2rem; color:var(--lake); }
+  .cv-sym { grid-row:1 / span 2; font-family:var(--serif); font-size:1.6rem; color:var(--mute); }
+  .cv-line small { grid-column:2; color:var(--mute); font-size:.78rem; text-align:right; }
+  .cv-fee { display:flex; align-items:center; gap:10px; min-height:44px; font-size:.88rem; cursor:pointer; }
+  .cv-fee input { flex:none; width:20px; height:20px; margin:0; accent-color:var(--lake); }
+  .cv-pad { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .cv-pad button { min-height:58px; border:1px solid var(--line); border-radius:var(--r-field); background:var(--paper); color:var(--ink); font-family:var(--serif); font-size:1.7rem; font-weight:500; font-variant-numeric:lining-nums; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .cv-pad button:active { background:var(--lake-tint); }
+  .cv-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--mute); font-size:.82rem; }
+  .cv-link { flex:none; min-height:44px; padding:0 2px; border:0; background:none; color:var(--lake); font:inherit; font-size:.82rem; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .cv-own[hidden] { display:none; }
+  .cv-own { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; }
+  .cv-own label { flex:1 1 160px; font-size:.78rem; color:var(--mute); }
+  .cv-own input { display:block; width:100%; margin-top:4px; padding:10px 12px; font:inherit; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
+  .cv-own button[type=submit] { min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
+  .gd-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px auto 0; color:var(--mute); font-size:.8rem; }
   .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
   .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
@@ -717,6 +741,59 @@ const saveEdits = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(e
 // เวลาปัจจุบันมาจากที่เดียว เพื่อทดสอบด้วยการแทนที่ฟังก์ชันนี้ในคอนโซลได้
 function currentTime() { return new Date(); }
 const todayIso = () => currentTime().toLocaleDateString("en-CA");
+
+// small values that are not trip edits; a private window or full storage just forgets them
+const local = {
+  get(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (_) { return fallback; } },
+  set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* โหมดส่วนตัว: จำไม่ได้ */ } },
+};
+
+// baht per yuan: the user's own bank rate (an edit, so Reset clears it), else the last one fetched, else the one baked in
+// the fetch runs at most once a day, only online; every ≈ ฿ on the page is a .thb span repainted when the rate changes
+const Rate = (() => {
+  const BAKED = { thbPerCny: 5.0147, date: "2026-10-21", source: "open.er-api.com" };
+  const KEY = "chengdu-trip-rate", URL = "https://open.er-api.com/v6/latest/CNY", STALE_DAYS = 7, ALIPAY_FREE = 200, ALIPAY_FEE = .03;
+  const fetched = () => { const r = local.get(KEY, null); return r?.thbPerCny > 0 ? r : null; };
+  const own = () => edits.rate?.thbPerCny > 0 ? edits.rate : null;
+  const current = () => own() ?? fetched() ?? BAKED;
+  const stale = () => (dateOf(todayIso()) - dateOf(current().date)) / 864e5 > STALE_DAYS;
+  const shortDate = iso => dateOf(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const label = () => { const r = current(); return `${own() ? "your rate" : "rate"} ${r.thbPerCny.toFixed(2)} · ${shortDate(r.date)}`; };
+  // ≈ is a guide, so it rounds: to the baht under ฿100, to ฿10 under ฿1,000, then to ฿100
+  const round = v => { const step = v < 100 ? 1 : v < 1000 ? 10 : 100; return Math.round(v / step) * step; };
+  const baht = cny => round(cny * current().thbPerCny).toLocaleString("en");
+  const approx = range => `≈ ฿${range.map(baht).join("–")}`;
+  const num = s => Number(s.replace(/,/g, ""));
+  // every ¥ amount or range in already-escaped text gets its baht after it
+  const annotate = html => html.replace(/¥\s?(\d+(?:,\d{3})*(?:\.\d+)?)(?:\s?[–-]\s?(\d+(?:,\d{3})*(?:\.\d+)?))?/g, (m, lo, hi) => {
+    const range = hi ? [num(lo), num(hi)] : [num(lo)];
+    return `${m} <span class="thb" data-cny="${range.join("-")}">${approx(range)}</span>`;
+  });
+  const paint = () => {
+    for (const s of document.querySelectorAll(".thb[data-cny]")) s.textContent = approx(s.dataset.cny.split("-").map(Number));
+    for (const s of document.querySelectorAll(".rate-label")) { s.textContent = label(); s.classList.toggle("stale", stale()); }
+  };
+  async function refresh() {
+    if (fetched()?.fetchedOn === todayIso() || !navigator.onLine) return;
+    try {
+      const j = await (await fetch(URL)).json();
+      const thb = j?.rates?.THB;
+      if (j?.result !== "success" || !(thb > 0)) return;
+      const date = new Date(j.time_last_update_unix * 1000).toLocaleDateString("en-CA");
+      local.set(KEY, { thbPerCny: thb, date, source: "open.er-api.com", fetchedOn: todayIso() });
+      paint();
+    } catch (_) { /* ออฟไลน์หรือเว็บอัตราแลกเปลี่ยนล่ม: ใช้อัตราเดิม */ }
+  }
+  function setOwn(thbPerCny) {
+    if (thbPerCny > 0) edits.rate = { thbPerCny, date: todayIso(), source: "your bank" }; else delete edits.rate;
+    saveEdits();
+    paint();
+  }
+  // Alipay adds its fee only on a payment above ¥200
+  const toThb = (cny, fee) => cny * current().thbPerCny * (fee && cny > ALIPAY_FREE ? 1 + ALIPAY_FEE : 1);
+  const toCny = (thb, fee) => { const c = thb / current().thbPerCny; return fee && c / (1 + ALIPAY_FEE) > ALIPAY_FREE ? c / (1 + ALIPAY_FEE) : c; };
+  return { current, label, stale, annotate, paint, refresh, setOwn, toThb, toCny, own };
+})();
 const isBooked = id => edits.booked?.[id] === true;
 function setBooked(id, on) {
   const next = { ...edits.booked };
@@ -928,7 +1005,7 @@ function eventBody(ev) {
   }
   const txt = el("div", "txt");
   txt.append(head, el("div", "t", `${ev.hotel ? ICONS.hotel : ""}${withReadings(ev.text)}`));
-  if (ev.detail) txt.append(el("div", "detail", esc(ev.detail)));
+  if (ev.detail) txt.append(el("div", "detail", Rate.annotate(esc(ev.detail))));
   if (ev.ref) txt.append(copyRow(el("span", "ref", `Booking no. <b>${esc(ev.ref)}</b>`), "Copy booking number", ev.ref));
   if (ev.zh) txt.append(zhRow(ev.zh, placeCard({ zh: ev.zh, thai: PLACES[ev.map]?.th, addr: HOTELS[ev.hotel]?.addr })));
   return txt;
@@ -1260,7 +1337,7 @@ function renderOpenItems() {
 
 function buildOpenItems() {
   document.querySelector("#open-items ul").replaceChildren(...OPEN_ITEMS.map(o => {
-    const li = el("li", "", `<label><input type="checkbox"><span>${esc(o.text)}</span></label>`);
+    const li = el("li", "", `<label><input type="checkbox"><span>${Rate.annotate(esc(o.text))}</span></label>`);
     const box = li.querySelector("input");
     box.checked = isBooked(o.id);
     box.onchange = () => { setBooked(o.id, box.checked); renderOpenItems(); renderDays(); refreshActiveDay(); refreshClock(); };
@@ -1373,8 +1450,8 @@ function guideItem(item) {
   head.append(mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
   const body = el("div", "gd-body");
   body.append(head);
-  if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
-  body.append(el("p", "gd-note", esc(item.note)), zhRow(item.zh, placeCard({ zh: item.zh, thai: item.th, addr: item.addr })));
+  if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${Rate.annotate(esc(t))}</span>`).join("")));
+  body.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, placeCard({ zh: item.zh, thai: item.th, addr: item.addr })));
   // a souvenir names its shop in zh and the product to ask for in ask
   if (item.ask) body.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
   card.append(body);
@@ -1389,16 +1466,12 @@ function guideSection(sec) {
     box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
     if (g.phrases) box.append(phraseGrid(g.phrases, ph => showPhrases([ph])));
   }
-  box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
+  box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${Rate.annotate(esc(t.text))}</p>`)));
   return box;
 }
 
 const PHRASE_GROUPS = GUIDE.find(s => s.id === "say").groups;
 const PHRASES = new Map(PHRASE_GROUPS.flatMap(g => g.phrases).map(ph => [ph.zh, ph]));
-const local = {
-  get(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (_) { return fallback; } },
-  set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* โหมดส่วนตัว: จำไม่ได้ */ } },
-};
 // the last phrases shown, newest first, by their Chinese
 const RECENT_KEY = "chengdu-trip-recent", RECENT_MAX = 6;
 const recentPhrases = () => local.get(RECENT_KEY, []).map(zh => PHRASES.get(zh)).filter(Boolean);
@@ -1423,7 +1496,9 @@ function phraseGrid(phrases, onPick) {
 // the bottom sheet behind 说: back to the hotel, recent phrases, then every phrase group as tiles
 // adding: the entries of an open show card waiting for one more phrase
 const PhraseSheet = (() => {
-  let node = null, adding = null, opener = null, overflow0 = "";
+  let node = null, tab = "say", adding = null, opener = null, overflow0 = "";
+  const money = { from: "cny", input: "", fee: false };
+  const TABS = { say: "Phrases", money: "¥ ⇄ ฿" };
   const pick = ph => { const entries = [...(adding ?? []), ph]; adding = null; showPhrases(entries); render(); };
   function phrasesTab() {
     const box = el("div");
@@ -1450,23 +1525,90 @@ const PhraseSheet = (() => {
     for (const g of PHRASE_GROUPS) box.append(el("h3", "ps-h", esc(g.title)), phraseGrid(g.phrases, pick));
     return box;
   }
+
+  // ¥ ⇄ ฿: one side is typed on the pad, the other follows; tapping the other side types there instead
+  const CUR = { cny: { sym: "¥", name: "yuan · หยวน", digits: 2 }, thb: { sym: "฿", name: "baht · บาท", digits: 0 } };
+  const other = cur => cur === "cny" ? "thb" : "cny";
+  const converted = () => { const v = Number(money.input || 0); return money.from === "cny" ? Rate.toThb(v, money.fee) : Rate.toCny(v, money.fee); };
+  const fmt = (v, cur) => v.toLocaleString("en", { maximumFractionDigits: CUR[cur].digits });
+  function press(key) {
+    if (key === "back") money.input = money.input.slice(0, -1);
+    else if (key === "." ? !money.input.includes(".") : !/\.\d\d$/.test(money.input)) money.input = (money.input + key).replace(/^0(?=\d)/, "").slice(0, 9);
+  }
+  function moneyTab() {
+    const box = el("div", "cv");
+    const line = cls => { const b = el("button", `cv-line ${cls}`); b.type = "button"; return b; };
+    const from = line("from"), to = line("to");
+    to.onclick = () => { const v = converted(); money.from = other(money.from); money.input = v ? String(+v.toFixed(CUR[money.from].digits)) : ""; update(); };
+    const fee = el("label", "cv-fee", `<input type="checkbox"><span>+3% Alipay fee on payments above ¥200</span>`);
+    const feeBox = fee.querySelector("input");
+    feeBox.checked = money.fee;
+    feeBox.onchange = () => { money.fee = feeBox.checked; update(); };
+    const pad = el("div", "cv-pad");
+    for (const k of ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "back"]) {
+      const b = el("button", "", k === "back" ? "⌫" : k);
+      b.type = "button";
+      if (k === "back") b.setAttribute("aria-label", "Delete");
+      b.onclick = () => { press(k); update(); };
+      pad.append(b);
+    }
+    const rateRow = el("div", "cv-rate", `<span class="rate-label"></span>`);
+    const change = el("button", "cv-link");
+    change.type = "button";
+    const form = el("form", "cv-own", `<label><span>Baht for ¥1 at your bank</span><input inputmode="decimal" autocomplete="off"></label><button type="submit">Save</button>`);
+    form.hidden = true;
+    const input = form.querySelector("input");
+    change.onclick = () => { form.hidden = !form.hidden; if (!form.hidden) { input.value = Rate.current().thbPerCny.toFixed(2); input.select(); } };
+    const live = el("button", "cv-link", "Use the live rate");
+    live.type = "button";
+    live.onclick = () => { Rate.setOwn(0); form.hidden = true; update(); };
+    form.onsubmit = e => { e.preventDefault(); const v = Number(input.value.replace(",", ".")); if (v > 0) { Rate.setOwn(v); form.hidden = true; update(); } };
+    rateRow.append(change);
+    form.append(live);
+    box.append(from, to, fee, pad, rateRow, form);
+    function update() {
+      const f = money.from, t = other(f);
+      from.innerHTML = `<span class="cv-sym">${CUR[f].sym}</span><b>${money.input ? fmt(Number(money.input), f) + (money.input.endsWith(".") ? "." : "") : "0"}</b><small>${CUR[f].name}</small>`;
+      to.innerHTML = `<span class="cv-sym">${CUR[t].sym}</span><b>≈ ${fmt(converted(), t)}</b><small>${CUR[t].name}</small>`;
+      to.setAttribute("aria-label", `${fmt(converted(), t)} ${CUR[t].name}. Tap to type ${CUR[t].sym} instead`);
+      from.setAttribute("aria-live", "polite");
+      change.textContent = Rate.own() ? "Change" : "Use my bank rate";
+      live.hidden = !Rate.own();
+      Rate.paint();
+    }
+    box.update = update;
+    update();
+    return box;
+  }
+
   function render() {
     if (!node) return;
-    node.querySelector(".ps-body").replaceChildren(phrasesTab());
+    for (const b of node.querySelectorAll(".ps-tabs button")) b.setAttribute("aria-selected", b.dataset.tab === tab);
+    node.querySelector(".ps-body").replaceChildren(tab === "money" ? moneyTab() : phrasesTab());
   }
   function open(opts = {}) {
     adding = opts.adding ?? null;
+    tab = adding ? "say" : opts.tab ?? tab;
     if (node) return render();
     opener = document.activeElement;
     const scrim = el("div", "ps-scrim");
     const sheet = el("div", "ps");
     sheet.setAttribute("role", "dialog");
     sheet.setAttribute("aria-modal", "true");
-    sheet.setAttribute("aria-label", "Chinese phrases");
-    const head = el("div", "ps-head", `<div class="ps-tabs"><button type="button" aria-selected="true">Phrases</button></div>`);
-    const x = iconButton("button", ICONS.fail, "Close phrases");
+    sheet.setAttribute("aria-label", "Chinese phrases and money");
+    const tabs = el("div", "ps-tabs");
+    tabs.setAttribute("role", "tablist");
+    tabs.append(...Object.entries(TABS).map(([id, label]) => {
+      const b = el("button", "", esc(label));
+      Object.assign(b, { type: "button", onclick: () => { tab = id; render(); } });
+      b.dataset.tab = id;
+      b.setAttribute("role", "tab");
+      return b;
+    }));
+    const head = el("div", "ps-head");
+    const x = iconButton("button", ICONS.fail, "Close");
     x.onclick = close;
-    head.append(x);
+    head.append(tabs, x);
     sheet.append(head, el("div", "ps-body"));
     scrim.onclick = close;
     node = sheet;
@@ -1485,7 +1627,12 @@ const PhraseSheet = (() => {
     removeEventListener("keydown", onKey);
     opener?.focus();
   }
-  const onKey = e => { if (e.key === "Escape" && !document.querySelector(".overlay")) close(); };
+  const onKey = e => {
+    if (document.querySelector(".overlay")) return;
+    if (e.key === "Escape") return close();
+    const cv = tab === "money" && !e.target.closest("input") && node.querySelector(".cv");
+    if (cv && /^[\d.]$|^Backspace$/.test(e.key)) { e.preventDefault(); press(e.key === "Backspace" ? "back" : e.key); cv.update(); }
+  };
   return { open, close };
 })();
 
@@ -1511,7 +1658,12 @@ function openGuide() {
     return a;
   }));
   bar.append(back, el("h2", "", "Chengdu guide"), pills);
-  sheet.append(bar, ...GUIDE.map(guideSection));
+  const rate = el("p", "gd-rate", `<span>≈ ฿ uses <span class="rate-label">${esc(Rate.label())}</span></span>`);
+  const convert = el("button", "cv-link", "Convert");
+  convert.type = "button";
+  convert.onclick = () => PhraseSheet.open({ tab: "money" });
+  rate.append(convert);
+  sheet.append(bar, rate, ...GUIDE.map(guideSection));
   const markPill = () => {
     // a tapped pill stays lit while its smooth scroll passes the sections before it; the reader's own scroll takes over again
     if (guide?.picked) return setPill(guide.picked);
@@ -1646,6 +1798,8 @@ if (location.hash.startsWith("#guide")) {
 }
 addEventListener("hashchange", route);
 route();
+Rate.paint();
+Rate.refresh();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").then(precacheImages).catch(() => {
     document.getElementById("offline-status").textContent = "Offline mode is not available here";
