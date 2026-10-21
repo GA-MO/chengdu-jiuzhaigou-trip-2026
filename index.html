@@ -12,9 +12,10 @@
 <style>
   /* West Sichuan in November: glacier stone, night lake water, larch gold for "now", chili red only for text shown to a driver */
   @font-face { font-family:"Bodoni Moda"; src:url(fonts/bodoni-moda.woff2) format("woff2"); font-weight:400 900; font-display:swap; }
-  /* Thai only (unicode-range): loopless sans beside the system Latin, a contrast serif under the Bodoni day titles */
-  @font-face { font-family:"Thai Sans"; src:url(fonts/noto-sans-thai.woff2) format("woff2"); font-weight:100 900; font-display:swap; unicode-range:U+0E00-0E7F; }
-  @font-face { font-family:"Thai Serif"; src:url(fonts/trirong.woff2) format("woff2"); font-weight:400; font-display:swap; unicode-range:U+0E00-0E7F; }
+  /* Thai only (unicode-range): Trirong, a looped Thai serif with Bodoni-like contrast, for every Thai character */
+  @font-face { font-family:"Thai"; src:url(fonts/trirong.woff2) format("woff2"); font-weight:400; font-display:swap; unicode-range:U+0E00-0E7F; }
+  @font-face { font-family:"Thai"; src:url(fonts/trirong-500.woff2) format("woff2"); font-weight:500; font-display:swap; unicode-range:U+0E00-0E7F; }
+  @font-face { font-family:"Thai"; src:url(fonts/trirong-600.woff2) format("woff2"); font-weight:600 700; font-display:swap; unicode-range:U+0E00-0E7F; }
   :root {
     --snow:#eef1ef; --paper:#fff; --ink:#0e2c30; --mute:#66777a; --line:#d7dddb; --line-soft:#e6eae8;
     --lake:#0f4c52; --lake-deep:#0e2c30; --lake-tint:#e3ebea; --larch:#b4862f; --larch-soft:rgb(180 134 47 / 16%);
@@ -23,7 +24,7 @@
     --r-card:18px; --r-field:12px; --r-pill:999px;
     --shadow:0 1px 0 rgb(14 44 48 / 4%), 0 18px 40px -28px rgb(14 44 48 / 28%);
     --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
-    --sans:"Thai Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    --sans:"Thai",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
     --zh:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   }
   * { box-sizing:border-box; }
@@ -33,7 +34,7 @@
   h1, h2, h3 { font-family:var(--serif); font-weight:500; letter-spacing:-.005em; font-optical-sizing:auto; }
 
   /* hero */
-  .hero { position:relative; min-height:min(64svh,560px); display:flex; align-items:flex-end; overflow:hidden; color:#fff; background:var(--lake-deep); }
+  .hero { position:relative; min-height:min(88svh,820px); display:flex; align-items:flex-end; overflow:hidden; color:#fff; background:var(--lake-deep); }
   .hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgb(14 44 48 / 40%) 0%,rgb(14 44 48 / 0%) 28%,rgb(14 44 48 / 10%) 50%,rgb(10 32 35 / 92%) 100%); }
   .hero-top { position:absolute; z-index:2; left:0; right:0; top:0; max-width:760px; margin:0 auto; padding:calc(16px + env(safe-area-inset-top)) 20px 0; display:flex; justify-content:space-between; align-items:center; }
@@ -112,7 +113,7 @@
   .cover > div { position:relative; z-index:1; padding:20px; }
   .dlabel { font-size:.8rem; font-weight:500; letter-spacing:.02em; color:rgb(255 255 255 / 84%); }
   .day.today .dlabel::before { content:""; display:inline-block; width:7px; height:7px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); box-shadow:0 0 0 3px rgb(180 134 47 / 35%); }
-  .th-line { margin:8px 0 0; font-family:"Thai Serif",var(--sans); font-size:1.05rem; letter-spacing:.01em; color:rgb(255 255 255 / 82%); }
+  .th-line { margin:8px 0 0; font-size:1.05rem; letter-spacing:.01em; color:rgb(255 255 255 / 82%); }
   .cover h2 { margin:6px 0 0; font-size:2rem; font-weight:450; line-height:1.04; letter-spacing:-.015em; text-wrap:balance; }
   /* Thai reading in brackets after a place name: smaller and quieter than the name */
   .th { font-family:var(--sans); font-weight:450; letter-spacing:0; opacity:.78; white-space:nowrap; }
@@ -306,15 +307,17 @@ const IMAGES = {
   chengdu:"2/20/Chengdu_skyline_June_2017.jpg",
   bipenggou:"d/dc/%E7%95%A2%E6%A3%9A%E6%BA%9D_Bipenggou_Valley_1.jpg",
   dagu:"3/32/Dagu_Glacier_panoramio61669499.jpg",
-  jiuzhai:"a/a3/Jiuzhaigou_Sichuan_China_Jiuzhaigou-Valley-02.jpg",
+  wuhua:"2/28/1_jiuzhaigou_valley_wu_hua_hai_2011b.jpg",
   longlake:"e/e5/%E4%B9%9D%E5%AF%A8%E6%BA%9D-%E9%95%B7%E6%B5%B7_Jiuzhaigou_Long_Lake_1.jpg",
   train:"f/f3/Huanglongjiuzhai_Railway_Station%2C_December_2024%2C_02.jpg",
-  panda:"d/df/Chengdu_Sichuan_China_Panda-breeding-and-research-center-02.jpg",
-  jinli:"f/fa/Jinli_Street_-_Chengdu%2C_China_-_DSC05404.jpg",
+  cdnight:"1/13/%E9%94%A6%E6%B1%9F%E5%A4%9C%E6%99%AF.jpg",
+  jinlinight:"5/5e/Chengdu_Jinli-Stra%C3%9Fe_bei_Nacht_48.jpg",
   airport:"2/25/%E6%88%90%E9%83%BD%E5%A4%A9%E5%BA%9C%E5%9B%BD%E9%99%85%E6%9C%BA%E5%9C%BA_Chengdu_Tianfu_International_Airport_1.jpg",
 };
-// ใช้ลิงก์ตรงของ upload.wikimedia.org (ขนาด 960px) เพราะ Special:FilePath ใช้ fetch ข้ามโดเมนไม่ได้ (redirect ไม่มี CORS)
-const imgUrl = key => { const path = IMAGES[key]; return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/960px-${path.split("/").pop()}`; };
+// ใช้ลิงก์ตรงของ upload.wikimedia.org เพราะ Special:FilePath ใช้ fetch ข้ามโดเมนไม่ได้ (redirect ไม่มี CORS)
+// the full-screen hero gets 1280px so it stays sharp on a phone; the day covers are smaller
+const HERO = "wuhua";
+const imgUrl = key => { const path = IMAGES[key], w = key === HERO ? 1280 : 960; return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${path.split("/").pop()}`; };
 
 const FLIGHTS = [
   { airline:"Thai Airways", no:"TG618", date:"2026-11-07", dur:"2h 55m", depart:"10:05", arrive:"14:00",
@@ -411,12 +414,13 @@ const DAYS = [
     { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
   { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", events:[
-    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"92 km, about 2 h by road · ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
-    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min", ref:"", map:"成都东站" },
-    hotelEv("After 14:15", "kuanzhai"),
-    { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ), a walk from the hotel" },
+    { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"93 km, about 1 h 50 min by road over the Gonggangling pass, so you reach the station around 10:30, well before the train. Check the pickup point in the booking. ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站" },
+    { time:"~14:30", text:"Metro Line 2 to Tonghuimen (ทงฮุ่ยเหมิน), then walk to the hotel", detail:"From 成都东客站 towards 犀浦 (Xipu), 9 stops, about 21 min, ¥4; exit E, then 450 m on foot. About 36 min door to door. Taxi instead: about 40 min, 12 km." },
+    hotelEv("~15:10", "kuanzhai"),
+    { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", detail:"About 1 km from the hotel, a 10–15 min walk" },
   ]},
-  { date:"2026-11-12", alt:500, cover:"panda", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", alt:500, cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
@@ -424,7 +428,7 @@ const DAYS = [
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", alt:500, cover:"jinli", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
+  { date:"2026-11-13", alt:500, cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
     { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
     { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
@@ -903,7 +907,7 @@ function precacheImages() {
 }
 
 const heroImg = document.getElementById("hero-img");
-heroImg.src = imgUrl("jiuzhai");
+heroImg.src = imgUrl(HERO);
 heroImg.onerror = () => heroImg.remove();
 const refreshActiveDay = trackActiveDay();
 let renderedFor;
