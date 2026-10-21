@@ -272,8 +272,6 @@
   .cv-own input { display:block; width:100%; margin-top:4px; padding:10px 12px; font:inherit; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .cv-own button[type=submit] { min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
   .gd-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px auto 0; color:var(--mute); font-size:.8rem; }
-  .plan-box > summary { display:flex; align-items:center; min-height:28px; font-weight:600; font-size:.9rem; color:var(--lake); cursor:pointer; }
-  .plan-box[open] > summary { margin-bottom:14px; }
   .plan { margin:0; }
   .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-field); overflow:hidden; background:var(--paper); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
   .plan img, .plan svg { display:block; width:100%; height:auto; }
@@ -317,8 +315,9 @@
   .guide { padding-bottom:calc(100px + env(safe-area-inset-bottom)); }
   .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
   .guide-bar h2 { flex:1; }
-  .gd-pills { flex:0 0 100%; display:flex; justify-content:space-between; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
+  .gd-pills { flex:0 0 100%; display:flex; gap:14px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
   .gd-pills::-webkit-scrollbar { display:none; }
+  .gd-pills::after { content:""; flex:0 0 2px; }
   .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 4px; color:var(--mute); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; box-shadow:inset 0 -1.5px 0 transparent; -webkit-tap-highlight-color:transparent; }
   .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
   .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
@@ -337,7 +336,9 @@
   .gd-item.open .gd-row :is(.gd-thumb, .gd-mini) { display:none; }
   .gd-item.open .gd-toggle { padding:12px 4px 4px 20px; }
   .gd-item.open .gd-name b { font-size:1.4rem; line-height:1.15; }
-  .gd-more { padding:0 20px 18px; }
+  .gd-more { padding:0 20px 8px; }
+  .gd-close { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:44px; margin-top:12px; border:0; border-top:1px solid var(--line-soft); background:none; color:var(--mute); font:inherit; font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; }
+  .gd-close svg { width:16px; height:16px; transform:rotate(90deg); }
   .gd-tools { flex:none; display:flex; }
   .heart { color:var(--mute); }
   .heart[aria-pressed="true"] { color:var(--chili); }
@@ -415,15 +416,6 @@
     <button type="button" id="poster-btn" aria-label="Open the infographic full screen"></button>
     <figcaption>The whole trip on one page, in Thai, drawn from the plan above. Tap to open it full screen, zoom in, or save it as an image.</figcaption>
   </figure>
-  <details class="card plan-box">
-    <summary>Original plan (before booking)</summary>
-    <figure class="plan">
-      <button type="button" id="plan-btn" aria-label="Enlarge the original plan">
-        <img src="plan.jpg" width="1024" height="1536" loading="lazy" alt="Infographic of the original 8-day plan: flights, hotels, car, day-by-day timeline, route map, altitude, weather, budget and tips. Text is in Thai and English.">
-      </button>
-      <figcaption>Flight times and hotels in this picture are out of date; the infographic above replaces it. Tap to enlarge.</figcaption>
-    </figure>
-  </details>
 
   <h2 class="block">Parks and weather</h2>
   <div class="card">
@@ -526,8 +518,6 @@ const PLACES = {
 
 // a day with needs:"<id>" says so in its subtitle until the item is ticked; th is the to-do line on the infographic
 const OPEN_ITEMS = [
-  { id:"car-west", label:"car not booked", thLabel:"ยังไม่จองรถ", th:"จองรถพร้อมคนขับ 8–9 พ.ย.", text:"Car Chengdu → Bipenggou → Heishui → Dagu → Jiuzhaigou (8–9 Nov): not in Trip.com, and the old 5-day car rental clashes with the new plan of taking a bus and train from Jiuzhaigou on 11 Nov." },
-  { id:"car-airport", label:"car not booked", thLabel:"ยังไม่จองรถ", th:"จองรถไปสนามบิน 14 พ.ย.", text:"Car to Tianfu airport on 14 Nov." },
   { id:"jiuzhai-tickets", label:"park tickets not booked", thLabel:"ยังไม่จองตั๋ว", th:"จองตั๋วจิ่วจ้ายโกว + รถอุทยาน 10 พ.ย. (ล่วงหน้า 7–14 วัน)", text:"Jiuzhaigou ticket + park bus for 10 Nov (¥190 + ¥90 each): real-name booking in the WeChat mini program 九寨沟旅游官方平台, 7–14 days ahead. No booking, no entry." },
   { id:"checkin-times", th:"ถามเวลาเช็กอินของแต่ละที่พัก", text:"Check-in time at each hotel." },
 ];
@@ -556,7 +546,7 @@ const DAYS = [
     { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", th:"แพนด้า IFS · ถนนชุนซี", map:"成都国金中心" },
     { time:"Night", text:"Sichuan (ซื่อชวน) hotpot", th:"หม้อไฟเสฉวน" },
   ]},
-  { date:"2026-11-08", alt:3300, altAt:"Bipenggou", cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", road:{ km:408, min:345 }, needs:"car-west", events:[
+  { date:"2026-11-08", alt:3300, altAt:"Bipenggou", cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", road:{ km:408, min:345 }, car:"driver", events:[
     { time:"06:15", text:"Leave the hotel", th:"ออกจากโรงแรม", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
     { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", th:"พักรถ เหมียนซือ", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
     { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", th:"ถึงปี้เผิงโกว ซื้อตั๋ว", zh:"毕棚沟景区", map:"毕棚沟景区" },
@@ -565,7 +555,7 @@ const DAYS = [
     hotelEv("~18:15", "heishui"),
     { time:"19:00", text:"Yak meat hotpot", th:"หม้อไฟ เนื้อจามรี" },
   ]},
-  { date:"2026-11-09", alt:4860, altAt:"Dagu summit", cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", road:{ km:387, min:460 }, needs:"car-west", events:[
+  { date:"2026-11-09", alt:4860, altAt:"Dagu summit", cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", road:{ km:387, min:460 }, car:"driver", events:[
     { time:"07:40", text:"Leave the hotel", th:"ออกจากที่พัก", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
     { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", th:"ซื้อตั๋ว ต๋ากู่ ขึ้นรถอุทยาน", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
     { time:"~09:10", text:"Summit, 30–45 min", th:"ขึ้นยอด 4,860 ม.", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
@@ -594,7 +584,7 @@ const DAYS = [
   ]},
   { date:"2026-11-12", guide:true, alt:500, altAt:"Chengdu", cover:"cdnight", title:"Free day in Chengdu", th:"วันอิสระ · เที่ยว ช้อป กิน", sub:"Free day: go where you like. Picks from the guide below", picks:["panda-base", "wenshu", "taikoo-li", "chunxi-ifs", "houtang", "longchaoshou", "woos", "laitangyuan"], events:[]},
   { date:"2026-11-13", guide:true, alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Free day in Chengdu", th:"วันอิสระ · เดินเล่นเมืองเก่า", sub:"Free day: go where you like. Picks from the guide below", picks:["wuhou-jinli", "kuanzhai", "peoples-park", "dufu", "chenmapo", "longsenyuan", "maojiao", "no37"], events:[]},
-  { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", road:{ km:65, min:55 }, needs:"car-airport", events:[
+  { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", road:{ km:65, min:55 }, car:"airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", th:"เช็กเอาต์ ไปสนามบิน", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
@@ -969,7 +959,6 @@ function showViewer(media, label, width, tools = []) {
   close.focus();
 }
 
-const showPlan = () => showViewer(Object.assign(new Image(), { src:"plan.jpg", alt:"Original plan, full size" }), "Original plan", 1024);
 
 function showPoster() {
   const save = el("button", "", "Preparing image…");
@@ -1249,7 +1238,7 @@ function renderTables() {
     + WEATHER.map(w => `<tr>${place(w)}<td>${w.temp}</td><td>${w.rise}</td><td>${w.set}</td></tr>`).join("");
 }
 
-// the infographic: one portrait SVG laid out like plan.jpg, rebuilt from the trip data on every render so edits and bookings show
+// the infographic: one portrait SVG, rebuilt from the trip data on every render so edits and bookings show
 const PW = 1080, PM = 24, P_GAP = 16, SIDE_W = 248, SIDE_X = PW - PM - SIDE_W, MAIN_W = SIDE_X - P_GAP - PM;
 const SICK = 3000;
 const TH_MONTH = "พ.ย.";
@@ -1382,15 +1371,15 @@ function posterSvg() {
       T(x + 44, y + 13, fit(PLACES[h.zh]?.th ?? h.short, "bold", w - 44 - 58), "bold"), T(x + w - 16, y + 13, `${nightsAt(h)} คืน`, "noteb", "end"),
       T(x + 44, y + 31, fit(`${a.getDate()}–${b.getDate()} ${TH_MONTH} · ${h.short}`, "note", w - 60), "note"), T(x + 44, y + 49, fit(h.zh, "zh", w - 60), "zh")];
   } }));
-  const carDays = DAYS.filter(d => d.needs === "car-west"), airportDay = DAYS.find(d => d.needs === "car-airport");
+  const carDays = DAYS.filter(d => d.car === "driver"), airportDay = DAYS.find(d => d.car === "airport");
   const drive = ROUTE.slice(0, ROUTE.findIndex(st => st.by)).filter(st => !st.via).map(st => st.th);
   const TW = MAIN_W - FW - HW - P_GAP * 2;
   const moveRows = [
-    ["car", `${dateOf(carDays[0].date).getDate()}–${thDate(carDays.at(-1).date)} รถพร้อมคนขับ`, drive.join(" → "), "car-west"],
+    ["car", `${dateOf(carDays[0].date).getDate()}–${thDate(carDays.at(-1).date)} รถพร้อมคนขับ`, drive.join(" → ")],
     ["bus", `${thDate(DAYS[bus.day].date)} ${bus.time} รถบัส`, `จิ่วจ้ายโกว → ${PLACES[bus.map].th}`],
     ["train", `${train.time} รถไฟ ${trainNo} ชั้นหนึ่ง`, `ถึง${PLACES[train.map].th} ${clock(train.time, train.min)}`],
     ["metro", "ในเมือง: รถไฟใต้ดิน", "สแกน QR ใน Alipay ค่าตั๋ว ¥2–8"],
-    ["car", `${thDate(airportDay.date)} รถไปสนามบิน`, `${airportDay.road.km} กม. ~${thHours(airportDay.road.min)}`, "car-airport"],
+    ["car", `${thDate(airportDay.date)} รถไปสนามบิน`, `${airportDay.road.km} กม. ~${thHours(airportDay.road.min)}`],
   ].map(([name, a, b, need]) => {
     const la = wrap(a, "bold", TW - 58, 2), lb = wrap(b, "note", TW - 58, 2);
     const item = need && !isBooked(need) && OPEN_ITEMS.find(o => o.id === need);
@@ -1863,6 +1852,10 @@ function itemDetails(card, item) {
   more.append(el("p", "gd-note", Rate.annotate(esc(item.note))), zhRow(item.zh, itemCard(item)));
   // a souvenir names its shop in zh and the product to ask for in ask
   if (item.ask) more.append(el("p", "gd-ask", `Ask for <span class="th">${esc(item.ask.th)}</span>`), zhRow(item.ask.zh, { entries: [{ zh: item.ask.zh, reading: item.ask.th }], caption: "Show this in the shop" }));
+  const close = el("button", "gd-close", `${ICONS.back}Close`);
+  close.type = "button";
+  close.onclick = () => toggleItem(card, false);
+  more.append(close);
   card.append(more);
 }
 
@@ -2290,7 +2283,6 @@ function renderTrip() {
 renderTrip();
 setInterval(() => { if (todayIso() !== renderedFor) renderTrip(); else refreshClock(); }, 60_000);
 document.getElementById("edit-btn").onclick = openSettings;
-document.getElementById("plan-btn").onclick = showPlan;
 document.getElementById("poster-btn").onclick = showPoster;
 renderTables();
 // the infographic measures its text to wrap it, so it is drawn again once its fonts have loaded

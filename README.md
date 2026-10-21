@@ -4,7 +4,6 @@ Offline-first itinerary for Chengdu, Bipenggou, Dagu Glacier and Jiuzhaigou. One
 
 - `index.html`: the app (plan, flights, edit screen)
 - `sw.js`: service worker for offline use
-- `plan.jpg`: the original infographic plan
 - `fonts/`: Bodoni Moda and Trirong (Thai only), all SIL Open Font License (`fonts/OFL*.txt`), self-hosted so they work offline
 
 Edits made on the phone (times, booking numbers, saved places and phrases, your own bank rate) are stored in the browser only. The yuan to baht rate refreshes from open.er-api.com at most once a day when online.
