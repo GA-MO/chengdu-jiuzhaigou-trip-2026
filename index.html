@@ -91,7 +91,9 @@
   /* trip at a glance: route map on night-lake ground, then altitude, days and totals on paper */
   .glance { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); overflow:hidden; margin:12px 0; padding-bottom:6px; }
   .glance svg { display:block; width:100%; height:auto; overflow:visible; }
-  .g-mapsvg, .g-altsvg { max-width:480px; margin:0 auto; }
+  .g-mapsvg, .g-altsvg { max-width:min(480px, 100%); margin:0 auto; }
+  .g-mapsvg { max-width:min(480px, 100%, 48svh); }
+  .g-badge-hit { fill:transparent; }
   .g-map { background:var(--lake-deep); color:#fff; padding:0 0 14px; }
   .g-grid line { stroke:rgb(255 255 255 / 7%); stroke-width:1; }
   .g-tick { fill:rgb(255 255 255 / 34%); font-size:9px; text-anchor:end; font-variant-numeric:tabular-nums; }
@@ -287,29 +289,29 @@
   .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
   .guide-bar h2 { flex:1; }
   .guide-bar .icon-btn { min-height:44px; padding:0 14px 0 8px; color:var(--lake); background:var(--paper); border:1px solid var(--line); }
-  .g-pills { flex:0 0 100%; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
-  .g-pills::-webkit-scrollbar { display:none; }
-  .g-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:var(--r-pill); background:var(--paper); color:var(--lake); font-size:.84rem; font-weight:600; text-decoration:none; -webkit-tap-highlight-color:transparent; }
-  .g-pills a[aria-current] { background:var(--lake); border-color:var(--lake); color:#fff; }
-  .g-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
-  .g-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
-  .g-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
-  .g-sec .sub { margin-top:22px; }
-  .g-item { padding:0; overflow:hidden; }
-  .g-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
-  .g-credit { margin:0; padding:6px 20px 0; color:var(--mute); font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .g-body { padding:12px 20px 18px; }
-  .g-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-  .g-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
-  .g-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
-  .g-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-  .g-tags .chip { background:var(--lake-tint); color:var(--lake); }
-  .g-note { margin:10px 0 0; font-size:.92rem; }
-  .g-phrase + .g-phrase { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
-  .g-phrase b { display:block; font-size:1.15rem; font-weight:600; line-height:1.35; }
-  .g-phrase span { display:block; color:var(--mute); font-size:.88rem; }
-  .g-tip h3 { margin:0; font-size:1.15rem; }
-  .g-tip p { margin:6px 0 0; font-size:.92rem; }
+  .gd-pills { flex:0 0 100%; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
+  .gd-pills::-webkit-scrollbar { display:none; }
+  .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:var(--r-pill); background:var(--paper); color:var(--lake); font-size:.84rem; font-weight:600; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  .gd-pills a[aria-current] { background:var(--lake); border-color:var(--lake); color:#fff; }
+  .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
+  .gd-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
+  .gd-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
+  .gd-sec .sub { margin-top:22px; }
+  .gd-item { padding:0; overflow:hidden; }
+  .gd-photo { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--lake-tint); }
+  .gd-credit { margin:0; padding:6px 20px 0; color:var(--mute); font-size:.7rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gd-body { padding:12px 20px 18px; }
+  .gd-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .gd-head h3 { margin:6px 0 0; font-size:1.4rem; line-height:1.15; }
+  .gd-head .icon-btn { flex:none; min-height:44px; min-width:44px; }
+  .gd-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .gd-tags .chip { background:var(--lake-tint); color:var(--lake); }
+  .gd-note { margin:10px 0 0; font-size:.92rem; }
+  .gd-phrase + .gd-phrase { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
+  .gd-phrase b { display:block; font-size:1.15rem; font-weight:600; line-height:1.35; }
+  .gd-phrase span { display:block; color:var(--mute); font-size:.88rem; }
+  .gd-tip h3 { margin:0; font-size:1.15rem; }
+  .gd-tip p { margin:6px 0 0; font-size:.92rem; }
   .sheet .reset { display:block; width:100%; margin-top:24px; min-height:48px; border:1px solid var(--warnline); border-radius:var(--r-card); background:var(--warnbg); color:var(--warn); font:inherit; font-weight:650; cursor:pointer; }
 </style>
 </head>
@@ -343,11 +345,12 @@
     <ul class="todo"></ul>
   </details>
 
+  <h2 class="block" id="glance-h">Trip at a glance</h2>
+  <section class="glance" id="overview" aria-labelledby="glance-h"></section>
+
   <h2 class="block">Daily plan</h2>
   <div id="days"></div>
 
-  <h2 class="block" id="glance-h">Trip at a glance</h2>
-  <section class="glance" id="overview" aria-labelledby="glance-h"></section>
 
   <h2 class="block">Original plan</h2>
   <details class="card plan-box">
@@ -476,7 +479,7 @@ const OPEN_ITEMS = [
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m; altAt names that point
 // road = the day's driving (km, minutes) as in sub; by:"train" on an event means the trip to its map point is by rail
 const DAYS = [
-  { date:"2026-11-07", alt:500, altAt:"Chengdu", cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", events:[
+  { date:"2026-11-07", alt:500, altAt:"Chengdu", cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", road:{ km:63, min:60 }, events:[
     { flight:0, map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
     { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", map:"成都太古里" },
@@ -512,7 +515,7 @@ const DAYS = [
     { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
     { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
-  { date:"2026-11-11", alt:2000, altAt:"Jiuzhaigou", cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", road:{ km:93, min:110, by:"bus" }, events:[
+  { date:"2026-11-11", alt:3700, altAt:"Gonggangling pass", cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", road:{ km:93, min:110, by:"bus" }, events:[
     { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"93 km, about 1 h 50 min by road over the Gonggangling pass, so you reach the station around 10:30, well before the train. Check the pickup point in the booking. ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
     { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站", by:"train", min:121 },
     { time:"~14:30", text:"Metro Line 2 to Tonghuimen (ทงฮุ่ยเหมิน), then walk to the hotel", detail:"From 成都东客站 towards 犀浦 (Xipu), 9 stops, about 21 min, ¥4; exit E, then 450 m on foot. About 36 min door to door. Taxi instead: about 40 min, 12 km." },
@@ -535,7 +538,7 @@ const DAYS = [
     { time:"18:00", text:"Dinner" },
     { time:"19:30", text:"Stroll / relax" },
   ]},
-  { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
+  { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", road:{ km:65, min:55 }, needs:"car-airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
@@ -889,7 +892,9 @@ function renderOverview() {
   const nights = h => Math.round((dateOf(h.checkOut) - dateOf(h.checkIn)) / 864e5);
   const flightDay = i => DAYS.findIndex(d => d.events.some(e => e.flight === i)) + 1;
   const hotelIcon = (x, y) => `<g class="g-hotel" transform="translate(${f1(x - 8)} ${f1(y - 8)})"><rect width="16" height="16" rx="4"/><path transform="translate(2 2) scale(.5)" d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle transform="translate(2 2) scale(.5)" cx="7" cy="12" r="1.8"/></g>`;
-  const badge = (x, y, n) => `<g class="g-badge"><circle cx="${f1(x)}" cy="${f1(y)}" r="8.5"/><text x="${f1(x)}" y="${f1(y + 3.6)}">${n}</text></g>`;
+  // a map badge is a link to its day, with a hit circle sized for a fingertip
+  const badge = (x, y, n, link = true) => { const g = `<g class="g-badge"><circle cx="${f1(x)}" cy="${f1(y)}" r="8.5"/><text x="${f1(x)}" y="${f1(y + 3.6)}">${n}</text></g>`;
+    return link ? `<a href="#day${n}" aria-label="Day ${n}"><circle class="g-badge-hit" cx="${f1(x)}" cy="${f1(y)}" r="16"/>${g}</a>` : g; };
 
   // map: equirectangular on the trip's own latitude, so distances read true in both directions
   // label: [dx, dy, anchor] from the point, Thai under the name unless inline; mark: hotel, peak or dot
@@ -995,7 +1000,7 @@ function renderOverview() {
     <li><svg viewBox="0 0 24 8"><path class="g-train" d="M1,4H23"/></svg>Train</li>
     <li><svg viewBox="0 0 24 8"><path class="g-flight" d="M1,4H17" marker-end="url(#g-arrow)"/></svg>Flight</li>
     <li><svg viewBox="0 0 16 16">${hotelIcon(8, 8)}</svg>Night</li>
-    <li><svg viewBox="0 0 18 18">${badge(9, 9, 3)}</svg>Day</li>
+    <li><svg viewBox="0 0 18 18">${badge(9, 9, 3, false)}</svg>Day</li>
   </ul>`;
 
   // altitude: each day's highest point on one ridge, with the band where altitude sickness starts
@@ -1003,12 +1008,14 @@ function renderOverview() {
   const slot = (W - aL - aR) / DAYS.length, ax = i => aL + (i + .5) * slot, ay = m => aT + (1 - m / TOP) * (AH - aT - aB);
   const pts = DAYS.map((d, i) => [ax(i), ay(d.alt)]);
   // which days carry a label, and which side keeps it off the ridge; day 1 shares Chengdu's label with day 6
-  const ALT_LABEL = { 2:"end", 3:"middle", 4:"start", 5:"start", 6:"start" };
+  // a valley between two peaks ("below") is labelled under its point so the label stays off both slopes
+  const ALT_LABEL = { 2:"end", 3:"middle", 4:"below", 5:"start", 6:"start" };
   const peakLabels = DAYS.map((d, i) => {
-    const anchor = ALT_LABEL[i + 1];
-    if (!anchor) return "";
-    const [x, y] = pts[i], dx = { end:-5, start:5, middle:0 }[anchor];
-    return `<text class="g-val" x="${f1(x + dx)}" y="${f1(y - 22)}" text-anchor="${anchor}">${num(d.alt)} m</text><text class="g-place" x="${f1(x + dx)}" y="${f1(y - 9)}" text-anchor="${anchor}">${esc(d.altAt)}</text>`;
+    const place = ALT_LABEL[i + 1];
+    if (!place) return "";
+    const [x, y] = pts[i], below = place === "below", anchor = below ? "middle" : place;
+    const dx = { end:-5, start:5, middle:0 }[anchor], vy = below ? y + 20 : y - 22, py = below ? y + 33 : y - 9;
+    return `<text class="g-val" x="${f1(x + dx)}" y="${f1(vy)}" text-anchor="${anchor}">${num(d.alt)} m</text><text class="g-place" x="${f1(x + dx)}" y="${f1(py)}" text-anchor="${anchor}">${esc(d.altAt)}</text>`;
   });
   const altLabel = `Highest point each day: ${DAYS.map((d, i) => `day ${i + 1} ${num(d.alt)} m${d.altAt ? ` at ${d.altAt}` : ""}`).join(", ")}. Above ${num(SICK)} m altitude sickness can start.`;
   const alt = `<svg class="g-altsvg" viewBox="0 0 ${W} ${AH}" role="img" aria-label="${esc(altLabel)}">
@@ -1184,15 +1191,15 @@ function openSettings() {
 }
 
 function guideItem(item) {
-  const card = el("article", "card g-item");
+  const card = el("article", "card gd-item");
   card.dataset.id = item.id;
-  if (item.photo) card.append(photo(thumbUrl(item.photo), "g-photo"), el("p", "g-credit", esc(item.photoCredit)));
-  const head = el("div", "g-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
+  if (item.photo) card.append(photo(thumbUrl(item.photo), "gd-photo"), el("p", "gd-credit", esc(item.photoCredit)));
+  const head = el("div", "gd-head", `<h3>${withReadings(`${item.name} (${item.th})`)}</h3>`);
   head.append(mapLink(item.zh, item.at ? { at: item.at, th: item.th } : null));
-  const body = el("div", "g-body");
+  const body = el("div", "gd-body");
   body.append(head);
-  if (item.tags.length) body.append(el("div", "g-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
-  body.append(el("p", "g-note", esc(item.note)), zhRow(item.zh));
+  if (item.tags.length) body.append(el("div", "gd-tags", item.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")));
+  body.append(el("p", "gd-note", esc(item.note)), zhRow(item.zh));
   card.append(body);
   return card;
 }
@@ -1200,7 +1207,7 @@ function guideItem(item) {
 function phraseCard(phrases) {
   const card = el("div", "card");
   card.append(...phrases.map(ph => {
-    const row = el("div", "g-phrase", `<b>${esc(ph.thai)}</b><span>${esc(ph.reading)}</span>`);
+    const row = el("div", "gd-phrase", `<b>${esc(ph.thai)}</b><span>${esc(ph.reading)}</span>`);
     row.append(zhRow(ph.zh, "Show this screen"));
     return row;
   }));
@@ -1208,13 +1215,13 @@ function phraseCard(phrases) {
 }
 
 function guideSection(sec) {
-  const box = el("section", "g-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
+  const box = el("section", "gd-sec", `<h2>${esc(sec.title)} <span class="th">(${esc(sec.th)})</span></h2>`);
   box.id = `g-${sec.id}`;
   for (const g of sec.groups ?? []) {
     box.append(el("h3", "sub", esc(g.title)), ...(g.items ?? []).map(guideItem));
     if (g.phrases) box.append(phraseCard(g.phrases));
   }
-  box.append(...(sec.tips ?? []).map(t => el("div", "card g-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
+  box.append(...(sec.tips ?? []).map(t => el("div", "card gd-tip", `<h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>`)));
   return box;
 }
 
@@ -1229,7 +1236,7 @@ function openGuide() {
   back.type = "button";
   back.onclick = () => history.back();
   const bar = el("div", "sheet-bar guide-bar");
-  const pills = el("div", "g-pills");
+  const pills = el("div", "gd-pills");
   pills.setAttribute("role", "navigation");
   pills.setAttribute("aria-label", "Guide sections");
   pills.append(...GUIDE.map(sec => {
@@ -1242,7 +1249,7 @@ function openGuide() {
   bar.append(back, el("h2", "", "Chengdu guide"), pills);
   sheet.append(bar, ...GUIDE.map(guideSection));
   const markPill = () => {
-    const top = bar.getBoundingClientRect().bottom + 24, secs = [...sheet.querySelectorAll(".g-sec")];
+    const top = bar.getBoundingClientRect().bottom + 24, secs = [...sheet.querySelectorAll(".gd-sec")];
     // the last section is too short to reach the bar, so the bottom of the page counts as reaching it
     const atEnd = sheet.scrollTop + sheet.clientHeight >= sheet.scrollHeight - 2;
     const current = atEnd ? secs.at(-1) : secs.filter(s => s.getBoundingClientRect().top <= top).pop() ?? secs[0];
