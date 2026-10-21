@@ -48,7 +48,6 @@
   .cd-unit { display:flex; flex-direction:column; align-items:flex-start; min-width:2ch; }
   .cd-unit b { font-family:var(--serif); font-size:clamp(2.6rem,12vw,3.8rem); font-weight:450; line-height:.9; letter-spacing:-.02em; font-variant-numeric:lining-nums tabular-nums; }
   .cd-unit small { margin-top:6px; font-size:.62rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgb(255 255 255 / 70%); }
-  .cd-unit small span { margin-left:6px; font-family:var(--sans); font-size:1.25em; font-weight:500; letter-spacing:0; text-transform:none; color:rgb(255 255 255 / 62%); }
   .cd-sep { align-self:flex-start; margin-top:.35em; width:1px; height:clamp(2rem,9vw,2.9rem); background:rgb(255 255 255 / 28%); }
   .cd-unit.sec b { color:#e2c48a; }
   .cd-trip b { font-family:var(--serif); font-size:clamp(2.6rem,12vw,3.8rem); font-weight:450; line-height:.9; }
@@ -285,7 +284,6 @@
   .cv-own label { flex:1 1 160px; font-size:.78rem; color:var(--mute); }
   .cv-own input { display:block; width:100%; margin-top:4px; padding:10px 12px; font:inherit; font-size:16px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); }
   .cv-own button[type=submit] { min-height:44px; padding:0 20px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
-  .gd-rate { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px auto 0; color:var(--mute); font-size:.8rem; }
   .plan { margin:0; }
   .plan button { display:block; width:100%; padding:0; border:0; border-radius:var(--r-field); overflow:hidden; background:var(--paper); cursor:zoom-in; -webkit-tap-highlight-color:transparent; }
   .plan img, .plan svg { display:block; width:100%; height:auto; }
@@ -2148,14 +2146,9 @@ function openGuide() {
     return a;
   }));
   bar.append(back, el("h2", "", "Chengdu guide"));
-  const rate = el("p", "gd-rate", `<span>≈ ฿ uses <span class="rate-label">${esc(Rate.label())}</span></span>`);
-  const convert = el("button", "cv-link", "Convert");
-  convert.type = "button";
-  convert.onclick = () => PhraseSheet.open({ tab: "money" });
-  rate.append(convert);
   const saved = el("section", "gd-sec gd-saved");
   saved.id = "g-saved";
-  sheet.append(bar, rate, saved, ...GUIDE.map(guideSection), pills);
+  sheet.append(bar, saved, ...GUIDE.map(guideSection), pills);
   const syncSaved = () => {
     fillSaved(saved);
     pills.querySelector('[data-id="saved"] span').textContent = Saved.keys().length ? `Saved ${Saved.keys().length}` : "Saved";
@@ -2238,7 +2231,6 @@ function route() {
 
 // before the trip: days, hours, minutes and seconds to the first flight's take-off in Bangkok (UTC+7)
 const takeOff = () => { const f = flightAt(0); return Date.parse(`${f.date}T${f.depart}:00+07:00`); };
-const TH_UNIT = { Days:"วัน", Hours:"ชม.", Min:"นาที", Sec:"วิ" };
 function renderCountdown() {
   const box = document.getElementById("countdown");
   const left = takeOff() - currentTime();
@@ -2248,7 +2240,7 @@ function renderCountdown() {
     const cells = parts.map(([name, ms]) => { const v = Math.floor(rest / ms); rest -= v * ms; return [name, v]; });
     if (!box.querySelector(".cd-units")) {
       box.innerHTML = `<p class="cd-cap"></p><div class="cd-units">${cells.map(([name], i) =>
-        `${i ? '<i class="cd-sep"></i>' : ""}<span class="cd-unit${name === "Sec" ? " sec" : ""}"><b data-u="${name}"></b><small>${name}<span>${TH_UNIT[name]}</span></small></span>`).join("")}</div>`;
+        `${i ? '<i class="cd-sep"></i>' : ""}<span class="cd-unit${name === "Sec" ? " sec" : ""}"><b data-u="${name}"></b><small>${name}</small></span>`).join("")}</div>`;
     }
     box.querySelector(".cd-cap").textContent = `${f.no} · take-off ${dateLabel(f.date)} ${f.depart}`;
     for (const [name, v] of cells) box.querySelector(`[data-u="${name}"]`).textContent = name === "Days" ? v : String(v).padStart(2, "0");
