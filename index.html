@@ -324,7 +324,7 @@ const FLIGHTS = [
 const HOTELS = {
   atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
   heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
-  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院 四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
   kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
 const hotelEv = (time, key) => { const h = HOTELS[key];
@@ -372,16 +372,16 @@ const OPEN_ITEMS = [
 // alt = highest point of the day in metres: park table below, Chengdu is about 500 m
 const DAYS = [
   { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu (เฉิงตู)", sub:"Fly in, check in, then stroll near the hotel", events:[
-    { flight:0, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
+    { flight:0, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
     { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", zh:"成都太古里", map:"成都太古里" },
-    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", zh:"成都国金中心", map:"成都国金中心" },
+    { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", zh:"成都国际金融中心(IFS)", map:"成都国金中心" },
     { time:"Night", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
   { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu (เฉิงตู) → Bipenggou (ปี้เผิงโกว) → Heishui (เฮยสุ่ย)", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
     { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
-    { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区", map:"绵虒服务区" },
-    { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟", map:"毕棚沟景区" },
+    { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
+    { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟景区", map:"毕棚沟景区" },
     { time:"10:15", text:"Explore Bipenggou for about 5 h", detail:"Photo spots: Dragon King Lake, Moon Bay, Red Stone Beach, Alpine Meadow" },
     { time:"15:15", text:"Leave the park → Heishui (เฮยสุ่ย)", detail:"199 km, about 2 h 50 min via G4217, the G0615 Dekang Expressway and G347. Leave by 16:00 at the latest to reach the hotel before 19:00." },
     hotelEv("~18:15", "heishui"),
@@ -389,15 +389,15 @@ const DAYS = [
   ]},
   { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui (เฮยสุ่ย) → Dagu Glacier (ต๋ากู่) → Jiuzhaigou (จิ่วจ้ายโกว)", sub:"~387 km, about 7 h 40 min of driving", needs:"car-west", events:[
     { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
-    { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川", map:"达古冰川景区" },
+    { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
     { time:"~09:10", text:"Summit, 30–45 min", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
     { time:"~11:15", text:"Back at the visitor centre · take lunch to eat in the car" },
     { time:"11:30", text:"Drive to Jiuzhaigou (จิ่วจ้ายโกว) via Songpan (ซงพาน) (382 km, about 7 h 30 min of driving)", detail:"Through the Zhahong (扎红) Tunnel on S446, then S313, the way Chinese tours go. Amap prefers the Hongyuan (หงหยวน) grassland road (422 km, about 20 min faster); add Songpan as a stop to keep it on this one. Sunset is about 18:07, so the last hour, including the Gonggangling (กงก้างหลิ่ง) pass (~3,700 m, can be icy in November), is after dark. Every extra 10 min at Dagu or on the road is 10 min later at the hotel." },
-    { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城", map:"松潘古城" },
+    { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城(松州古城)", map:"松潘古城" },
     hotelEv("~19:20", "jiuzhai"),
   ]},
   { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou (จิ่วจ้ายโกว)", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
-    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", zh:"九寨沟景区", map:"九寨沟景区" },
+    { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", zh:"九寨沟景区游客中心", map:"九寨沟景区" },
     { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
     { time:"~09:15", text:"Five Color Pond (อู่ไฉ่ฉือ)", detail:"Walk 1.2 km down the boardwalk from Long Lake", map:"九寨沟五彩池" },
     { time:"10:30", text:"Nuorilang (นั่วรื่อหล่าง) Waterfall", detail:"Park bus about 25 min from Five Color Pond", map:"诺日朗瀑布" },
@@ -431,7 +431,7 @@ const DAYS = [
   ]},
   { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu (เฉิงตู) → Bangkok", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
-    { flight:1, zh:"成都天府国际机场 T1", map:"成都天府国际机场" },
+    { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
 ];
 
