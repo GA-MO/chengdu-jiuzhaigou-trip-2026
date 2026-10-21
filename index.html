@@ -85,6 +85,66 @@
   .f-line svg { flex:none; width:18px; height:18px; stroke-width:1.5; transform:rotate(45deg); }
   .flight-note { margin:4px 2px 0; color:var(--mute); font-size:.78rem; }
 
+  /* trip at a glance: route map on night-lake ground, then altitude, days and totals on paper */
+  .glance { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); overflow:hidden; margin:12px 0; padding-bottom:6px; }
+  .glance svg { display:block; width:100%; height:auto; overflow:visible; }
+  .g-mapsvg, .g-altsvg { max-width:480px; margin:0 auto; }
+  .g-map { background:var(--lake-deep); color:#fff; padding:0 0 14px; }
+  .g-grid line { stroke:rgb(255 255 255 / 7%); stroke-width:1; }
+  .g-tick { fill:rgb(255 255 255 / 34%); font-size:9px; text-anchor:end; font-variant-numeric:tabular-nums; }
+  .g-scale path { fill:none; stroke:rgb(255 255 255 / 45%); stroke-width:1; }
+  .g-scale text { fill:rgb(255 255 255 / 55%); font-size:9.5px; }
+  .g-road, .g-train { fill:none; stroke:#e3ebea; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .g-train { stroke-dasharray:1 5; stroke-width:2.6; }
+  .g-flight { fill:none; stroke:#e2c48a; stroke-width:1.6; stroke-dasharray:5 4; }
+  .g-stop { fill:var(--lake-deep); stroke:#fff; stroke-width:2; }
+  .g-peak { fill:#fff; stroke:var(--lake-deep); stroke-width:2; stroke-linejoin:round; }
+  .g-hotel rect { fill:#fff; stroke:var(--lake-deep); stroke-width:2; }
+  .g-hotel path, .g-hotel circle { fill:none; stroke:var(--lake-deep); stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; }
+  .g-badge circle { fill:var(--lake-deep); stroke:#e2c48a; stroke-width:1.5; }
+  .g-badge text { fill:#fff; font-family:var(--serif); font-size:11px; font-weight:600; text-anchor:middle; }
+  .g-en { fill:#fff; font-family:var(--serif); font-size:14.5px; font-weight:500; }
+  .g-th { fill:rgb(255 255 255 / 70%); font-family:var(--sans); font-size:11px; }
+  .g-note { fill:#e2c48a; font-family:var(--serif); font-size:12px; font-weight:600; }
+  .g-key { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 16px; margin:4px 16px 0; padding:0; list-style:none; color:rgb(255 255 255 / 72%); font-size:.74rem; }
+  .g-key li { display:flex; align-items:center; gap:6px; }
+  .g-key svg { width:auto; height:14px; }
+  .g-key .g-badge circle { stroke-width:1.2; }
+  .g-h { margin:24px 20px 6px; font-size:1.15rem; }
+  .g-band { fill:var(--warnbg); }
+  .g-bandline { stroke:var(--warnline); stroke-width:1; }
+  .g-bandtxt { fill:var(--warn); font-size:10.5px; font-weight:600; text-anchor:end; }
+  .g-sick { display:flex; flex-wrap:wrap; gap:0 6px; margin:0 20px 4px; padding-left:22px; position:relative; color:var(--warn); font-size:.8rem; line-height:1.45; }
+  .g-sick::before { content:""; position:absolute; left:0; top:3px; width:14px; height:14px; border-radius:4px; background:var(--warnbg); border:1px solid var(--warnline); }
+  .g-base { stroke:var(--line); stroke-width:1; }
+  .g-area { fill:rgb(15 76 82 / 10%); }
+  .g-ridge { fill:none; stroke:var(--lake); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+  .g-pt { fill:var(--lake); stroke:var(--paper); stroke-width:2; }
+  .g-pt.high { fill:var(--warn); }
+  .g-val { fill:var(--ink); font-family:var(--serif); font-size:13px; font-weight:600; font-variant-numeric:lining-nums; }
+  .g-place { fill:var(--mute); font-size:10.5px; }
+  .g-dnum { fill:var(--ink); font-family:var(--serif); font-size:13px; font-weight:600; text-anchor:middle; }
+  .g-ddate { fill:var(--mute); font-size:9.5px; text-anchor:middle; }
+  .g-days { margin:0; padding:0 8px; list-style:none; }
+  .g-days li + li { border-top:1px solid var(--line-soft); }
+  .g-days a { display:grid; grid-template-columns:52px minmax(0,1fr); gap:12px; padding:12px; border-radius:var(--r-field); color:inherit; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  .g-days a:active { background:var(--lake-tint); }
+  .g-when { color:var(--mute); font-size:.74rem; line-height:1.2; text-align:center; }
+  .g-when b { display:block; color:var(--ink); font-family:var(--serif); font-size:1.7rem; font-weight:500; line-height:1.05; font-variant-numeric:lining-nums; }
+  .g-what { display:flex; flex-direction:column; gap:1px; min-width:0; }
+  .g-title { font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.25; }
+  .g-thline { color:var(--mute); font-size:.86rem; line-height:1.45; }
+  .g-move, .g-stay { display:flex; align-items:center; gap:6px; font-size:.8rem; line-height:1.4; }
+  .g-move { flex-wrap:wrap; gap:0 5px; color:var(--lake); font-weight:600; margin-top:3px; }
+  .g-move span { white-space:nowrap; }
+  .g-move span + span::before { content:"· "; }
+  .g-stay { color:var(--mute); }
+  .g-stay svg { flex:none; width:14px; height:14px; color:var(--larch); }
+  .g-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0; padding:4px 16px 14px; }
+  .g-stats div { display:flex; flex-direction:column-reverse; justify-content:flex-end; padding:12px 14px; border:1px solid var(--line); border-radius:var(--r-field); }
+  .g-stats dd { margin:0; font-family:var(--serif); font-size:1.75rem; font-weight:500; line-height:1.1; font-variant-numeric:lining-nums; }
+  .g-stats dt { margin-top:4px; color:var(--mute); font-size:.76rem; line-height:1.4; }
+
   /* open items */
   .warn { background:var(--warnbg); border:1px solid var(--warnline); box-shadow:none; }
   .warn summary { display:flex; align-items:center; min-height:28px; color:var(--warn); font-weight:600; font-size:.9rem; cursor:pointer; }
@@ -252,6 +312,9 @@
   <h2 class="block">Daily plan</h2>
   <div id="days"></div>
 
+  <h2 class="block" id="glance-h">Trip at a glance</h2>
+  <section class="glance" id="overview" aria-labelledby="glance-h"></section>
+
   <h2 class="block">Original plan</h2>
   <details class="card plan-box">
     <summary>Show the plan drawn before booking</summary>
@@ -328,10 +391,10 @@ const FLIGHTS = [
 
 // checkOut is the morning after the last night
 const HOTELS = {
-  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
-  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
-  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
-  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
+  atour:    { checkIn:"2026-11-07", checkOut:"2026-11-08", short:"Atour, Taikoo Li", name:"Atour Hotel, Taikoo Li (ไท่กู่หลี่) Dacisi (ต้าฉือซื่อ)", zh:"成都太古里大慈寺亚朵酒店", detail:"Superior room, queen bed · 7–8 Nov (1 night)" },
+  heishui:  { checkIn:"2026-11-08", checkOut:"2026-11-09", short:"Guanshan Villa, Heishui", name:"Heishui (เฮยสุ่ย) Guanshan (กวนซาน) Villa Homestay", zh:"黑水观山墅民宿", detail:"Boutique Cozy Room (Double Bed) · 8–9 Nov (1 night)" },
+  jiuzhai:  { checkIn:"2026-11-09", checkOut:"2026-11-11", short:"Rezen Retreat, Jiuzhaigou", name:"Rezen Retreat · Four Seasons Manju (ม่านจวี) Hotel, Jiuzhaigou (จิ่วจ้ายโกว) Tourist Center", zh:"丽呈别院·四季漫居(九寨沟景区游客中心店)", detail:"Special king room with tatami area · 9–11 Nov (2 nights)" },
+  kuanzhai: { checkIn:"2026-11-11", checkOut:"2026-11-14", short:"Chuanxing Yinli, Kuanzhai Alley", name:"Chuanxing Yinli (ชวนสิงอิ่นหลี่) Hotel, Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", zh:"川行隐里酒店(成都宽窄巷子店)", detail:"11–14 Nov (3 nights)" },
 };
 const hotelEv = (time, key) => { const h = HOTELS[key];
   return { time, text:`Check in: ${h.name}`, detail:h.detail, zh:h.zh, map:h.zh, hotel:key }; };
@@ -375,16 +438,17 @@ const OPEN_ITEMS = [
   { id:"checkin-times", text:"Check-in time at each hotel." },
 ];
 
-// alt = highest point of the day in metres: park table below, Chengdu is about 500 m
+// alt = highest point of the day in metres: park table below, Chengdu is about 500 m; altAt names that point
+// road = the day's driving (km, minutes) as in sub; by:"train" on an event means the trip to its map point is by rail
 const DAYS = [
-  { date:"2026-11-07", alt:500, cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", events:[
+  { date:"2026-11-07", alt:500, altAt:"Chengdu", cover:"chengdu", title:"Bangkok → Chengdu", th:"กรุงเทพฯ → เฉิงตู", sub:"Fly in, check in, then stroll near the hotel", events:[
     { flight:0, map:"成都天府国际机场" },
     hotelEv("After landing", "atour"),
     { time:"Evening", text:"Stroll Taikoo Li (ไท่กู่หลี่)", map:"成都太古里" },
     { time:"Evening", text:"IFS Panda · Chunxi Road (ชุนซีลู่)", map:"成都国金中心" },
     { time:"Night", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-08", alt:3300, cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", needs:"car-west", events:[
+  { date:"2026-11-08", alt:3300, altAt:"Bipenggou", cover:"bipenggou", title:"Chengdu → Bipenggou → Heishui", th:"เฉิงตู → ปี้เผิงโกว → เฮยสุ่ย", sub:"~408 km, about 5 h 45 min of driving", road:{ km:408, min:345 }, needs:"car-west", events:[
     { time:"06:15", text:"Leave the hotel", detail:"To Bipenggou (ปี้เผิงโกว): 208 km, about 3 h of driving via the G4217 Rongchang Expressway" },
     { time:"07:45", text:"Rest stop at Mianchi (เหมียนซือ) Service Area (G4217)", detail:"115 km, about 1 h 30 min from the hotel · 93 km, about 1 h 25 min more to Bipenggou", zh:"绵虒服务区(蓉昌高速昌都方向)", map:"绵虒服务区" },
     { time:"09:45", text:"Arrive at Bipenggou (ปี้เผิงโกว), buy tickets (open 08:30–18:00)", zh:"毕棚沟景区", map:"毕棚沟景区" },
@@ -393,7 +457,7 @@ const DAYS = [
     hotelEv("~18:15", "heishui"),
     { time:"19:00", text:"Yak meat hotpot" },
   ]},
-  { date:"2026-11-09", alt:4860, cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", needs:"car-west", events:[
+  { date:"2026-11-09", alt:4860, altAt:"Dagu summit", cover:"dagu", title:"Heishui → Dagu Glacier → Jiuzhaigou", th:"เฮยสุ่ย → ธารน้ำแข็งต๋ากู่ → จิ่วจ้ายโกว", sub:"~387 km, about 7 h 40 min of driving", road:{ km:387, min:460 }, needs:"car-west", events:[
     { time:"07:40", text:"Leave the hotel", detail:"Dagu Glacier (ต๋ากู่) ticket office is 5 km away, about 10 min" },
     { time:"08:00", text:"Dagu Glacier (ต๋ากู่): tickets open and the first park bus leaves", detail:"Open 08:00–17:30, ticket sales stop at 15:00 (Ctrip). Be first in line. Bus about 40–60 min (33 km), then a 15 min cable car to the 4,860 m summit. Call 0837-6729996 the day before to confirm the cable car is running.", zh:"达古冰川景区游客中心", map:"达古冰川景区" },
     { time:"~09:10", text:"Summit, 30–45 min", detail:"Very high: walk slowly and bring oxygen and a warm jacket." },
@@ -402,7 +466,7 @@ const DAYS = [
     { time:"~17:05", text:"Stop: Songpan (ซงพาน) old town, toilet and fuel (20 min)", detail:"Walled old town on the road. Fill up here; the only town after it is Chuanzhusi (ชวนจู่ซื่อ), 17 km on.", zh:"松潘古城(松州古城)", map:"松潘古城" },
     hotelEv("~19:20", "jiuzhai"),
   ]},
-  { date:"2026-11-10", alt:3100, cover:"longlake", title:"Full day in Jiuzhaigou", th:"เที่ยวจิ่วจ้ายโกวทั้งวัน", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
+  { date:"2026-11-10", alt:3100, altAt:"Long Lake", cover:"longlake", title:"Full day in Jiuzhaigou", th:"เที่ยวจิ่วจ้ายโกวทั้งวัน", sub:"Entry 07:30–14:00, closes 18:00 · park buses only", needs:"jiuzhai-tickets", events:[
     { time:"07:20", text:"Enter the park", detail:"Staff may choose which valley your first bus goes up. If it heads to Five Flower Lake (อู่ฮัวไห่) in Rize (รื่อเจ๋อ) valley instead of Long Lake (ฉางไห่) in Zechawa (เจ๋อฉาวา) valley, do Five Flower Lake and Pearl Shoal first, then take the bus up to Long Lake from Nuorilang (นั่วรื่อหล่าง).", map:"九寨沟景区" },
     { time:"~08:20", text:"Long Lake (ฉางไห่), the highest point", detail:"Park bus about 50 min (33 km) from the entrance", map:"九寨沟长海" },
     { time:"~09:15", text:"Five Color Pond (อู่ไฉ่ฉือ)", detail:"Walk 1.2 km down the boardwalk from Long Lake", map:"九寨沟五彩池" },
@@ -413,14 +477,14 @@ const DAYS = [
     { time:"14:30", text:"Shuzheng (ซู่เจิ้ง) Valley", detail:"Park bus about 25 min from Pearl Shoal", map:"树正群海" },
     { time:"16:30", text:"Leave the park (closes 18:00)", detail:"Park bus about 20 min from Shuzheng to the entrance; the hotel is a short walk away" },
   ]},
-  { date:"2026-11-11", alt:2000, cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", events:[
+  { date:"2026-11-11", alt:2000, altAt:"Jiuzhaigou", cover:"train", title:"Jiuzhaigou → train → Chengdu", th:"จิ่วจ้ายโกว → รถไฟ → เฉิงตู", sub:"Bus, then first-class train back to Chengdu", road:{ km:93, min:110, by:"bus" }, events:[
     { time:"08:40", text:"Bus Jiuzhaigou → Huanglong Jiuzhai (หวงหลงจิ่วจ้าย) station (2 people)", detail:"93 km, about 1 h 50 min by road over the Gonggangling pass, so you reach the station around 10:30, well before the train. Check the pickup point in the booking. ฿407.4 · local time · conditional cancellation / no-show refund", ref:"", zh:"黄龙九寨站", map:"黄龙九寨站" },
-    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站" },
+    { time:"12:14", text:"Train C5764 first class from 黄龙九寨 (หวงหลงจิ่วจ้าย)", detail:"Arrives 成都东 Chengdu East (เฉิงตูตง) 14:15 · 2 h 1 min. Timetable sites list 12:10 → 14:17; go by the ticket. Ticket gates close a few minutes before departure.", ref:"", map:"成都东站", by:"train", min:121 },
     { time:"~14:30", text:"Metro Line 2 to Tonghuimen (ทงฮุ่ยเหมิน), then walk to the hotel", detail:"From 成都东客站 towards 犀浦 (Xipu), 9 stops, about 21 min, ¥4; exit E, then 450 m on foot. About 36 min door to door. Taxi instead: about 40 min, 12 km." },
     hotelEv("~15:10", "kuanzhai"),
     { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", detail:"About 1 km from the hotel, a 10–15 min walk" },
   ]},
-  { date:"2026-11-12", alt:500, cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
+  { date:"2026-11-12", alt:500, altAt:"Chengdu", cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", events:[
     { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
     { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
     { time:"13:00", text:"Lunch" },
@@ -428,7 +492,7 @@ const DAYS = [
     { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
     { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
   ]},
-  { date:"2026-11-13", alt:500, cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
+  { date:"2026-11-13", alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", events:[
     { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
     { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
     { time:"13:00", text:"Lunch" },
@@ -436,7 +500,7 @@ const DAYS = [
     { time:"18:00", text:"Dinner" },
     { time:"19:30", text:"Stroll / relax" },
   ]},
-  { date:"2026-11-14", alt:500, cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
+  { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", needs:"car-airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
   ]},
@@ -727,6 +791,182 @@ function renderFlights() {
   }));
 }
 
+// one picture of the trip: route map, altitude by day, a row per day, totals; all from FLIGHTS, HOTELS, PLACES and DAYS
+function renderOverview() {
+  const W = 353, f1 = n => +n.toFixed(1), num = n => n.toLocaleString("en");
+  const hrs = m => `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ""}`;
+  const hotels = Object.values(HOTELS);
+  const nightOf = date => hotels.find(h => h.checkIn <= date && date < h.checkOut);
+  const morningOf = date => hotels.find(h => h.checkIn < date && date <= h.checkOut);
+  const nights = h => Math.round((dateOf(h.checkOut) - dateOf(h.checkIn)) / 864e5);
+  const flightDay = i => DAYS.findIndex(d => d.events.some(e => e.flight === i)) + 1;
+  const hotelIcon = (x, y) => `<g class="g-hotel" transform="translate(${f1(x - 8)} ${f1(y - 8)})"><rect width="16" height="16" rx="4"/><path transform="translate(2 2) scale(.5)" d="M3 20V5M3 17h18v3M21 17v-4a3 3 0 0 0-3-3h-7v7"/><circle transform="translate(2 2) scale(.5)" cx="7" cy="12" r="1.8"/></g>`;
+  const badge = (x, y, n) => `<g class="g-badge"><circle cx="${f1(x)}" cy="${f1(y)}" r="8.5"/><text x="${f1(x)}" y="${f1(y + 3.6)}">${n}</text></g>`;
+
+  // map: equirectangular on the trip's own latitude, so distances read true in both directions
+  // label: [dx, dy, anchor] from the point, Thai under the name unless inline; mark: hotel, peak or dot
+  // nudge moves only the mark, never the route; townDays: where the badges of days spent in that town sit
+  const STOPS = [
+    { q:HOTELS.atour.zh, en:"Chengdu", th:"เฉิงตู", mark:"hotel", label:[13, -2, "start"], townDays:[-20, 18] },
+    { q:"成都天府国际机场", en:"Tianfu airport", th:"สนามบินเทียนฟู่", mark:"dot", label:[-16, 2, "end"] },
+    { q:"毕棚沟景区", en:"Bipenggou", th:"ปี้เผิงโกว", mark:"dot", label:[-10, 4, "end"] },
+    { q:HOTELS.heishui.zh, en:"Heishui", th:"เฮยสุ่ย", mark:"hotel", label:[-14, 18, "end"] },
+    { q:"达古冰川景区", en:"Dagu Glacier", th:"ธารน้ำแข็งต๋ากู่", note:"summit 4,860 m", mark:"peak", nudge:[0, -15], label:[-12, -47, "end"] },
+    { q:"松潘古城", en:"Songpan", th:"ซงพาน", inline:true, mark:"dot", label:[-9, 3, "end"] },
+    { q:"黄龙九寨站", en:"Huanglong Jiuzhai", th:"สถานีรถไฟหวงหลงจิ่วจ้าย", mark:"dot", label:[-9, -20, "end"] },
+    { q:HOTELS.jiuzhai.zh, en:"Jiuzhaigou", th:"จิ่วจ้ายโกว", mark:"hotel", label:[13, 4, "start"] },
+  ];
+  // the 9 Nov road and the 11 Nov bus share the Songpan–Jiuzhaigou road, so the bus runs in a lane beside it
+  // a badge sits at [fraction along the day's line, dx, dy]
+  const LANE = { 5: -4.5 }, BADGE_AT = { 2: [.62], 3: [.27], 4: [.5, 13, 2], 5: [.38] };
+  const pins = d => [morningOf(d.date)?.zh, ...d.events.map(e => e.map), nightOf(d.date)?.zh]
+    .map((q, i) => PLACES[q] && { at:PLACES[q].at, by:d.events[i - 1]?.by ?? "road" }).filter(Boolean);
+  const all = [...DAYS.flatMap(pins).map(p => p.at), ...STOPS.map(s => PLACES[s.q].at)];
+  const lngs = all.map(a => a[0]), lats = all.map(a => a[1]);
+  const [lng0, lng1, lat0, lat1] = [Math.min(...lngs), Math.max(...lngs), Math.min(...lats), Math.max(...lats)];
+  const kx = Math.cos((lat0 + lat1) / 2 * Math.PI / 180);
+  const padL = 112, padR = 74, padT = 58, padB = 132;
+  const s = (W - padL - padR) / ((lng1 - lng0) * kx);
+  const H = Math.round(padT + (lat1 - lat0) * s + padB);
+  const xy = ([lng, lat]) => [padL + (lng - lng0) * kx * s, padT + (lat1 - lat) * s];
+  const pathD = pts => "M" + pts.map(p => `${f1(p[0])},${f1(p[1])}`).join("L");
+  // shift a polyline sideways by d px, mitring each corner
+  const lane = (pts, d) => !d ? pts : pts.map((p, i) => {
+    const a = pts[Math.max(i - 1, 0)], b = pts[Math.min(i + 1, pts.length - 1)];
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+    return [p[0] - (b[1] - a[1]) / len * d, p[1] + (b[0] - a[0]) / len * d];
+  });
+  const along = (pts, t) => {
+    const segs = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]));
+    let left = segs.reduce((a, b) => a + b, 0) * t;
+    for (let i = 0; i < segs.length; i++) {
+      if (left <= segs[i]) { const k = left / segs[i]; return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k]; }
+      left -= segs[i];
+    }
+    return pts.at(-1);
+  };
+  const legs = DAYS.map((d, i) => {
+    const raw = pins(d), pts = lane(raw.map(p => xy(p.at)), LANE[i + 1]);
+    const runs = [];
+    pts.slice(1).forEach((p, j) => {
+      const by = raw[j + 1].by === "train" ? "train" : "road";
+      if (runs.at(-1)?.by === by) runs.at(-1).pts.push(p); else runs.push({ by, pts:[pts[j], p] });
+    });
+    const reach = Math.max(...pts.map(p => Math.hypot(p[0] - pts[0][0], p[1] - pts[0][1])));
+    return { day:i + 1, pts, runs, reach };
+  });
+  // a flight day is badged on its arrow and a day spent in one town beside that town, so only real legs carry a number on the line
+  const flightDays = FLIGHTS.map((_, i) => flightDay(i));
+  const townDays = legs.filter(l => l.reach < 20 && !flightDays.includes(l.day)).map(l => l.day);
+
+  const grid = [];
+  for (let lat = Math.ceil(lat0); lat <= lat1; lat++) { const y = f1(xy([lng0, lat])[1]); grid.push(`<line x1="0" x2="${W}" y1="${y}" y2="${y}"/><text class="g-tick" x="${W - 6}" y="${y - 4}">${lat}°N</text>`); }
+  for (let lng = Math.ceil(lng0); lng <= lng1; lng++) { const x = f1(xy([lng, lat0])[0]); grid.push(`<line x1="${x}" x2="${x}" y1="0" y2="${H}"/><text class="g-tick" x="${x + 4}" y="14" text-anchor="start">${lng}°E</text>`); }
+  const km50 = 50 / 111.32 * s;
+
+  const tianfu = xy(PLACES["成都天府国际机场"].at);
+  const bkk = xy([100.747, 13.69]);
+  const ux = (bkk[0] - tianfu[0]) / Math.hypot(bkk[0] - tianfu[0], bkk[1] - tianfu[1]), uy = (bkk[1] - tianfu[1]) / Math.hypot(bkk[0] - tianfu[0], bkk[1] - tianfu[1]);
+  const reach = (H - 26 - tianfu[1]) / uy;
+  const flights = FLIGHTS.map((_, i) => {
+    const f = flightAt(i), side = i ? 4.5 : -4.5, inbound = f.to.code === "CTU";
+    const a = [tianfu[0] + ux * 11 - uy * side, tianfu[1] + uy * 11 + ux * side], b = [tianfu[0] + ux * reach - uy * side, tianfu[1] + uy * reach + ux * side];
+    const [from, to] = inbound ? [b, a] : [a, b];
+    const mid = along([a, b], i ? .74 : .4);
+    return `<path class="g-flight" d="${pathD([from, to])}" marker-end="url(#g-arrow)"/>${badge(...mid, flightDay(i))}`;
+  });
+  const end = [tianfu[0] + ux * reach, tianfu[1] + uy * reach];
+
+  const stopMarks = STOPS.map(st => {
+    const [x, y] = xy(PLACES[st.q].at), [nx, ny] = st.nudge ?? [0, 0];
+    const mark = st.mark === "hotel" ? hotelIcon(x, y)
+      : st.mark === "peak" ? `<path class="g-peak" d="M${f1(x + nx - 7)},${f1(y + ny + 5)}L${f1(x + nx)},${f1(y + ny - 7)}L${f1(x + nx + 7)},${f1(y + ny + 5)}Z"/>`
+      : `<circle class="g-stop" cx="${f1(x)}" cy="${f1(y)}" r="4"/>`;
+    const [dx, dy, anchor] = st.label, lx = f1(x + dx), ly = f1(y + dy);
+    const town = st.townDays ? townDays.map((n, k) => badge(x + st.townDays[0] - (townDays.length - 1 - k) * 20, y + st.townDays[1], n)).join("") : "";
+    const th = st.inline ? `<tspan class="g-th" dx="5">${esc(st.th)}</tspan></text>` : `</text><text class="g-th" x="${lx}" y="${f1(ly + 14)}" text-anchor="${anchor}">${esc(st.th)}</text>`;
+    return { mark, text:`<text class="g-en" x="${lx}" y="${ly}" text-anchor="${anchor}">${esc(st.en)}${th}${st.note ? `<text class="g-note" x="${lx}" y="${f1(ly + 29)}" text-anchor="${anchor}">${esc(st.note)}</text>` : ""}${town}` };
+  });
+
+  const roadKm = DAYS.reduce((a, d) => a + (d.road?.km ?? 0), 0);
+  const mapLabel = `Route map. ${FLIGHTS.map(f => `${f.no} ${f.from.city} to ${f.to.city} on ${dateLabel(f.date)}`).join("; ")}. `
+    + DAYS.map((d, i) => `Day ${i + 1}: ${d.title}${d.road ? `, ${num(d.road.km)} km by ${d.road.by ?? "car"}` : ""}`).join(". ")
+    + `. Nights in Chengdu, Heishui and Jiuzhaigou. Highest point the 4,860 m summit at Dagu Glacier.`;
+  const map = `<svg class="g-mapsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(mapLabel)}">
+    <defs><marker id="g-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1L9,5L0,9Z" fill="#e2c48a"/></marker></defs>
+    <g class="g-grid">${grid.join("")}</g>
+    <g class="g-scale" transform="translate(16 34)"><path d="M0,-4V0H${f1(km50)}V-4"/><text x="${f1(km50 + 6)}" y="1">50 km</text></g>
+    ${legs.flatMap(l => l.runs.map(r => `<path class="g-${r.by}" d="${pathD(r.pts)}"/>`)).join("")}
+    ${flights.join("")}
+    <text class="g-en" x="${f1(end[0] - 14)}" y="${f1(end[1] - 6)}" text-anchor="end">Bangkok</text><text class="g-th" x="${f1(end[0] - 14)}" y="${f1(end[1] + 8)}" text-anchor="end">กรุงเทพฯ · ${FLIGHTS.map((_, i) => esc(flightAt(i).no)).join(" / ")}</text>
+    ${legs.filter(l => !townDays.includes(l.day) && !flightDays.includes(l.day)).map(l => { const [t, dx = 0, dy = 0] = BADGE_AT[l.day] ?? [.5], [x, y] = along(l.pts, t); return badge(x + dx, y + dy, l.day); }).join("")}
+    ${stopMarks.map(m => m.mark).join("")}${stopMarks.map(m => m.text).join("")}
+  </svg>
+  <ul class="g-key" aria-hidden="true">
+    <li><svg viewBox="0 0 24 8"><path class="g-road" d="M1,4H23"/></svg>Road</li>
+    <li><svg viewBox="0 0 24 8"><path class="g-train" d="M1,4H23"/></svg>Train</li>
+    <li><svg viewBox="0 0 24 8"><path class="g-flight" d="M1,4H17" marker-end="url(#g-arrow)"/></svg>Flight</li>
+    <li><svg viewBox="0 0 16 16">${hotelIcon(8, 8)}</svg>Night</li>
+    <li><svg viewBox="0 0 18 18">${badge(9, 9, 3)}</svg>Day</li>
+  </ul>`;
+
+  // altitude: each day's highest point on one ridge, with the band where altitude sickness starts
+  const AH = 214, aL = 14, aR = 14, aT = 46, aB = 40, TOP = 5000, SICK = 3000;
+  const slot = (W - aL - aR) / DAYS.length, ax = i => aL + (i + .5) * slot, ay = m => aT + (1 - m / TOP) * (AH - aT - aB);
+  const pts = DAYS.map((d, i) => [ax(i), ay(d.alt)]);
+  // which days carry a label, and which side keeps it off the ridge; day 1 shares Chengdu's label with day 6
+  const ALT_LABEL = { 2:"end", 3:"middle", 4:"start", 5:"start", 6:"start" };
+  const peakLabels = DAYS.map((d, i) => {
+    const anchor = ALT_LABEL[i + 1];
+    if (!anchor) return "";
+    const [x, y] = pts[i], dx = { end:-5, start:5, middle:0 }[anchor];
+    return `<text class="g-val" x="${f1(x + dx)}" y="${f1(y - 22)}" text-anchor="${anchor}">${num(d.alt)} m</text><text class="g-place" x="${f1(x + dx)}" y="${f1(y - 9)}" text-anchor="${anchor}">${esc(d.altAt)}</text>`;
+  });
+  const altLabel = `Highest point each day: ${DAYS.map((d, i) => `day ${i + 1} ${num(d.alt)} m${d.altAt ? ` at ${d.altAt}` : ""}`).join(", ")}. Above ${num(SICK)} m altitude sickness can start.`;
+  const alt = `<svg class="g-altsvg" viewBox="0 0 ${W} ${AH}" role="img" aria-label="${esc(altLabel)}">
+    <rect class="g-band" x="0" y="${f1(ay(TOP))}" width="${W}" height="${f1(ay(SICK) - ay(TOP))}"/>
+    <line class="g-bandline" x1="0" x2="${W}" y1="${f1(ay(SICK))}" y2="${f1(ay(SICK))}"/>
+    <text class="g-bandtxt" x="${W - 8}" y="${f1(ay(SICK) - 6)}">${num(SICK)} m</text>
+    <line class="g-base" x1="0" x2="${W}" y1="${f1(ay(0))}" y2="${f1(ay(0))}"/>
+    <path class="g-area" d="M${f1(aL)},${f1(ay(0))}L${pts.map(p => `${f1(p[0])},${f1(p[1])}`).join("L")}L${f1(W - aR)},${f1(ay(0))}Z"/>
+    <polyline class="g-ridge" points="${pts.map(p => `${f1(p[0])},${f1(p[1])}`).join(" ")}"/>
+    ${pts.map(([x, y], i) => `<circle class="g-pt${DAYS[i].alt > SICK ? " high" : ""}" cx="${f1(x)}" cy="${f1(y)}" r="4.5"><title>Day ${i + 1}: ${num(DAYS[i].alt)} m</title></circle>`).join("")}
+    ${peakLabels.join("")}
+    ${DAYS.map((d, i) => { const dt = dateOf(d.date); return `<text class="g-dnum" x="${f1(ax(i))}" y="${AH - 20}">${i + 1}</text><text class="g-ddate" x="${f1(ax(i))}" y="${AH - 6}">${WEEKDAYS[dt.getDay()]} ${dt.getDate()}</text>`; }).join("")}
+  </svg>`;
+
+  const rows = DAYS.map((d, i) => {
+    const dt = dateOf(d.date), night = nightOf(d.date);
+    const train = d.events.find(e => e.by === "train");
+    const out = d.events.find(e => e.flight !== undefined);
+    const move = [
+      d.road && `${num(d.road.km)} km by ${d.road.by ?? "car"} · ${hrs(d.road.min)}`,
+      train && `train ${hrs(train.min)}`,
+      out && `${flightAt(out.flight).no} ${flightAt(out.flight).from.code} → ${flightAt(out.flight).to.code}`,
+    ].filter(Boolean);
+    const stay = night ? `${ICONS.hotel}${esc(night.short)}` : `${ICONS.plane}Home tonight`;
+    return `<li><a href="#day${i + 1}"><span class="g-when"><b>${i + 1}</b>${WEEKDAYS[dt.getDay()]} ${dt.getDate()}</span>
+      <span class="g-what"><span class="g-title">${esc(d.title)}</span><span class="g-thline">${esc(d.th)}</span>${move.length ? `<span class="g-move">${move.map(m => `<span>${esc(m)}</span>`).join("")}</span>` : ""}<span class="g-stay">${stay}</span></span></a></li>`;
+  });
+
+  const towns = [["Chengdu", ["atour", "kuanzhai"]], ["Heishui", ["heishui"]], ["Jiuzhaigou", ["jiuzhai"]]].map(([t, ks]) => [t, ks.reduce((a, k) => a + nights(HOTELS[k]), 0)]);
+  const roadMin = DAYS.reduce((a, d) => a + (d.road?.min ?? 0), 0);
+  const top = DAYS.reduce((a, d, i) => d.alt > DAYS[a].alt ? i : a, 0);
+  const roadDays = DAYS.filter(d => d.road);
+  const stats = [
+    [`${num(roadKm)} km`, `on the road, ${dateOf(roadDays[0].date).getDate()}–${dateOf(roadDays.at(-1).date).getDate()} ${MONTH} · about ${hrs(roadMin)}`],
+    [`${num(DAYS[top].alt)} m`, `highest point, ${DAYS[top].altAt} on day ${top + 1}`],
+    [`${towns.reduce((a, t) => a + t[1], 0)} nights`, towns.map(([t, n]) => `${t} ${n}`).join(" · ")],
+    [`${FLIGHTS.length} flights`, FLIGHTS.map((_, i) => `${flightAt(i).no} ${flightAt(i).dur}`).join(" · ")],
+  ];
+
+  document.getElementById("overview").innerHTML = `
+    <div class="g-map">${map}</div>
+    <h3 class="g-h">Altitude by day</h3><p class="g-sick">Above ${num(SICK)} m, altitude sickness can start: walk slowly and drink water. <span>สูงกว่า 3,000 ม. ระวังแพ้ความสูง</span></p>${alt}
+    <h3 class="g-h">Day by day</h3><ol class="g-days">${rows.join("")}</ol>
+    <h3 class="g-h">In numbers</h3><dl class="g-stats">${stats.map(([v, k]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`;
+}
+
 function renderTonight() {
   const today = todayIso(), root = document.getElementById("tonight");
   const key = Object.keys(HOTELS).find(k => HOTELS[k].checkIn <= today && today < HOTELS[k].checkOut);
@@ -915,6 +1155,7 @@ function renderTrip() {
   renderedFor = todayIso();
   renderTonight();
   renderFlights();
+  renderOverview();
   buildOpenItems();
   renderDays();
   refreshActiveDay();
