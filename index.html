@@ -21,7 +21,7 @@
     --lake:#0f4c52; --lake-deep:#0e2c30; --lake-tint:#e3ebea; --larch:#b4862f; --larch-soft:rgb(180 134 47 / 16%);
     --chili:#a12e1c; --chili-line:rgb(161 46 28 / 22%);
     --ok:#2f6b4f; --warn:#8a5a12; --warnbg:#f6f1e6; --warnline:#e6d9bd;
-    --r-card:18px; --r-field:12px; --r-pill:999px;
+    --r-card:18px; --r-field:4px; --r-pill:3px;
     --shadow:0 1px 0 rgb(14 44 48 / 4%), 0 18px 40px -28px rgb(14 44 48 / 28%);
     --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
     --sans:"Thai",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
@@ -40,7 +40,7 @@
   .hero-top { position:absolute; z-index:2; left:0; right:0; top:0; max-width:760px; margin:0 auto; padding:calc(16px + env(safe-area-inset-top)) 20px 0; display:flex; justify-content:space-between; align-items:center; }
   .countdown { padding:8px 14px; border-radius:var(--r-pill); background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); color:#fff; font-size:.8rem; font-weight:500; letter-spacing:.01em; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
   .countdown::before { content:""; display:inline-block; width:6px; height:6px; margin:0 8px 1px 0; border-radius:50%; background:var(--larch); }
-  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:50%; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .edit-btn { width:44px; height:44px; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:var(--r-pill); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
   .edit-btn svg { width:18px; height:18px; stroke-width:1.6; }
   .hero-tools { display:flex; gap:8px; }
   .guide-btn { display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 16px 0 14px; color:#fff; font-size:.85rem; font-weight:600; text-decoration:none; background:rgb(14 44 48 / 36%); border:1px solid rgb(255 255 255 / 22%); border-radius:var(--r-pill); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); -webkit-tap-highlight-color:transparent; }
@@ -185,7 +185,7 @@
   .t .th { font-size:.94em; }
   .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
   .dsub-tools { flex:none; display:flex; gap:6px; }
-  .dsub .icon-btn { min-height:44px; }
+  .dsub .icon-btn, .guide-bar .icon-btn { min-height:44px; padding:0 12px 0 10px; color:var(--ink); background:transparent; border-color:var(--ink); }
   .not-booked { color:var(--warn); font-weight:600; }
 
   /* timeline: time column, hairline rail, content */
@@ -217,9 +217,9 @@
   .zh-row .icon-btn { background:none; border-color:transparent; color:var(--chili); }
   .ref { flex:1; padding:8px 0; font-size:.9rem; color:var(--mute); }
   .ref b { color:var(--ink); font-weight:650; letter-spacing:.02em; }
-  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.8rem; font-weight:500; color:var(--lake); background:transparent; border:1px solid var(--line); border-radius:var(--r-pill);
+  .icon-btn { gap:6px; justify-content:center; min-height:40px; min-width:40px; padding:0 10px; font:inherit; font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--lake); background:transparent; border:1px solid transparent; border-radius:var(--r-pill);
           touch-action:manipulation; -webkit-tap-highlight-color:transparent; display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; transition:transform .12s; }
-  .icon-btn svg { width:18px; height:18px; stroke-width:1.6; }
+  .icon-btn svg { width:18px; height:18px; stroke-width:1.4; }
   .icon-btn:active { transform:scale(.94); }
   .icon-btn.done { color:var(--ok); }
   .icon-btn.done svg { animation:pop .28s cubic-bezier(.3,1.6,.5,1) both; }
@@ -268,7 +268,7 @@
   .save-status { flex:1; margin:0 12px; color:var(--ok); font-size:.8rem; font-weight:600; text-align:right; opacity:0; transition:opacity .3s; }
   .save-status.show { opacity:1; }
   .save-status.fail { color:var(--chili); }
-  .sheet-bar button { min-height:44px; padding:0 22px; border:0; border-radius:999px; background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
+  .sheet-bar button { min-height:44px; padding:0 22px; border:0; border-radius:var(--r-pill); background:var(--lake); color:#fff; font:inherit; font-weight:650; cursor:pointer; }
   .sheet-h { margin:22px auto 0; font-size:1.05rem; }
   .edit-card { background:var(--paper); border-radius:var(--r-card); box-shadow:var(--shadow); margin:10px auto; padding:14px 16px; }
   .edit-day { padding:0; }
@@ -288,11 +288,10 @@
   /* guide: a .sheet with two-row bar (back + title, then section pills) */
   .guide-bar { flex-wrap:wrap; gap:6px 12px; padding-bottom:10px; }
   .guide-bar h2 { flex:1; }
-  .guide-bar .icon-btn { min-height:44px; padding:0 14px 0 8px; color:var(--lake); background:var(--paper); border:1px solid var(--line); }
-  .gd-pills { flex:0 0 100%; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
+  .gd-pills { flex:0 0 100%; display:flex; justify-content:space-between; gap:4px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
   .gd-pills::-webkit-scrollbar { display:none; }
-  .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 9px; border:1px solid var(--line); border-radius:var(--r-pill); background:var(--paper); color:var(--lake); font-size:.8rem; font-weight:600; text-decoration:none; -webkit-tap-highlight-color:transparent; }
-  .gd-pills a[aria-current] { background:var(--lake); border-color:var(--lake); color:#fff; }
+  .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 4px; color:var(--mute); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; box-shadow:inset 0 -1.5px 0 transparent; -webkit-tap-highlight-color:transparent; }
+  .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
   .gd-sec { scroll-margin-top:calc(124px + env(safe-area-inset-top)); }
   .gd-sec > h2 { margin:40px 0 4px; font-size:2rem; line-height:1.05; }
   .gd-sec > h2 .th { font-size:.5em; vertical-align:.35em; }
