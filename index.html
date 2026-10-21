@@ -123,6 +123,16 @@
   .t .th { font-size:.94em; }
   .dsub { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; font-size:.86rem; color:var(--mute); border-bottom:1px solid var(--line); }
   .dsub-tools { flex:none; display:flex; gap:6px; }
+  .picks { padding:4px 0 8px; }
+  .picks .sub { margin:18px 0 6px; }
+  .pick { display:grid; grid-template-columns:64px minmax(0,1fr) auto; gap:12px; align-items:center; padding:10px 0; border-top:1px solid var(--line-soft); }
+  .pick-photo { width:64px; height:64px; object-fit:cover; border-radius:var(--r-field); background:var(--lake-tint); }
+  .pick-txt { min-width:0; }
+  .pick-txt b { display:block; font-weight:600; line-height:1.3; }
+  .pick-txt small { display:block; margin-top:2px; color:var(--mute); font-size:.78rem; }
+  .pick-zh { display:block; min-height:32px; margin-top:2px; padding:0; border:0; background:none; font-family:var(--zh); font-size:1rem; color:var(--chili); text-align:left; cursor:pointer; }
+  .pick .icon-btn { min-width:44px; min-height:44px; }
+  .picks-more { margin-top:10px; color:var(--ink); border-color:var(--ink); min-height:44px; }
   .dsub .icon-btn, .guide-bar .icon-btn { min-height:44px; padding:0 12px 0 10px; color:var(--ink); background:transparent; border-color:var(--ink); }
   .not-booked { color:var(--warn); font-weight:600; }
 
@@ -468,22 +478,8 @@ const DAYS = [
     hotelEv("~15:10", "kuanzhai"),
     { time:"19:00", text:"Dinner at Kuanzhai Alley (ควานไจ่เซี่ยงจึ)", th:"อาหารเย็น ที่ควานไจ่", detail:"About 1 km from the hotel, a 10–15 min walk" },
   ]},
-  { date:"2026-11-12", guide:true, alt:500, altAt:"Chengdu", cover:"cdnight", title:"Explore Chengdu", th:"เที่ยวเฉิงตู", sub:"Pandas, a temple and shopping", picks:["panda-base", "wenshu", "taikoo-li", "chunxi-ifs", "houtang", "longchaoshou", "woos", "laitangyuan"], events:[
-    { time:"08:00", text:"Chengdu Panda Base (open 08:00–11:00)", zh:"成都大熊猫繁育研究基地", map:"成都大熊猫繁育研究基地" },
-    { time:"11:30", text:"Wenshu Monastery (เหวินซูย่วน)", zh:"文殊院", map:"文殊院" },
-    { time:"13:00", text:"Lunch" },
-    { time:"15:00", text:"Coffee at Taikoo Li (ไท่กู่หลี่)", zh:"成都太古里", map:"成都太古里" },
-    { time:"17:00", text:"Stroll SKP Chengdu", zh:"成都SKP", map:"成都SKP" },
-    { time:"19:00", text:"Sichuan (ซื่อชวน) hotpot" },
-  ]},
-  { date:"2026-11-13", guide:true, alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Easy day in Chengdu", th:"เดินเล่นเฉิงตู", sub:"Old town walk and shopping", picks:["wuhou-jinli", "kuanzhai", "peoples-park", "dufu", "chenmapo", "longsenyuan", "maojiao", "no37"], events:[
-    { time:"09:00", text:"Jinli (จิ่นหลี่) Ancient Street", zh:"锦里古街", map:"锦里古街" },
-    { time:"11:30", text:"Wuhou Shrine (อู่โหวฉือ)", map:"武侯祠" },
-    { time:"13:00", text:"Lunch" },
-    { time:"14:30", text:"Shopping / cafes on Chunxi Road (ชุนซีลู่)", zh:"春熙路", map:"春熙路" },
-    { time:"18:00", text:"Dinner" },
-    { time:"19:30", text:"Stroll / relax" },
-  ]},
+  { date:"2026-11-12", guide:true, alt:500, altAt:"Chengdu", cover:"cdnight", title:"Free day in Chengdu", th:"วันอิสระ · เที่ยว ช้อป กิน", sub:"Free day: go where you like. Picks from the guide below", picks:["panda-base", "wenshu", "taikoo-li", "chunxi-ifs", "houtang", "longchaoshou", "woos", "laitangyuan"], events:[]},
+  { date:"2026-11-13", guide:true, alt:500, altAt:"Chengdu", cover:"jinlinight", title:"Free day in Chengdu", th:"วันอิสระ · เดินเล่นเมืองเก่า", sub:"Free day: go where you like. Picks from the guide below", picks:["wuhou-jinli", "kuanzhai", "peoples-park", "dufu", "chenmapo", "longsenyuan", "maojiao", "no37"], events:[]},
   { date:"2026-11-14", alt:500, altAt:"Chengdu", cover:"airport", title:"Chengdu → Bangkok", th:"เฉิงตู → กรุงเทพฯ", sub:"Allow time to reach Tianfu airport", road:{ km:65, min:55 }, needs:"car-airport", events:[
     { time:"Before flight", text:"Check out and leave for the airport", th:"เช็กเอาต์ ไปสนามบิน", detail:"Tianfu (เทียนฝู่) airport is 65 km from the hotel, about 55 min via the S3 airport expressway (¥39 toll). Arrive at least 3 h before departure (~12:00)." },
     { flight:1, zh:"成都天府国际机场T1航站楼", map:"成都天府国际机场" },
@@ -868,6 +864,35 @@ function dayNote(d) {
   return esc(d.sub) + (item ? ` · <span class="not-booked">${esc(item.label)}</span>` : "");
 }
 
+// a free day has no timetable: its picks are GUIDE items, grouped by guide section, each one tap from a driver card or the map
+function freeDayPicks(ids) {
+  const box = el("div", "picks"), shown = new Set();
+  for (const sec of GUIDE) {
+    // an id can sit in two sections (Taikoo Li is a sight and a mall); it shows once, under the first
+    const items = ids.filter(id => !shown.has(id)).map(id => (sec.groups ?? []).flatMap(g => g.items ?? []).find(it => it.id === id)).filter(Boolean);
+    items.forEach(it => shown.add(it.id));
+    if (!items.length) continue;
+    box.append(el("h3", "sub", `${esc(sec.title)} <span class="th">(${esc(sec.th)})</span>`));
+    for (const it of items) {
+      const row = el("div", "pick");
+      if (it.photo) row.append(photo(thumbUrl(it.photo), "pick-photo"));
+      const txt = el("div", "pick-txt", `<b>${withReadings(`${it.name} (${it.th})`)}</b>${it.tags.length ? `<small>${esc(it.tags.slice(0, 2).join(" · "))}</small>` : ""}`);
+      const zh = el("button", "pick-zh", esc(it.zh));
+      zh.type = "button";
+      zh.setAttribute("aria-label", `Show ${it.zh} large`);
+      zh.onclick = () => showBig(it.zh);
+      txt.append(zh);
+      row.append(txt, mapLink(it.zh, it.at ? { at: it.at, th: it.th } : null));
+      box.append(row);
+    }
+  }
+  const more = iconButton("a", ICONS.book, "Open the Chengdu guide", "More in the guide");
+  more.href = "#guide";
+  more.classList.add("picks-more");
+  box.append(more);
+  return box;
+}
+
 function renderDays() {
   const today = todayIso();
   const nav = document.getElementById("nav"), root = document.getElementById("days");
@@ -897,6 +922,7 @@ function renderDays() {
     const ul = el("ul", "tl");
     ul.append(...events.map(renderEvent));
     sec.append(cover, sub, ul);
+    if (d.picks) sec.append(freeDayPicks(d.picks));
     root.append(sec);
     const dt = dateOf(d.date);
     const a = el("a", "", `<span class="peak" style="top:${ridgeY(d.alt)}px; --at:${(i + .5) / DAYS.length}"></span><small>${WEEKDAYS[dt.getDay()]}</small><b>${dt.getDate()}</b>`);
