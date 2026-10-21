@@ -317,6 +317,10 @@
   .guide-bar h2 { flex:1; }
   .gd-pills { flex:0 0 100%; display:flex; gap:14px; overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
   .gd-pills::-webkit-scrollbar { display:none; }
+  .gd-pills a[data-id="saved"] { gap:5px; }
+  .gd-pills a[data-id="saved"] svg { width:15px; height:15px; stroke-width:1.6; }
+  .gd-pills a[data-id="saved"][aria-current] svg { fill:var(--chili); stroke:var(--chili); }
+  @media (max-width:380px) { .gd-pills { gap:7px; } .gd-pills a { letter-spacing:.05em; padding:0 3px; } }
   .gd-pills::after { content:""; flex:0 0 2px; }
   .gd-pills a { flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 4px; color:var(--mute); font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; box-shadow:inset 0 -1.5px 0 transparent; -webkit-tap-highlight-color:transparent; }
   .gd-pills a[aria-current] { color:var(--ink); box-shadow:inset 0 -1.5px 0 var(--larch); }
@@ -2117,8 +2121,11 @@ function openGuide() {
   const pills = el("div", "gd-pills");
   pills.setAttribute("role", "navigation");
   pills.setAttribute("aria-label", "Guide sections");
+  // short tab words so all six fit one phone-width row; the section headings keep the full titles
+  const TAB = { see:"See", eat:"Eat", shop:"Shop", say:"Say", tips:"Tips" };
   pills.append(...[{ id: "saved", title: "Saved" }, ...GUIDE].map(sec => {
-    const a = el("a", "", esc(sec.title));
+    const a = el("a", "", esc(TAB[sec.id] ?? sec.title));
+    a.setAttribute("aria-label", sec.title);
     a.href = `#guide-${sec.id}`;
     a.dataset.id = sec.id;
     a.onclick = e => { e.preventDefault(); history.replaceState(null, "", a.href); guide.picked = sec.id; showGuideSection(sec.id, "smooth"); };
@@ -2135,7 +2142,7 @@ function openGuide() {
   sheet.append(bar, rate, saved, ...GUIDE.map(guideSection));
   const syncSaved = () => {
     fillSaved(saved);
-    pills.querySelector('[data-id="saved"]').textContent = `Saved (${Saved.keys().length})`;
+    pills.querySelector('[data-id="saved"]').innerHTML = `${ICONS.heart}<span>${Saved.keys().length}</span>`;
     for (const b of sheet.querySelectorAll("[data-saved]")) b.setAttribute("aria-pressed", Saved.has(b.dataset.saved));
   };
   syncSaved();
