@@ -284,6 +284,7 @@
   .ps-h { margin:20px 0 8px; font-family:var(--serif); font-size:1.08rem; font-weight:500; }
   .ps-h:first-child { margin-top:0; }
   .ph-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  @media (min-width:640px) { .ph-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
   .ph-cell { position:relative; display:flex; }
   .ph-tile { flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-height:92px; padding:11px 12px 10px; text-align:left; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-field); color:var(--ink); font:inherit; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
   .ph-tile:active { background:var(--lake-tint); }
@@ -1051,7 +1052,7 @@ function copyRow(content, label, text) {
   return row;
 }
 
-function zhRow(zh, card = placeCard({ zh })) {
+function zhRow(zh, card) {
   const b = el("button", "zh", esc(zh));
   b.type = "button";
   b.lang = "zh-CN";
